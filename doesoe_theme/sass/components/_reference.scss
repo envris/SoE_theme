@@ -1,0 +1,27 @@
+// Reference
+
+$reference-p-line-height: 1.4em;
+
+.reference {
+  @extend %basic-content-typography;
+
+  &__full-text {
+    &.is-hidden {
+      display: none;
+    }
+  }
+}
+
+%reference__full,
+.reference__full {
+  margin: $base-spacing-unit 0;
+  padding-bottom: $base-spacing-unit;
+  border-bottom: 1px dotted $color-grey-alto;
+
+  &__full {
+    * {
+      display: inline;
+    }
+  }
+
+}

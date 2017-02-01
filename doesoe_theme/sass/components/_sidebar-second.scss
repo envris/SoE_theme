@@ -1,0 +1,377 @@
+/*
+ * Sidebar second styles.
+ */
+
+
+/*
+ * Vars
+ */
+$sbs-sticky-top: 0px;
+$sbs-historic-banner-height: 47px; // Height of historic banner.
+$sbs-toggle-size: 15px;
+$sbs-heading-min-height: 51px;
+$sbs-row-vertical-gutter: 16px;
+$sbs-padding: $sbs-row-vertical-gutter 20% $sbs-row-vertical-gutter 4%;
+$sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
+
+
+/*
+ * Common reused placeholders and classes.
+ */
+
+// Standard row padding.
+%sbs-row-padding {
+  padding: $sbs-padding;
+  @include at-bp($bp-right-sidebar-visible) {
+    padding-left: 10%;
+  }
+}
+
+// Placholder/Class - SBS row (heading or content).
+.sbs-row,
+%sbs-row {
+  @extend %sbs-row-padding;
+  min-height: $sbs-heading-min-height;
+  vertical-align: middle;
+  font-size: $font-size-base;
+  margin: 0;
+  display: block;
+  position: relative;
+  text-align: left;
+}
+
+// Placholder/Class - Active SBS row.
+.sbs-row-active,
+%sbs-row-active {
+  @include box-shadow(0 1px 6px 0 rgba($color-black, 0.15));
+  z-index: 10;
+  &, a {
+    color: $color-brand-primary;
+    text-decoration: underline;
+  }
+  &:before {
+    content: icon-get-code(collapse) !important;
+  }
+}
+
+// Placeholder/Class - for SBS text.
+.sbs-text,
+%sbs-text {
+  @extend %sbs-row;
+  padding-right: 10%;
+  color: $color-sbs-text-level-2;
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Placholder/Class - SBS content row.
+.sbs-content-row,
+%sbs-content-row {
+  @extend %sbs-row;
+  cursor: pointer;
+  font-weight: $font-weight-medium;
+
+  .icon-ribbon,
+  img {
+    @include border-radius(50%);
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-top: -4px;
+    margin-right: $half-spacing-unit;
+    text-align: center;
+  }
+  i {
+    font-size: 1.1em;
+    opacity: 1;
+    margin-right: 3px;
+    color: $color-sbs-text-level-2;
+    text-decoration: none;
+    &:before {
+      vertical-align: middle;
+    }
+    &.icon-ct-assessment-summary,
+    &.icon-ribbon {
+      text-align: center;
+      font-size: 25px;
+      margin-top: -6px;
+    }
+  }
+  &, a {
+    color: $color-sbs-text-level-1;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:after {
+    content: "";
+    @include position-absolute(bottom 0 left 0 right 0);
+    background: #ddd;
+    @include background-image(linear-gradient(left, #ffffff 0%,#d9d9d9 37%,#d9d9d9 59%,#ffffff 100%));
+    height: 1px;
+  }
+}
+
+// Placholder/Class - for a action icon, eg + or -
+%sbs-toggle-action {
+  @include position-absolute(top 0 bottom 0 right 5%);
+  margin: auto;
+  font-size: $sbs-toggle-size;
+  height: $sbs-toggle-size;
+  line-height: $sbs-toggle-size;
+  font-weight: $font-weight-light;
+}
+
+%sbs-content-row-link,
+.sbs-content-row-link {
+  @extend %sbs-content-row;
+  &:before {
+    @extend %sbs-toggle-action;
+    @include icon-style();
+    content: icon-get-code(ic_arrow);
+    font-size: 16px;
+    height: 14px;
+  }
+}
+
+/*
+ * Sidebar placeholders.
+ */
+%sidebar-second {
+  padding: 0 $region-gutter-small;
+  @include at-bp($bp-right-sidebar-visible) {
+    padding: 0;
+  }
+
+  // Sticky sidebar container.
+  &__sticky {
+    @include at-bp($bp-right-sidebar-visible) {
+      .sidebar__second__inner {
+        &.fixed {
+          position: fixed;
+          top: $sbs-sticky-top;
+          bottom: 0;
+          overflow-y: auto;
+          padding-top: $sbs-heading-min-height;
+
+          .historic-content & {
+            top: $sbs-historic-banner-height;
+            .sidebar__second__content {
+              margin-top: -$sbs-heading-min-height;
+            }
+          }
+
+          .block__title:before {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Sidebar content wrapper
+  &__content {
+    margin-bottom: $qtr-spacing-unit;
+    @include at-bp($bp-right-sidebar-visible) {
+      @include border-radius(0 0 0 6px);
+      padding: 0;
+      margin-top: -$sbs-heading-min-height;
+      border: 1px solid rgba($color-black, 0.1);
+      border-width: 0 0 1px 1px;
+      .historic-content & {
+        margin-top: -$sbs-historic-sticky-top;
+      }
+    }
+  }
+
+  // Block title.
+  &__block-title {
+    @extend %sbs-row;
+    color: $color-sbs-heading-text;
+    z-index: 1;
+    &:before {
+      @include position-absolute(top 0 left 0 right 0 bottom 0);
+      content: '';
+      background: $color-brand-primary;
+      z-index: -1;
+    }
+  }
+
+  // Block content.
+  &__block-content {
+    background: $color-white;
+  }
+
+  // Toggle row
+  &__toggle {
+    @include transition(1s linear box-shadow);
+    @extend %sbs-content-row;
+    color: $color-sbs-text-level-1;
+    cursor: pointer;
+    font-weight: $font-weight-medium;
+
+    &:before {
+      @extend %sbs-toggle-action;
+      @extend %icon;
+      content: icon-get-code(expand);
+    }
+  }
+
+  &__content-block {
+    margin-bottom: 0;
+  }
+
+  &__list-item {
+    @extend %sbs-content-row
+  }
+
+  &__sub-list-item {
+    color: $color-sbs-text-level-2;
+    font-weight: $font-weight-regular;
+    &:hover {
+      color: $color-sbs-text-level-1;
+    }
+  }
+
+  // A row which is a link.
+  &__row-link {
+    @extend %sbs-content-row-link;
+  }
+
+  // Used with row-link when link is in content.
+  &__content-row-link {
+    display: block;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: $sbs-row-vertical-gutter;
+    min-height: unset;
+    i { // Assessment summary icon, may need abstracting for other icons.
+      float: left;
+      font-size: 27px;
+    }
+    &:after { // hide bottom border.
+      display: none;
+    }
+  }
+
+  &__footer-block {
+    @extend %sbs-row-padding;
+    color: $color-sbs-text-level-1;
+  }
+
+  &__footer-title {
+    margin: 0 0 $half-spacing-unit;
+    font-size: $font-size-base;
+  }
+
+}
+
+
+/*
+ * Sidebar second classes.
+ */
+.sidebar__second {
+  @extend %sidebar-second;
+
+  // Main Sidebar blocks.
+  &__content {
+    @extend %sidebar-second__content;
+
+    .sidebar .block {
+      @extend %sidebar-second__content-block;
+      .block__title {
+        @extend %sidebar-second__block-title;
+      }
+      .block__content {
+        @extend %sidebar-second__block-content;
+      }
+      &:first-child {
+        @include at-bp($bp-right-sidebar-visible) {
+          .block__title:before {
+            opacity: 0.7;
+          }
+        }
+      }
+      &:last-child {
+        .block__content {
+          background: none;
+        }
+      }
+    }
+
+    // Lists.
+    .sbs-list {
+      ul {
+        @extend %list-reset;
+      }
+      ul a {
+        @extend %sidebar-second__row-link;
+      }
+      .sidebar-toggle__header > a,
+      h3 {
+        @extend %sidebar-second__toggle;
+      }
+      .sidebar-toggle-sub__content > li a {
+        @extend %sidebar-second__sub-list-item;
+      }
+    }
+    #theme-toc,
+    #topic-toc {
+      @extend %list-reset;
+      li a {
+        @extend %sidebar-second__list-item;
+      }
+      > li > ul > li > a {
+        @extend %sidebar-second__sub-list-item;
+      }
+    }
+
+    // Toggle styles.
+    .toggle-heading {
+      @extend %sidebar-second__toggle;
+    }
+    .toggle-content {
+      @extend %sbs-text;
+    }
+    .open {
+      .toc-link--level-0,
+      > .sidebar-toggle-sub__header,
+      > .toggle-heading {
+        @extend %sbs-row-active;
+      }
+    }
+    .sidebar-toggle {
+      &__content {
+        display: none;
+        .more-link {
+          @extend %sidebar-second__row-link;
+          @extend %sidebar-second__content-row-link;
+        }
+      }
+    }
+  }
+
+  // Under the main sidebar blocks (eg social).
+  &__footer {
+    .sidebar .block {
+      @extend %sidebar-second__footer-block;
+      &__title {
+        @extend %sidebar-second__footer-title;
+      }
+    }
+  }
+
+  // Used by sticky sidebar.
+  &__inner {
+    bottom: 0;
+  }
+
+  // Reset govcms styles.
+  .region-sidebar-second {
+    border: none;
+  }
+
+  // Sticky sidebar.
+  @extend %sidebar-second__sticky;
+}

@@ -1,0 +1,41 @@
+// Message mixins
+
+$message-font-size:       1.1em;
+$message-gutter:          0.5em;
+
+@mixin message-style($type, $color, $font-family-icon, $icon, $icon-size: 3em ) {
+  $icon-with-gutter: $icon-size + $message-gutter;
+
+  color: $color;
+  font-weight: $font-weight-light;
+  font-size: $message-font-size;
+  position: relative;
+
+  &.#{$type} {
+    background: none;
+    border: none;
+    padding: 0 0 $message-gutter $icon-with-gutter;
+    margin: 0 0 $message-gutter 0;
+    min-height: $icon-with-gutter;
+
+    a {
+      color: darken($color, 15%);
+    }
+
+    &:before {
+      content: $icon;
+      font-family: $font-family-icon;
+      font-size: $icon-size;
+      position: absolute;
+      top: #{$message-gutter / 2};
+      left: 0;
+    }
+
+    &:after {
+      border-bottom: 1px solid $color;
+      content: '';
+      display: block;
+      margin-top: $message-gutter;
+    }
+  }
+}

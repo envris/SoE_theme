@@ -1,0 +1,51 @@
+
+.report-topic__full {
+
+  &__title {
+    font-weight: $font-weight-medium;
+  }
+
+  &__year,
+  &__theme,
+  &__framework {
+    @extend %icon-category;
+  }
+
+  &__year {
+    @extend %icon-category-year;
+  }
+
+  &__components {
+    .content {
+      padding: 0;
+    }
+
+    abbr {
+      border-bottom: 1px dotted rgba($color-body, 0.25);
+      &:hover {
+        border-bottom-color: rgba($color-body, 0.75);
+      }
+    }
+
+    // Styles for specific component types.
+
+    // Basic content typography.
+    .paragraphs-item-basic-content {
+      @extend %basic-content-typography;
+      margin-bottom: 1.5em;
+    }
+
+    .paragraphs-item-assessment-summary-reference {
+      // No filters (year selector) when viewing embedded.
+      .views-exposed-form {
+        display: none;
+      }
+
+      .ass-sum__title h2 {
+        margin-top: 1em;
+      }
+    }
+
+  }
+
+}

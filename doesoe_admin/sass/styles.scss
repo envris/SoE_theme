@@ -1,0 +1,20 @@
+// Make chosen more user friendly.
+.chosen-container.chosen-container-multi.form-select ul {
+  padding: 5px 35px 5px 5px;
+}
+
+// Make textfields much larger to improve ux, particularly with autocomplete.
+.vertical-tabs .form-type-textfield,
+.form-type-textfield {
+  input {
+    width: 100%;
+    max-width: 1000px;
+  }
+}
+
+// Prevent descriptions from getting too long and going off the screen.
+.form-item div.description {
+  width: 100%;
+  max-width: 1000px;
+  white-space: normal;
+}

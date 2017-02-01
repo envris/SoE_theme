@@ -1,0 +1,15 @@
+// This stylesheet gets embedded in all govcms_ckan graphs, it is
+// important it's generated css is as lightweight as possible as it
+// all ends up inline.
+
+// Libs and Gems.
+@import "compass";
+@import "susy";
+@import "breakpoint";
+
+// Custom SASS files and folder.
+@import "settings/**/*";
+@import "tools/**/*";
+
+// Include the component.
+@import "components/govcms_ckan";

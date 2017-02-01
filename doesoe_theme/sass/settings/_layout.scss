@@ -1,0 +1,34 @@
+// Layout variables used globally.
+
+$base-spacing-unit: $base-line-height;
+$half-spacing-unit: $base-spacing-unit/2;
+$qtr-spacing-unit: $base-spacing-unit/4;
+$three-qtr-spacing-unit: $qtr-spacing-unit*3;
+$one-n-half-spacing-unit: $base-spacing-unit*1.5;
+$double-spacing-unit: $base-spacing-unit*2;
+
+$sidebar-first-width:     275px;
+$region-gutter-small:     $base-spacing-unit * 0.6;
+$region-gutter-large:     $base-spacing-unit * 1.1;
+$region-gutter-xlarge:    3em;
+
+$header-height:                   85px;
+$header-mobile-height:            45px;
+$content-feature-height-mobile:   115px;
+$content-feature-height-desktop:  335px;
+$content-feature-height-desktop-front:  435px;
+$header-logo-width-sml: 124px;
+$header-logo-width-lrg: 165px;
+$header-search-button-width: 60px;
+$header-search-height: 50px;
+$header-search-width: 50%;
+$header-search-max-width: 420px;
+
+$section-vertical-gutter-small:   30px;
+$section-vertical-gutter-large:   70px;
+
+$site-max-width: 1920px;
+$page-max-width: 1600px;
+$content-max-width-large: 1280px;
+$content-max-width: 1180px;
+$content-small-max-width: 900px;

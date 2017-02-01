@@ -1,0 +1,15 @@
+// Page/Content title.
+
+.content-title {
+  margin: 0;
+
+  &__wrapper {
+    padding: $region-gutter-large 0 $region-gutter-small;
+    @include gutter-responsive();
+  }
+
+  // Contexts in which the title must be hidden.
+  .section-theme &__wrapper {
+    display: none;
+  }
+}

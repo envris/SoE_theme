@@ -1,0 +1,37 @@
+// Icon functions
+
+// Get the icon code.
+@function icon-get-code($icon-name) {
+  @return map-get($icon-mappings, $icon-name);
+}
+
+@mixin icon-style {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Use this function to include an icon.
+@mixin icon($icon-name: null, $pseudo: before) {
+  @include icon-style();
+
+  @if ($icon-name) {
+    &:#{$pseudo} {
+      content: icon-get-code($icon-name);
+    }
+  }
+}
+
+// Include only the font.
+%icon {
+  @include icon;
+}

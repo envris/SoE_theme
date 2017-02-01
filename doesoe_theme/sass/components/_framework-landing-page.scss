@@ -1,0 +1,13 @@
+// Framework landing page
+
+.framework-landing-page {
+  &__framework-intro {
+    .field-item .content {
+      padding: 0;
+      margin: $double-spacing-unit 0;
+    }
+  }
+  .pane-title {
+    margin-bottom: $double-spacing-unit;
+  }
+}

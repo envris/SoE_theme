@@ -1,0 +1,10 @@
+
+// Bounce animation.
+@include keyframes(bounce) {
+  0%, 20%, 50%, 70%, 100% {
+    @include transform(translateY(0));
+  }
+  60% {
+    @include transform(translateY(-10px));
+  }
+}

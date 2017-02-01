@@ -1,0 +1,26 @@
+// Webform styles.
+
+
+
+.webform {
+
+  &__body {
+    h2, h3 {
+      color: $color-brand-primary;
+    }
+    h2, h3, h4 {
+      margin-top: $base-spacing-unit;
+    }
+  }
+
+  &-client-form {
+    max-width: $content-small-max-width;
+    margin-bottom: $double-spacing-unit;
+
+    .form-text,
+    .form-textarea {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}

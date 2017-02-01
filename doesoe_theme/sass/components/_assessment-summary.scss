@@ -1,0 +1,513 @@
+// Assessment summary component.
+
+// Colours.
+$ass-sum-icon-color-current: $color-grey;
+$ass-sum-icon-color: $color-grey-silver;
+$ass-sum-table-text-color: $color-grey;
+$ass-sum-table-text-color-strong: $color-grey-charcoal;
+$ass-sum-table-background-color: $color-white;
+$ass-sum-component-title-color: $color-steel-blue;
+$ass-sum-border-color: $color-border-light;
+$ass-sum-prev-name-box-color: $color-gallery;
+
+// Breakpoints.
+$ass-sum-desktop-breakpoint: 'large';
+
+// Sizes.
+$ass-sum-max-bar-width: 500px;
+$ass-sum-max-bar-height: 25px;
+
+// A full ass sum node.
+.ass-sum {
+
+  &__key-link__wrapper {
+    // Not visible/required at mobile.
+    display: none;
+    @include at-bp(large) {
+      &.visible {
+        // Visible class added by JS when key exists.
+        display: block;
+        margin-bottom: $half-spacing-unit;
+      }
+    }
+  }
+
+  &__circle-icon {
+    background: $color-historic-text;
+    color: $color-white;
+    @include border-radius(100%);
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    padding-top: 0.3em;
+    margin-bottom: $qtr-spacing-unit;
+
+    i {
+      @include icon(table);
+      font-size: 1.45em;
+    }
+  }
+
+  &__topics {
+    display: none;
+  }
+}
+
+// Assessment summary visualisations.
+.ass-sum-vis {
+
+  max-width: $ass-sum-max-bar-width;
+  padding: 0.5em 0;
+
+  // Each bar > .grade forms a section of the grade.
+  &__bar {
+
+    .grade {
+      height: $ass-sum-max-bar-height;
+      stroke: $color-white;
+      stroke-width: 2;
+      fill: none;
+    }
+
+  }
+
+  // Gradient is included with JS.
+  &__gradient-bar {
+    height: $ass-sum-max-bar-height;
+    width: 300px;
+  }
+
+  // Trend icon.
+  &__trend {
+
+    .trend-box {
+      fill: $color-white;
+      stroke: $ass-sum-icon-color-current;
+      stroke-width: 8;
+    }
+
+    .trend-icon {
+      fill: $ass-sum-icon-color-current;
+      stroke-width: 0;
+    }
+  }
+
+  &__not-assessed {
+    text-align: center;
+    padding: 0.5em 0;
+    color: $ass-sum-icon-color;
+  }
+
+  // Compare/Confidence SVG icons.
+  &__compare,
+  &__confidence {
+    font-size: 2em;
+    float: left;
+    color: $ass-sum-icon-color;
+
+    .ass-sum__item.current-year & {
+      color: $ass-sum-icon-color-current;
+    }
+
+    @include at-bp($ass-sum-desktop-breakpoint) {
+      margin: 0.15em auto;
+      float: none;
+      font-size: 2.5em;
+      width: 1em;
+    }
+  }
+
+  // Historic scale (greyscale).
+  // 4 Point.
+  @include color-elements(array-reverse($colors-ass-sum-grade-4-historic), grade, fill);
+  // 5 point.
+  .ass-sum__component__scale-5 & {
+    @include color-elements(array-reverse($colors-ass-sum-grade-5-historic), grade, fill);
+  }
+
+  // Current year scale (colourful).
+  .ass-sum__item.current-year & {
+    // 4 Point.
+    @include color-elements(array-reverse($colors-ass-sum-grade-4), grade, fill);
+    // 5 Point.
+    .ass-sum__component__scale-5 & {
+      @include color-elements(array-reverse($colors-ass-sum-grade-5), grade, fill);
+    }
+  }
+
+}
+
+// Assessment summary component.
+.ass-sum__header,
+.ass-sum__component {
+
+  @extend %clearfix;
+  position: relative;
+  border-bottom: 1px solid $ass-sum-border-color;
+  background: $ass-sum-table-background-color;
+  color: $ass-sum-table-text-color;
+  padding: 1em 0;
+
+  &__group {
+
+    .view-grouping-header {
+
+      // Theme grouping header.
+      .ass-sum-theme {
+        border-bottom: 4px solid $ass-sum-border-color;
+        padding: 1.5em 0 0.5em 1em;
+        font-size: $font-size-xlarge;
+        text-align: center;
+
+        // Apply palette to theme header.
+        @each $palette-key, $palette-colors in $theme-palette {
+          &__palette__#{$palette-key} a {
+            color: palette-get-color($palette-key, primary);
+            border-bottom-color: palette-get-color($palette-key, primary);
+          }
+        }
+
+        > a {
+          line-height: 1.2;
+        }
+
+        .subtext {
+          font-size: 55%;
+          margin: $half-spacing-unit 0 0;
+
+          &, a {
+            color: $color-grey-dark;
+          }
+
+          a:hover {
+            color: $color-body;
+          }
+
+          li {
+            display: inline-block;
+            padding: 0 $base-spacing-unit;
+            position: relative;
+            opacity: 0.9;
+
+            .icon {
+              @include position-absolute(top 0 left 0);
+              font-size: 1.3em;
+              display: none;
+
+              &:first-child {
+                display: inline-block;
+              }
+            }
+
+            &:last-child {
+              padding-right: 0;
+            }
+          }
+        }
+
+        // Group header is not displayed when viewed as a report or component.
+        .node-assessment-summary-component &,
+        .node-assessment-summary & {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+  &__title {
+
+    h4 {
+      margin: 0;
+      padding: 0.1em 0 1em 0;
+      font-size: 1.3em;
+
+      a {
+        color: $ass-sum-component-title-color;
+      }
+    }
+  }
+
+
+  // The current/previous name gets duplicated due to a row per para, so hide
+  // all but the last one.
+  &__current-name,
+  &__previous-name {
+    display: none;
+  }
+  .views-row-last {
+    // Current/previous name box displays under a component.
+    .ass-sum__component__current-name,
+    .ass-sum__component__previous-name {
+      clear: both;
+      display: block;
+      margin: 0 0 -1em;
+      padding-top: 1em;
+      position: relative;
+      z-index: 10;
+
+      .label, .items {
+        display: block;
+        background: $ass-sum-prev-name-box-color;
+        padding: $qtr-spacing-unit $half-spacing-unit $qtr-spacing-unit 2.2em;
+        border-left: 1px solid $ass-sum-border-color;
+        border-right: 1px solid $ass-sum-border-color;
+      }
+
+      .items {
+        padding-top: 4px;
+        .known-as__title a {
+          color: $color-steel-blue;
+        }
+      }
+
+      .known-as__reason {
+        display: none;
+      }
+
+      .label {
+        border-top: 1px solid $ass-sum-border-color;
+        padding-bottom: 0;
+        padding-top: 7px;
+
+        // Arrow.
+        &:before,
+        &:after {
+          @include position-absolute(left $qtr-spacing-unit top -5px);
+          @include triangle(bottom, 10px, $ass-sum-border-color);
+          z-index: 9;
+        }
+        &:after {
+          border-bottom-color: $ass-sum-prev-name-box-color;
+          z-index: 11;
+          top: -4px;
+        }
+      }
+
+      // Icon.
+      .items i:first-child {
+        @include icon(ribbon);
+        @include position-absolute(left $qtr-spacing-unit top 20px);
+        font-size: 1.5em;
+      }
+    }
+  }
+
+
+  // Desktop.
+  @include at-bp($ass-sum-desktop-breakpoint) {
+
+    &__title {
+      @include span(3);
+
+      h4 {
+        padding: 0.5em 1em 0.5em 0;
+        font-size: 1.1em;
+      }
+    }
+
+    &__items {
+      @include span(15 last);
+
+      // This creates the left border line, absolute used to fill container.
+      &:before {
+        content: "";
+        border-left: 1px solid $ass-sum-border-color;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: 0;
+      }
+    }
+
+  }
+}
+
+
+// Assessment summary item.
+.ass-sum__header,
+.ass-sum__item {
+  @extend %clearfix;
+
+  // Small screen (mobile).
+  .label, .label-above {
+    float: left;
+  }
+
+  // Toggle links.
+  .readmore-toggle,
+  &__topics-link,
+  &__metadata-link {
+    @extend %btn-pill;
+  }
+
+  &__summary {
+    padding-bottom: 0.5em;
+
+    // Only the first summary is displayed per component.
+    .summary-text {
+      color: lighten($color-body, 50%);
+
+      .ass-sum__item.current-year & {
+        color: $color-body;
+      }
+
+      &, p {
+        line-height: 1.2;
+      }
+
+      p {
+        margin: 0 0 0.5em 0;
+      }
+    }
+  }
+
+  &__year {
+    @include span(3);
+    padding: 1.1em 0.5em 0 0;
+    font-size: 1.1em;
+  }
+
+  &__grade {
+    @include span(15 last);
+  }
+
+  &__compare,
+  &__confidence {
+    clear: left;
+
+    .label-above {
+      display: inline-block;
+      padding: 0.5em 1em 0.5em 0;
+    }
+
+    &__not-assessed {
+      display: none;
+    }
+  }
+
+  &__metadata {
+    // Metadata is always hidden and displayed with js.
+    display: none;
+  }
+
+  // Large screen (desktop).
+  @include at-bp($ass-sum-desktop-breakpoint) {
+
+    // Hide labels (shown in header).
+    .label, .label-above {
+      display: none;
+    }
+
+    &__summary {
+      @include span(5);
+      padding: 0.5em 0 0 0.5em;
+    }
+
+    &__year {
+      @include span(1 at 6);
+      text-align: right;
+      font-size: 1em;
+    }
+
+    &__grade {
+      @include span(6 at 6);
+    }
+
+    &__confidence-trend {
+      @include span(2 at 12);
+    }
+
+    &__confidence-grade {
+      @include span(2 at 14);
+    }
+
+    &__compare {
+      @include span(2 at 16);
+
+      &__not-assessed {
+        display: block;
+      }
+    }
+
+    &__compare,
+    &__confidence {
+      clear: none;
+    }
+  }
+}
+
+// Ass summary header specific.
+.ass-sum__header {
+
+  // Only display the header at desktop.
+  display: none;
+  @include at-bp($ass-sum-desktop-breakpoint) {
+    display: block;
+  }
+
+  font-size: $font-size-small;
+  padding-bottom: 0.8em;
+  line-height: 1;
+  border-top: 1px solid $ass-sum-border-color;
+
+  strong {
+    color: $ass-sum-table-text-color-strong;
+  }
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 100;
+  }
+
+  &.absolute {
+    position: absolute;
+  }
+
+  &__confidence {
+    @include span(4 at 12);
+  }
+
+  &__summary {
+    padding-top: 0;
+  }
+
+  &__grade,
+  &__confidence,
+  &__compare {
+    text-align: center;
+  }
+
+  &__sub {
+    display: table;
+    width: 100%;
+    padding-top: 0.5em;
+
+    span {
+      display: table-cell;
+    }
+  }
+
+  &__items {
+    &:before {
+      display: none;
+    }
+  }
+
+  &__grade {
+
+    .scale-4 {
+      span {
+        @include span(25%);
+      }
+    }
+    .scale-5 {
+      span {
+        @include span(20%);
+      }
+    }
+  }
+}

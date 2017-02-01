@@ -1,0 +1,24 @@
+// Frameworks teaser
+$fw-content-margin-left:      55px;
+
+.frameworks-teaser {
+
+  &__icon {
+    @extend %icon-circle;
+  }
+
+  &__content {
+    margin-left: $fw-content-margin-left;
+    .taxonomy-term-description {
+      margin: $qtr-spacing-unit 0 $half-spacing-unit;
+    }
+    p {
+      color: $color-grey-dim-gray;
+    }
+  }
+
+  &__title {
+      margin: 0;
+  }
+
+}

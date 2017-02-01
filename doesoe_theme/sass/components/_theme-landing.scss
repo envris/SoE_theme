@@ -1,0 +1,19 @@
+
+#theme-landing {
+
+  h4 {
+    @extend %landing-heading__beta;
+  }
+
+  h5 {
+    @extend %landing-heading__gamma;
+  }
+
+  &, p {
+    @extend %landing-text;
+  }
+
+  .readmore-toggle {
+    @extend %btn-pill;
+  }
+}

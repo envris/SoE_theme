@@ -1,0 +1,123 @@
+// Homepage taxonomy block used for theme/framework icon blocks.
+
+// Generic colours.
+$htb-bg-color: $color-grey-dark;
+$htb-fg-color: $color-white;
+
+// Specific colors.
+$htb-theme-bg-color: $color-green-kelp;
+$htb-framework-bg-color: $color-green-bandicoot;
+
+%homepage-feature-taxonomy-block {
+  @extend %section-responsive-vertical-gutter;
+  @extend %section-extend-edges;
+  color: $htb-fg-color;
+  background: $htb-bg-color;
+  clear: both;
+  text-align: center;
+
+  .theme-icon,
+  .framework-icon,
+  &__icon-wrapper {
+    min-height: 9em;
+    position: relative;
+
+    &__icon {
+      @extend %generic-transition;
+      @extend %icon-box-large;
+      float: none;
+      display: block;
+      margin: 0 auto $half-spacing-unit;
+      background: rgba($htb-fg-color, 0.95);
+
+      .icon {
+        color: $htb-bg-color;
+        opacity: 1;
+      }
+    }
+
+    &__title {
+      font-weight: $font-weight-light;
+      a {
+        color: $htb-fg-color;
+      }
+    }
+
+    &__link {
+      a {
+        @include position-absolute(top 0 left 0 bottom 0 right 0);
+        z-index: 5;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &:hover {
+      .framework-icon__icon,
+      .theme-icon__icon {
+        opacity: 0.8;
+      }
+    }
+
+  }
+
+  .view,
+  &__view-wrapper {
+    @include container($content-small-max-width);
+    @include gutter-horizontal($half-spacing-unit);
+
+    .view-header {
+      margin-bottom: $base-spacing-unit + $half-spacing-unit;
+
+      h2 {
+        &, a {
+          color: $htb-fg-color;
+        }
+      }
+
+      p {
+        margin: 0;
+        font-weight: $font-weight-light;
+
+        a {
+          color: $htb-fg-color;
+          text-decoration: underline;
+        }
+      }
+    }
+
+  }
+
+  .views-row {
+    @include span(50%);
+
+    @include at-bp(small) {
+      @include span(33.33%);
+    }
+
+    @include at-bp(medium) {
+      @include span(25%);
+    }
+
+    @include at-bp(large) {
+      @include span(20%);
+    }
+  }
+}
+
+
+// Theme block.
+.homepage-feature-themes {
+  @extend %homepage-feature-taxonomy-block;
+  background: $htb-theme-bg-color;
+
+  .theme-icon__icon .icon {
+    color: $htb-theme-bg-color;
+  }
+
+  .theme-icon__title {
+    color: $htb-fg-color;
+  }
+}

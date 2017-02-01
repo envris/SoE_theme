@@ -1,0 +1,38 @@
+$hft-image-size: 90px;
+
+.homepage-feature-teaser {
+  text-align: left;
+  display: table;
+  width: 100%;
+
+  &__image {
+    width: $hft-image-size;
+    display: table-cell;
+
+
+    img {
+      width: $hft-image-size;
+      height: $hft-image-size;
+      @include border-bottom-left-radius($half-spacing-unit);
+    }
+  }
+
+  &__title {
+    display: table-cell;
+    vertical-align: middle;
+    @include gutter-horizontal($half-spacing-unit);
+
+    a {
+      color: $color-grey;
+      font-size: $font-size-medium;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      span.title {
+        width: 95%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}

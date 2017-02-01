@@ -1,0 +1,67 @@
+// Report topic teaser.
+
+.report-topic__teaser,
+%report-topic__teaser {
+  &__side {
+    width: 3%;
+  }
+  &__content {
+    width: 96%;
+  }
+
+  &__theme {
+    .theme-icon__title {
+      display: none;
+    }
+    .theme-icon__icon {
+      text-align: center;
+      padding-top: $qtr-spacing-unit;
+      display: inline-block;
+      .icon {
+        font-size: 2.2em;
+      }
+    }
+  }
+
+  &__framework,
+  &__year {
+    @extend %icon-category;
+  }
+
+  &__year {
+    @extend %icon-category-year;
+  }
+
+  &__summary,
+  .links {
+    display: block;
+    clear: both;
+    margin-bottom: $half-spacing-unit;
+  }
+
+  .links {
+    li {
+      margin-right: $base-spacing-unit;
+      display: inline-block;
+    }
+    a {
+      &:before {
+        content: "> ";
+      }
+    }
+  }
+}
+
+// We need to override some styles added by base and panels.
+.node-report-topic-content.node-teaser,
+.node-standard-report-content.node-teaser {
+  &, div.panel-pane & {
+    @extend %report-topic__teaser;
+  }
+  .ds-icon-teaser__side {
+    @extend %report-topic__teaser__side;
+  }
+  .ds-icon-teaser__content {
+    @extend %report-topic__teaser__content;
+  }
+}

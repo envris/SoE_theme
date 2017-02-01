@@ -1,0 +1,18 @@
+// Sections are commonly panel panes or 'sections' of the page
+// eg homepage.
+
+// Responsive vertical gutter.
+%section-responsive-vertical-gutter {
+  @include gutter-vertical($section-vertical-gutter-small);
+  @include at-bp(large) {
+    @include gutter-vertical($section-vertical-gutter-large);
+  }
+}
+
+// Horizontally pulls a container out past its parents padding.
+%section-extend-edges {
+  margin-left: -200%;
+  margin-right: -200%;
+  padding-left: 200%;
+  padding-right: 200%;
+}

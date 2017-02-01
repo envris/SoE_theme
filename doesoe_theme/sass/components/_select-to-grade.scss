@@ -1,0 +1,76 @@
+$stg-grade-count: 5;
+$stg-grade-width: 100% / $stg-grade-count;
+$stg-height: 33px;
+$stg-checkbox-size: 11px;
+
+.select-to-grade {
+
+  &__wrapper,
+  &__option {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__wrapper {
+    @extend %form-element;
+    @extend %clearfix;
+    background: $color-alabaster;
+    padding: 0 1px;
+
+    // Colour the options with grade colours.
+    @include color-elements(array-reverse($colors-ass-sum-grade-4), 'select-to-grade__option', 'background');
+  }
+
+  &__option {
+    width: $stg-grade-width;
+    text-indent: -9999px;
+    border: 1px solid $color-alabaster;
+    border-width: 2px 1px;
+    float: left;
+    cursor: pointer;
+    height: $stg-height;
+    position: relative;
+    background: $color-white;
+    @extend %icon;
+
+    // Impersonate a checkbox.
+    &:after {
+      @include position-absolute(bottom 3px right 3px);
+      z-index: 5;
+      content: "";
+      color: $color-grey-dark;
+      border: 1px solid $color-grey-silver;
+      background: $color-white;
+      text-indent: 0;
+      font-size: 12px;
+      padding: 1px;
+      width: $stg-checkbox-size;
+      height: $stg-checkbox-size;
+    }
+
+    &.selected {
+      &:after {
+        content: icon-get-code(check2);
+      }
+    }
+  }
+
+  // "Not Assessed" option.
+  &__option-0 {
+    &:before {
+      border: 1px solid $color-white;
+      @include position-absolute(top 0 bottom 0 right 0 left 0);
+      content: "";
+    }
+  }
+}
+
+// To prevent a flash/jump of a large multiselect, this hides it with opacity while
+// setting the height to the height of the replacement widget.
+#views-exposed-form-assessment-summary-components-page {
+  .form-item-assessment-grade select {
+    height: $stg-height;
+    opacity: 0;
+  }
+}

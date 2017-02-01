@@ -1,0 +1,61 @@
+
+// Center rows on smaller screens.
+$hfs-max-width: 300px;
+$hfs-max-width-med: 600px;
+
+%homepage-feature-summary {
+  @extend %clearfix;
+  @extend %section-responsive-vertical-gutter;
+  @extend %layout-content-container;
+  position: relative;
+  text-align: center;
+
+  &__header {
+    font-size: $font-size-medium;
+    margin-bottom: $base-spacing-unit;
+
+    h2 {
+      margin-top: 0;
+    }
+  }
+
+  &__content {
+    @include container($hfs-max-width);
+
+    @include at-bp(small) {
+      @include container($hfs-max-width-med);
+    }
+
+    @include at-bp(large) {
+      max-width: none;
+    }
+  }
+
+  &__row {
+    margin: $base-spacing-unit 0;
+    @include at-bp(small) {
+      @include span(50%);
+    }
+    @include at-bp(large) {
+      @include span(25%);
+    }
+  }
+
+}
+
+.view-homepage-feature-summary {
+  @extend %homepage-feature-summary;
+  .view-header {
+    @extend %homepage-feature-summary__header;
+  }
+  .view-content {
+    @extend %homepage-feature-summary__content;
+  }
+  .views-row {
+    @extend %homepage-feature-summary__row;
+  }
+}
+
+.front .pane-homepage-feature-summary {
+  border: 0;
+}

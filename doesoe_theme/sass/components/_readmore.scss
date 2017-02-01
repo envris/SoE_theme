@@ -1,0 +1,27 @@
+// Styles for the readmore.js truncated elements.
+
+.readmore-truncate {
+  overflow: hidden;
+  display: none;
+}
+
+// To prevent a flash of the full content, hide until processed.
+.readmore-truncate-processed {
+  display: block;
+}
+
+.readmore-truncate-processed.collapsed {
+  position: relative;
+  &:after {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    content: "";
+    background: linear-gradient(to top,
+      rgba(255,255,255, 1) 5%,
+      rgba(255,255,255, 0) 95%
+    );
+    pointer-events: none;
+  }
+}

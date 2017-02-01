@@ -1,0 +1,31 @@
+// Search page.
+.section-assessment-summary-components,
+.section-region-search,
+.section-search {
+  // Hide the hero and breadcrumbs.
+  .content-feature,
+  .breadcrumb__wrapper {
+    display: none;
+  }
+}
+
+.section-assessment-summary-components,
+.section-search {
+  .layout__content {
+    @include container($content-max-width-large);
+    padding: $double-spacing-unit $base-spacing-unit;
+  }
+}
+
+.ass-sum-search,
+.view-id-site_search {
+  .view-header {
+    margin-bottom: $one-n-half-spacing-unit;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-light;
+
+    .result {
+      font-weight: $font-weight-bold;
+    }
+  }
+}

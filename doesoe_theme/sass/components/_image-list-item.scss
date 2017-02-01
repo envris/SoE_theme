@@ -1,0 +1,92 @@
+$icon-col-width: 2.6em;
+$gutter: 2.5em;
+$icon-size: 2em;
+
+.image-list-item {
+  max-width: 70em;
+  @extend %clearfix;
+  margin: $gutter 0;
+  position: relative;
+
+  &__media {
+    @extend %clearfix;
+    @include border-radius(5px);
+    background: $color-grey;
+    position: relative;
+    padding-left: $icon-col-width;
+    margin-bottom: $region-gutter-small;
+    min-height: 3.2em;
+
+    @include at-bp(large) {
+      max-width: 19em;
+      margin-right: $gutter;
+      @include border-radius(10px 0 0 10px);
+    }
+  }
+
+  &__icon {
+    @include position-absolute(top 0.6em left $region-gutter-small);
+    width: $icon-col-width;
+    @include at-bp(large) {
+      left: 0;
+    }
+    .icon {
+      font-size: $icon-size;
+      display: block;
+      text-align: center;
+      color: rgba($color-white, 0.7);
+    }
+  }
+
+  &__image {
+    display: none;
+    @include at-bp(large) {
+      display: block;
+      float: right;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-medium;
+    font-weight: $font-weight-regular;
+    margin-top: $qtr-spacing-unit;
+    margin-bottom: $qtr-spacing-unit;
+    a {
+      color: $color-red-copper-rust;
+    }
+    @include position-absolute(top 0 left 2.5em);
+    @include at-bp(large) {
+      position: relative;
+      left: 0;
+      padding: 0;
+    }
+  }
+
+  &__links a {
+    color: $color-body;
+    text-decoration: none;
+
+    &:before {
+      content: "> ";
+    }
+  }
+
+  &__side {
+    @include at-bp(large) {
+      @include span(5);
+    }
+  }
+
+  &__content {
+    @include at-bp(large) {
+      @include span(13 last);
+    }
+  }
+
+  .taxonomy-term-description {
+    p {
+      margin-bottom: $region-gutter-small;
+      font-size: $font-size-small;
+    }
+  }
+}

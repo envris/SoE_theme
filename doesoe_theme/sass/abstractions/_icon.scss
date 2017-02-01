@@ -1,0 +1,128 @@
+
+// An icon box with a cut of bottom left corner, commonly used for
+// framework or key finding icons.
+@mixin icon-box($icon-size: 2.2em, $box-size: 50px, $gutter: 10px, $corner-radius: 10px) {
+  float: left;
+  height: $box-size;
+  width: $box-size;
+  padding: $gutter;
+  border-radius: 0 0 0 $corner-radius;
+  background: $color-grey-silver;
+  text-align: center;
+
+  .icon {
+    opacity: 0.7;
+    color: $color-white;
+    font-size: $icon-size;
+  }
+}
+
+%icon-box {
+  @include icon-box();
+}
+
+%icon-circle {
+  @include icon-box(1.8em, 40px, 8px);
+  border-radius: 50%;
+  .icon {
+    opacity: 1;
+  }
+}
+
+%icon-box-large {
+  @include icon-box($icon-size: 3.5em, $box-size: 60px, $gutter: 4px, $corner-radius: 10px);
+}
+
+// Icon categories are displayed as an icon followed by the category name. Commonly
+// found in title on teasers and full pages. Eg. Year, Theme, Framework.
+@mixin icon-category() {
+  position: relative;
+  white-space: nowrap;
+  padding: 0 $base-spacing-unit 0 1.6em;
+  font-size: $font-size-small;
+  margin: 0 0 $half-spacing-unit;
+  font-weight: $font-weight-medium;
+
+  a,
+  a:visited {
+    color: $color-blue-seagull;
+  }
+
+  a:hover {
+    color: $color-brand-primary;
+  }
+
+  & {
+    display: inline-block;
+    @include link-color($color-mine-shaft);
+  }
+
+  .icon {
+    @extend %icon;
+    @include position-absolute(top 0 left 0);
+    font-size: 1.4em;
+    color: $color-category-icon;
+    font-weight: $font-weight-regular;
+  }
+
+  // Add commas between multi-field items.
+  .item {
+    display: inline-block;
+    a {
+      &:after {
+        content: ", ";
+        margin-right: $qtr-spacing-unit;
+      }
+    }
+    &:last-child {
+      a:after {
+        display: none;
+      }
+    }
+  }
+}
+
+%icon-category {
+  @include icon-category();
+}
+
+// When there is more than one item.
+%icon-category__multiple {
+  @extend %icon-category;
+  white-space: normal;
+}
+
+// Year has a standard icon that doesn't change based on category.
+%icon-category-year {
+  @extend %icon-category;
+  color: $color-grey-dim-gray;
+
+  .icon:before {
+    content: icon-get-code(ct-year);
+  }
+  .item {
+    &:after {
+      content: ", ";
+      margin-right: $qtr-spacing-unit;
+    }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+%icon-category-topic {
+  @extend %icon-category__multiple;
+  i:before {
+    content: icon-get-code(ct-page);
+  }
+}
+
+%icon-category-map-marker {
+  @extend %icon-category__multiple;
+  i:before {
+    content: icon-get-code(map-marker);
+  }
+}

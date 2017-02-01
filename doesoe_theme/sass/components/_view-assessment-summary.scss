@@ -1,0 +1,61 @@
+// Assessment summary view styles.
+
+.view-assessment-summary-components {
+
+  // Embedded EVA view (assessment summary node)
+  &.view-display-id-assessment_summary_eva {
+
+    .view-content {
+      border-top: 1px solid $color-border-light;
+    }
+
+    .views-exposed-form {
+      margin: $half-spacing-unit 0;
+    }
+
+    .views-exposed-widget {
+
+      label {
+        display: inline-block;
+        margin-right: $half-spacing-unit;
+      }
+
+      .views-widget,
+      .form-item {
+        display: inline-block;
+      }
+    }
+  }
+
+  .view-empty {
+    @include container($content-max-width);
+
+    h2 {
+      margin-top: #{$base-spacing-unit * 2};
+      font-weight: $font-weight-regular;
+      color: $color-brand-primary;
+    }
+
+    .ass-sum-key {
+      border: 3px solid $color-border-light;
+      padding: $base-spacing-unit;
+      margin: #{$base-spacing-unit * 2} 0;
+
+      h2 {
+        margin-top: 0;
+      }
+    }
+  }
+
+}
+
+
+// Full assessment summary component page.
+.section-assessment-summary-components {
+
+  // Neither hero or breadcrumbs display.
+  .content-feature,
+  .breadcrumb__wrapper {
+    display: none;
+  }
+}

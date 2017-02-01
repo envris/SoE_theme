@@ -1,0 +1,45 @@
+// Assessment summary supporting statements (ascss).
+// Displays in a modal popup.
+
+%ascss,
+.ascss {
+
+  &__reference {
+    margin-bottom: $qtr-spacing-unit;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  h3 {
+    margin-top: $base-spacing-unit;
+  }
+
+  // Trump the theme color.
+  .category-with-icon a {
+    color: $color-body !important;
+  }
+
+  // Inline references.
+  .reference-inline {
+
+    &__short {
+      cursor: pointer;
+    }
+
+    &__full {
+      // Visibility gets toggled by clicking the short ref.
+      display: none;
+      border-left: 2px solid $color-grey-silver;
+      padding: $qtr-spacing-unit 0 $qtr-spacing-unit $half-spacing-unit;
+      margin: $half-spacing-unit 0 $base-spacing-unit;
+
+      p {
+        margin: 0;
+      }
+    }
+
+  }
+
+}

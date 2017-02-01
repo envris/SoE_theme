@@ -1,0 +1,133 @@
+// Header
+
+$logo-medium-width:               75%;
+$logo-medium-margin-top-bottom:   0.7em;
+$branding-large-padding-left:     3em;
+$mobile-header-gutter:            9px;
+$sticky-admin-offset:             39px;
+$sticky-admin-open-offset:        79px;
+
+.header {
+  height: $header-mobile-height;
+  overflow: hidden;
+  padding: $mobile-header-gutter;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background: $color-white;
+
+  @include at-bp($bp-top-nav-visible) {
+    height: $header-height;
+    padding: $region-gutter-small;
+  }
+
+  // Sticky header.
+  &__wrapper {
+    @include at-bp($bp-top-nav-visible) {
+      .front & {
+        @include position-fixed(left 0 right 0 top 0);
+        z-index: 30;
+      }
+
+      // Account for admin bar.
+      .front.navbar-administration & {
+        top: $sticky-admin-offset;
+      }
+      .front.navbar-tray-open & {
+        top: $sticky-admin-open-offset;
+      }
+    }
+  }
+
+  .front & {
+    @include transition(background-color 0.3s linear);
+    @include box-shadow(0 1px 8px rgba($color-black, 0.1));
+    max-width: $site-max-width;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &.is-transparent {
+    @include at-bp($bp-top-nav-visible) {
+      background-color: transparentize($color-white, .9);
+      border-bottom: 2px solid transparentize($color-white, .9);
+      @include box-shadow(0 0 0 rgba($color-black, 0));
+    }
+  }
+
+  &__branding {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 0 $base-spacing-unit;
+    background-color: $color-red-copper-rust;
+    text-align: center;
+    z-index: 5;
+
+    &:after {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    @include at-bp(medium) {
+      width: $sidebar-first-width;
+    }
+
+    @include at-bp(xlarge) {
+      padding: 0 $double-spacing-unit;
+    }
+  }
+
+  .is-transparent &__branding {
+    @include at-bp($bp-top-nav-visible) {
+      background-color: transparent;
+    }
+  }
+
+  &__logo {
+    display: inline-block;
+    width: $header-logo-width-sml;
+    margin: 0;
+    float: none;
+    max-width: none;
+    vertical-align: middle;
+
+    @include at-bp(med-large) {
+      width: $header-logo-width-lrg;
+    }
+  }
+
+  &__logo-image {
+    @include at-bp($bp-top-nav-visible) {
+      max-width: 100%;
+    }
+  }
+
+  &__region {
+    margin: 0;
+    float: none;
+    position: relative;
+    margin-right: $base-spacing-unit * 4;
+    height: 100%;
+    padding-left: $base-spacing-unit;
+
+    @include at-bp(xlarge) {
+      padding-left: 0;
+    }
+  }
+
+  &__content {
+    height: 100%;
+
+    @include at-bp($bp-top-nav-visible) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      padding-left: $sidebar-first-width;
+    }
+  }
+}

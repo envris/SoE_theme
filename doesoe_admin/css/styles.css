@@ -1,0 +1,14 @@
+.chosen-container.chosen-container-multi.form-select ul {
+  padding: 5px 35px 5px 5px;
+}
+
+.vertical-tabs .form-type-textfield input,
+.form-type-textfield input {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.form-item div.description {
+  width: 100%;
+  max-width: 1000px;
+}

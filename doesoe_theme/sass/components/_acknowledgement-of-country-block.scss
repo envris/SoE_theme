@@ -1,0 +1,16 @@
+.bean--acknowledgment-of-country {
+  color: $color-grey-dark;
+  max-width: $footer-component-width;
+  margin-bottom: $base-spacing-unit;
+
+  h4 {
+    color: $color-white;
+    font-size: $font-size-xsmall;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+
+  @include at-bp(large) {
+    float: left;
+  }
+}

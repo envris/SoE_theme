@@ -1,0 +1,56 @@
+// Page layout component.
+
+// Generic layout styles.
+.not-front .layout {
+  &__content {
+    padding: $region-gutter-small 0 $region-gutter-large;
+    @include gutter-responsive();
+    @extend %layout-page-container;
+  }
+  &__content-wrapper {
+    @extend %clearfix;
+
+    // Sticky sidebar requires additional height.
+    &.sbs-sticky-processed {
+      min-height: 700px;
+    }
+  }
+}
+
+// When sidebar second is in use.
+body.two-sidebars,
+body.sidebar-second {
+
+  .layout {
+
+    // Tablet.
+    @include at-bp($bp-right-sidebar-visible) {
+      &__sidebar-second {
+        @include span(6 last);
+      }
+      &__content {
+        @include span(12);
+      }
+    }
+
+    // Desktop.
+    @include at-bp(xlarge) {
+      &__sidebar-second {
+        @include span(5 last);
+      }
+      &__content {
+        @include span(13);
+      }
+    }
+
+    // Desktop Large.
+    @include at-bp(xxlarge) {
+      &__sidebar-second {
+        @include span(4 last);
+      }
+      &__content {
+        @include span(14);
+      }
+    }
+  }
+}

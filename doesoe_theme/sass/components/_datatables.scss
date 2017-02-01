@@ -1,0 +1,81 @@
+// DataTables styling.
+
+.dataTables_wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: $half-spacing-unit;
+
+  table.dataTable {
+    @extend table;
+
+    thead th,
+    th {
+      @extend th;
+    }
+
+    tbody td,
+    td {
+      @extend td;
+    }
+
+    tbody tr,
+    tr {
+      @extend tr;
+    }
+
+    &.no-footer {
+      border-bottom: none;
+    }
+
+  }
+
+  .dataTables {
+
+    &_info,
+    &_filter,
+    &_length {
+      white-space: nowrap;
+      margin-bottom: $half-spacing-unit;
+
+      &, label {
+        font-weight: $font-weight-regular;
+        color: $color-body;
+      }
+
+      select {
+        max-width: 5em;
+        margin: 0 $half-spacing-unit;
+      }
+
+      input {
+        @extend %form-text;
+        max-width: 10em;
+      }
+    }
+
+    &_paginate {
+      .paginate_button {
+        padding: $qtr-spacing-unit;
+        border: none;
+
+        &:hover,
+        &.next,
+        &.previous,
+        &.current,
+        &.current:hover {
+          border: none !important;
+          background: none;
+          font-weight: $font-weight-medium;
+
+          &.disabled {
+            opacity: 0.5;
+          }
+        }
+
+        &:hover {
+          background: $color-grey;
+        }
+      }
+    }
+  }
+}

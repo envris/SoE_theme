@@ -1,0 +1,115 @@
+// Buttons.
+
+// Standard button.
+@mixin btn() {
+  display: inline-block;
+  text-align: center;
+  font-weight: $font-weight-light;
+  padding: 0.3em 1.2em;
+  @include border-radius(2px);
+  font-size: 1.3em;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+}
+
+%btn {
+  @include btn();
+}
+
+%btn-primary {
+  @extend %btn;
+  background-color: $color-brand-primary;
+  &:hover {
+    background-color: lighten($color-brand-primary, 10%);
+  }
+}
+
+%btn-primary-inverse {
+  @extend %btn;
+  background: $color-white;
+  color: $color-brand-primary;
+  &:hover {
+    background-color: lighten($color-brand-primary, 50%);
+  }
+}
+
+
+// Pill button
+@mixin btn-pill() {
+  @include border-radius(5px);
+  display: inline-block;
+  padding: 1px 3px;
+  margin: 5px 3px 5px 0;
+  background: $color-grey-gallery;
+  font-size: $font-size-xsmall;
+  line-height: 1.5;
+  opacity: 0.8;
+
+  &, &:visited {
+    color: $color-grey;
+  }
+
+  &:hover {
+    background: $color-link;
+    color: $color-white;
+    opacity: 1;
+  }
+}
+
+%btn-pill {
+  @include btn-pill;
+}
+
+// Action button (matches 'button' element styles).
+@mixin btn-action() {
+  display: inline-block;
+  padding: 5px 15px;
+  background: $color-brand-primary;
+  text-align: center;
+  &,
+  &:visited,
+  &:focus {
+    color: $color-white;
+    outline: none;
+  }
+}
+
+%btn-action {
+  @include btn-action;
+}
+
+// Uppercase button.
+@mixin btn-uppercase () {
+  text-transform: uppercase;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-small;
+  @include link-color($color-grey-dim-gray);
+  position: relative;
+}
+%btn-uppercase {
+  @include btn-uppercase();
+}
+
+// Arrow button, AKA read more/find out more
+@mixin btn-arrow () {
+  @include btn-uppercase();
+  &:focus,
+  &:hover {
+    color: $color-brand-primary;
+  }
+  &:after {
+    @include position-absolute(left 100% top -1px);
+    @extend %icon;
+    content: icon-get-code(ic_arrow);
+    margin-left: $half-spacing-unit;
+    font-size: 140%;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+%btn-arrow {
+  @include btn-arrow();
+}

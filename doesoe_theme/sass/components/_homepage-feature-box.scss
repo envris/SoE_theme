@@ -1,0 +1,21 @@
+%homepage-feature-box {
+  @include container(1920px);
+  margin-bottom: ($double-spacing-unit * 2);
+  background: rgba($color-black, 0.5);
+
+  &__row {
+    padding: 0;
+
+    @include at-bp(medium) {
+      @include span(33.33%);
+    }
+  }
+}
+
+.view-homepage-feature-box {
+  @extend %homepage-feature-box;
+
+  .views-row {
+    @extend %homepage-feature-box__row;
+  }
+}

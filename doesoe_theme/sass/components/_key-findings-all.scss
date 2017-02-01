@@ -1,0 +1,104 @@
+.key-findings-all {
+  &__headlines,
+  &__key-findings,
+  &__body {
+    margin-bottom: round($base-spacing-unit * 2.9);
+  }
+
+  &__headlines {
+    .view-header {
+      display: none;
+    }
+  }
+
+  .node-key-finding.current-year {
+    .key-finding-teaser__icon {
+      background: $color-brand-primary
+    }
+  }
+
+  .pane-title {
+    @extend %landing-heading__alpha;
+    margin-bottom: $half-spacing-unit;
+  }
+
+  .pane-content {
+    @extend %landing-text;
+  }
+
+  .view-group {
+    @extend %clearfix;
+
+    &__title {
+      @extend %landing-heading__gamma;
+      padding: $three-qtr-spacing-unit $double-spacing-unit $three-qtr-spacing-unit 0;
+      margin: 0;
+      border-top: 1px solid $color-border-extra-light;
+      position: relative;
+      cursor: pointer;
+      &:after {
+        @include position-absolute(right 0 top 37%);
+        @extend %icon;
+        content: icon-get-code(expand);
+      }
+      &.open {
+        color: $color-brand-primary;
+        &:after {
+          content: icon-get-code(collapse);
+        }
+        .cite {
+          display: block;
+        }
+      }
+      .cite {
+        display: none;
+        float: right;
+        font-weight: $font-weight-regular;
+        font-size: 0.8em;
+        &, a {
+          color: $color-silver-sand;
+        }
+        i {
+          font-size: 1.4em;
+          vertical-align: middle;
+          margin-right: 3px;
+        }
+      }
+    }
+
+    &__content {
+      border-top: 1px solid $color-border-extra-light;
+      padding: $base-spacing-unit 0 0 !important;
+      display: none;
+
+      // Remove last border and second last if 2 col.
+      .views-row-last {
+        > div {
+          border: 0 !important;
+        }
+      }
+      @include at-bp(xlarge) {
+        .views-row:nth-last-child(2) {
+          > div {
+            border: 0 !important;
+          }
+        }
+      }
+
+    }
+  }
+
+}
+
+.view-key-findings {
+  // Apply colour based on palette.
+  @each $palette-key, $palette-colors in $theme-palette {
+    .row-palette--#{$palette-key} {
+      .node-key-finding.current-year {
+        .key-finding-teaser__icon {
+          background: palette-get-color($palette-key, primary);
+        }
+      }
+    }
+  }
+}

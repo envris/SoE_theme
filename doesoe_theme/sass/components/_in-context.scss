@@ -1,0 +1,23 @@
+.in-context {
+  @extend %search-result;
+
+  &__intro-block {
+    margin-bottom: 70px;
+  }
+
+  &__title {
+    @extend %search-result__title;
+  }
+
+  &__category {
+    @extend %search-result__category;
+  }
+
+  &__link {
+    @extend %search-result__link;
+  }
+
+  &__year {
+    @extend %search-result__year;
+  }
+}

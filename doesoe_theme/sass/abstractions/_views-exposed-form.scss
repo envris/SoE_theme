@@ -1,0 +1,398 @@
+// Re-usable views exposed form styles.
+$exposed-form-bg: $color-alabaster;
+
+/*
+ * Standard responsive exposed form.
+ */
+%responsive-exposed-form--large {
+
+  .views-exposed-form-top,
+  .views-exposed-form {
+    margin-bottom: 0;
+    background: $exposed-form-bg;
+    padding: $half-spacing-unit 0;
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  .views-exposed-form-top {
+    margin-bottom: 0;
+    border: none;
+  }
+
+  .views-exposed-widgets-top,
+  .views-exposed-widgets {
+    @extend %layout-page-container;
+    padding-bottom: $half-spacing-unit;
+
+    @include at-bp(small) {
+      padding-left: $base-spacing-unit;
+    }
+  }
+
+  .views-exposed-widget-top__container {
+    padding: 0 $region-gutter-small;
+  }
+
+  .views-exposed-widget {
+    float: none;
+    width: 100%;
+    padding: 0 0 $half-spacing-unit 0;
+
+    @include at-bp(small) {
+      @include span(50%);
+      padding-right: $base-spacing-unit;
+    }
+
+    @include at-bp(medium) {
+      @include span(33.33%);
+    }
+
+    @include at-bp(large) {
+      @include span(25%);
+    }
+
+    .form-type-radio {
+      display: inline-block;
+      margin-right: $base-spacing-unit;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+
+    .form-text, .form-select {
+      width: 100%;
+    }
+
+    &__actions {
+      @extend %clearfix;
+    }
+
+    &__submit,
+    &__reset {
+      width: auto;
+      float: left;
+      padding: 0;
+      margin: $qtr-spacing-unit $half-spacing-unit $qtr-spacing-unit 0;
+
+      .form-submit {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+/*
+ * Unique styles for the top of an exposed form.
+ */
+%responsive-exposed-form-top--large {
+
+  .views-exposed-form-top {
+    @include hero-static();
+    color: $color-white;
+
+    &__title {
+      font-weight: $font-weight-regular;
+    }
+
+    &, label {
+      font-weight: $font-weight-light;
+      padding-bottom: $qtr-spacing-unit;
+    }
+
+    h1 {
+      color: inherit;
+      font-size: $font-size-xxlarge;
+      line-height: 1;
+      padding-bottom: $half-spacing-unit;
+    }
+
+    @include at-bp(large) {
+      @include gutter-vertical($region-gutter-xlarge);
+    }
+  }
+
+  .views-exposed-widget-top {
+
+    &__actions,
+    &__elements {
+      @include at-bp(medium) {
+        @include span(50%);
+      }
+    }
+
+    &__actions {
+      padding-top: 1.1em;
+
+      @include at-bp(medium) {
+        margin-top: $qtr-spacing-unit;
+        text-align: right;
+      }
+    }
+
+    &__toggle-wrapper,
+    &__submit {
+      display: inline-block;
+      padding-right: $base-spacing-unit;
+      margin-bottom: $base-spacing-unit;
+    }
+
+    &__submit {
+      .form-submit {
+        @extend %btn-primary-inverse;
+        @include border-radius(30px);
+        @include gutter-horizontal(#{$base-spacing-unit * 2});
+        @include gutter-vertical(0.4em);
+        margin-right: 0;
+      }
+    }
+
+    &__toggle {
+      cursor: pointer;
+
+      i {
+        @extend %icon;
+        padding-left: $qtr-spacing-unit;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .form-item {
+      margin-top: 0;
+    }
+  }
+}
+
+/*
+ * Small exposed forms for basic exposed forms with only a couple of elements.
+ * At mobile elements are stacked, submit visible and has a grey background.
+ */
+%responsive-exposed-form--small {
+  $small-exposed-form-bp: small;
+
+  .views-exposed-form {
+    max-width: 60em;
+    @extend %clearfix;
+    @include gutter-responsive();
+    padding-top: $region-gutter-small;
+
+    @include at-bp($small-exposed-form-bp) {
+      @include gutter-horizontal(0);
+    }
+
+    &__wrapper {
+      @extend %section-extend-edges;
+      background: $exposed-form-bg;
+      margin-bottom: $region-gutter-large;
+      margin-top: -$region-gutter-small;
+
+      @include at-bp($small-exposed-form-bp) {
+        padding: 0;
+        margin: 0 0 $region-gutter-large;
+        background: none;
+      }
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+
+  .views-exposed-widget {
+    width: 100%;
+    float: none;
+    padding: 0 0 $half-spacing-unit;
+
+    @include at-bp($small-exposed-form-bp) {
+      padding-right: $half-spacing-unit;
+
+      &__element-wrapper {
+        @include span(50%);
+      }
+    }
+
+    // Submit gets hidden at desktop (autosubmit used).
+    .form-submit {
+      display: block;
+      width: 100%;
+      margin: $qtr-spacing-unit 0 0 !important;
+      @include gutter-vertical($qtr-spacing-unit);
+
+      @include at-bp($small-exposed-form-bp) {
+        display: none;
+      }
+    }
+  }
+}
+
+/*
+ * Exposed filters toggle. Visible by default on desktop, hidden by
+ * default on mobile, alternate toggle based on wrapper class.
+ * This also changes the arrow direction on the toggle button.
+ */
+%responsive-exposed-form-toggle {
+
+  .views-exposed-form {
+    display: none;
+
+    @include at-bp($bp-advanced-filters-visible) {
+      display: block;
+    }
+  }
+
+  .views-exposed-widget-top__toggle i:before {
+    content: icon-get-code(angle-down);
+
+    @include at-bp($bp-advanced-filters-visible) {
+      content: icon-get-code(angle-up);
+    }
+  }
+
+  .advanced-filters {
+
+    .views-exposed-widget-top__toggle i:before {
+      content: icon-get-code(angle-up);
+
+      @include at-bp($bp-advanced-filters-visible) {
+        content: icon-get-code(angle-down);
+      }
+    }
+
+    .views-exposed-form {
+      display: block;
+
+      @include at-bp($bp-advanced-filters-visible) {
+        display: none;
+      }
+    }
+  }
+}
+
+/**
+ * The alternate actions for the search button (caret + dropdown)
+ */
+%responsive-exposed-form-alt-actions {
+
+  .views-exposed-widget-top {
+
+    &__submit {
+      position: relative;
+
+      .form-submit {
+        padding-right: #{$base-spacing-unit * 3};
+      }
+    }
+
+    @extend %dropdown;
+
+    &__alt-actions {
+      @extend %btn-primary-inverse;
+      @include border-radius(0 30px 30px 0);
+      @include position-absolute(top 0 right $base-spacing-unit bottom 0);
+      padding: 0;
+      width: $double-spacing-unit;
+
+      &:before {
+        @include position-absolute(top $qtr-spacing-unit left 0 bottom $qtr-spacing-unit);
+        content: "";
+        border-left: 1px solid rgba($color-grey-charcoal, 0.2);
+      }
+
+      i {
+        @include icon(caret-down);
+        color: $color-brand-primary;
+        font-size: 1.1em;
+        line-height: 1.9;
+      }
+    }
+  }
+}
+
+/**
+ * Provides fake accordion styling to toggle between like searchs.
+ */
+%exposed-form-accordion-toggle {
+  .views-exposed-form {
+
+    &__search-toggle,
+    &__filters-title {
+      margin: 0;
+      font-weight: $font-weight-regular;
+      font-size: $font-size-medium;
+
+      i {
+        margin-left: $half-spacing-unit;
+      }
+    }
+
+    &__filters-title {
+      padding-bottom: $base-spacing-unit;
+
+      i {
+        @include icon(angle-down);
+      }
+    }
+
+    &__search-toggle {
+      @extend %generic-transition;
+      background: $color-alabaster;
+      border-bottom: 1px solid $color-border-light;
+      padding-left: $base-spacing-unit;
+      cursor: pointer;
+
+      &:hover {
+        color: $color-brand-primary;
+        background: lighten($color-brand-primary, 50%);
+      }
+
+      i {
+        @include icon(angle-right);
+      }
+
+      .search-toggle {
+
+        &__inner {
+          @extend %layout-page-container;
+          padding: $half-spacing-unit $region-gutter-small;
+        }
+      }
+
+      span {
+        display: inline-block;
+
+        @include at-bp(xlarge) {
+          padding: 0 $region-gutter-small;
+        }
+      }
+    }
+  }
+}
+
+/*
+ * To prevent a flash of pre-js content, this ensures all selects are the correct height.
+ * Use with html.js.
+ */
+%exposed-form-js-select {
+
+  html.js & {
+
+    .form-type-select {
+      &:after {
+        @extend %form-element;
+        content: "Loading filter...";
+        width: auto;
+        display: block;
+      }
+
+      .form-select {
+        display: none;
+      }
+
+      &.select-processed {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}

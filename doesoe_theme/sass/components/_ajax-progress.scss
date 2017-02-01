@@ -1,0 +1,5 @@
+
+// Make ajax loading much prettier.
+.ajax-progress {
+  @extend %loader-bar;
+}

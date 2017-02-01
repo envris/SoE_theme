@@ -1,0 +1,15 @@
+// Topic table of contents.
+
+// .toc is assumed to be a ul
+%toc,
+.toc {
+
+  .toc-link--level-0 {
+    display: block;
+  }
+}
+
+// We hide the TOC block initially and it gets shown with JS once built.
+#block-bean-topic-table-of-contents {
+  display: none;
+}

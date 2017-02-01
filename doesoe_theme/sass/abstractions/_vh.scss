@@ -1,0 +1,41 @@
+/*
+ * This fixes issues with old iOS devices not supporting vh correctly.
+ * See http://webdesignerwall.com/tutorials/css-fix-for-ios-vh-unit-bug
+ */
+
+@mixin vh_ios($selector, $vh) {
+  $percent: $vh / 100;
+  /* ipad */
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    #{$selector} {
+      height: 768px * $percent;
+    }
+  }
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    #{$selector} {
+      height: 1024px * $percent;
+    }
+  }
+  /* iphone5 */
+  @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+    #{$selector} {
+      height: 320px * $percent;
+    }
+  }
+  @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
+    #{$selector} {
+      height: 568px * $percent;
+    }
+  }
+  /* iPhone 4 */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+    #{$selector} {
+      height: 320px * $percent;
+    }
+  }
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+    #{$selector} {
+      height: 480px * $percent;
+    }
+  }
+}

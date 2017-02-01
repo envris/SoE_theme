@@ -1,0 +1,32 @@
+// Form Abstractions.
+
+%form-element {
+  @include border-radius(3px);
+  padding: 0.6em 1em;
+  border: 1px solid rgba($color-grey-dark, 0.3);
+  background: $color-alabaster;
+  color: $color-grey-dark;
+  font-size: $font-size-regular;
+  height: auto;
+  width: 100%;
+  max-width: 30em;
+
+  &:focus {
+    outline: none;
+    @include box-shadow(0 0 5px rgba($color-brand-primary, 0.7));
+    border-color: rgba($color-brand-primary, 0.8);
+  }
+}
+
+%form-text {
+  @extend %form-element;
+}
+
+%form-select {
+  @extend %form-element;
+  @include appearance(none);
+  padding-right: 1.5em;
+  background-image: image-url('arrow-down.png');
+  background-position: right 0.5em top 50%;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,45 @@
+// Two col view, used on theme landing
+
+$vtc-large-gutter: $qtr-spacing-unit * 5;
+
+%view-two-col {
+  @include grid(2, '> .views-row');
+
+  .views-row {
+    > div {
+      margin-bottom: $base-spacing-unit;
+      padding-bottom: $base-spacing-unit;
+      border-bottom: 1px solid $color-border-extra-light;
+    }
+
+
+    @include at-bp(xlarge) {
+      padding-right: $base-spacing-unit;
+      &:nth-child(2n + 0) {
+        padding-right: 0;
+        padding-left: $base-spacing-unit;
+      }
+
+      // Remove border on last two rows.
+      &:nth-child(odd):nth-last-child(-n+2),
+      &:last-child {
+        > div {
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+.view-two-col .view-content {
+  @extend %view-two-col;
+}
+
+.view-two-col-grouped .view-group {
+  &__content {
+    @extend %view-two-col;
+  }
+  &__title {
+    clear: both;
+  }
+}

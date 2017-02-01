@@ -1,0 +1,9 @@
+// Theme approach
+
+$tp-team-approach-body-margin-bottom:   20px;
+
+.theme-approach {
+  &__body {
+    margin-bottom: $tp-team-approach-body-margin-bottom;
+  }
+}

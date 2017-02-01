@@ -1,0 +1,7 @@
+.bean--copyright {
+  color: $color-grey-dark;
+
+  @include at-bp(large) {
+    float: right
+  }
+}

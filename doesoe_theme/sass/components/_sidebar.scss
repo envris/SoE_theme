@@ -1,0 +1,39 @@
+// Styles applicable to both sidebars.
+
+.sidebar {
+
+  // Reset styles added by the default govcms base theme.
+  .block  {
+    margin-bottom: $half-spacing-unit;
+
+    .block__title {
+      background: none;
+      padding-left: 0;
+      color: inherit;
+      line-height: inherit;
+    }
+
+    .block__content{
+      background: none;
+      padding: 0;
+    }
+
+    p {
+      margin-bottom: $region-gutter-small;
+    }
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  &__icon-title {
+    position: relative;
+    text-indent: 1.5em;
+
+    i {
+      @include position-absolute(left -1.1em top 0);
+      font-size: 1.5em;
+    }
+  }
+}

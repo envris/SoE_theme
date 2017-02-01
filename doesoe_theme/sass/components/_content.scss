@@ -1,0 +1,22 @@
+// Content
+
+.main {
+  position: relative;
+}
+
+.content {
+  padding: $region-gutter-small;
+}
+
+.content-top__wrapper {
+  margin-bottom: $base-spacing-unit;
+
+  .section-search &,
+  .section-assessment-summary-components & {
+    margin-bottom: 0;
+  }
+}
+
+.body-content {
+  @extend %basic-content-typography;
+}

@@ -1,0 +1,40 @@
+// List styles
+
+// Default list styles are reset, this returns back to browser default.
+@mixin list-default($style: disc) {
+  margin: 0.2em 0 1em;
+  padding-left: 1.3em;
+
+  li {
+    list-style: $style;
+    margin-bottom: 0.2em;
+  }
+
+  ul {
+    margin-bottom: 0.2em;
+  }
+}
+
+%list-default {
+  @include list-default;
+}
+
+%list-numbered-default {
+  @include list-default(decimal);
+  padding-left: 1em;
+  li {
+    padding-left: 0.3em;
+  }
+}
+
+@mixin list-reset() {
+  &, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+%list-reset {
+  @include list-reset();
+}

@@ -1,0 +1,34 @@
+// Base form elements.
+
+input[type=email],
+input[type=phone],
+input[type=number],
+input[type=password],
+input[type=text] {
+  @extend %form-text;
+}
+
+textarea {
+  @extend %form-text;
+}
+
+select {
+  @extend %form-select;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input[type=submit] {
+  @extend %btn;
+}
+
+.form-item label {
+  font-weight: $font-weight-regular;
+}
+
+span.form-required {
+  color: $color-brand-primary;
+  font-size: 75%;
+}

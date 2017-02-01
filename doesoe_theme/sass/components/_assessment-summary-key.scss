@@ -1,0 +1,143 @@
+// Assessment summary key/legend component.
+
+$ass-sum-key-header-color: $color-brown-russet;
+$ass-sum-key-desc-color: $color-grey-dark;
+$ass-sum-key-border: $color-grey-alto;
+$ass-sum-key-icon-color: $color-grey-dark;
+
+// Assessment summary key.
+.ass-sum-key {
+
+  @extend %clearfix;
+  padding: 1em;
+  border-bottom: 1px solid $ass-sum-key-border;
+
+  // TODO: define this at a more generic level.
+  line-height: 1.5;
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 1em;
+    margin: 2em 0 1em;
+  }
+
+  h4 {
+    font-size: 0.9em;
+    margin: 0;
+    display: inline-block;
+  }
+
+  &__grade__title {
+    margin: 2em 0 1em;
+  }
+
+  ul,
+  &__grade__desc {
+    color: $ass-sum-key-desc-color;
+    font-size: 0.9em;
+  }
+
+  li {
+    padding: 0 0 0 3.5em;
+    margin: 0.7em 0;
+    position: relative;
+
+    p {
+      margin: 0;
+      display: inline-block;
+      padding: 0.4em 0;
+    }
+  }
+
+  &__title {
+    @extend %clearfix;
+
+    i {
+      padding: 0.15em 0;
+      color: $ass-sum-key-header-color;
+      float: left;
+      margin-right: 0.2em;
+      font-size: 2.2em;
+    }
+
+    h2 {
+      color: $ass-sum-key-header-color;
+      margin: 0;
+      padding: 0.4em 0;
+    }
+  }
+
+  &__grade__color {
+    float: left;
+    width: 4em;
+    height: 1.5em;
+    background: $ass-sum-key-desc-color;
+    margin-right: 1em;
+  }
+
+  &__icon {
+    font-size: 2.5em;
+    float: left;
+    color: $ass-sum-key-icon-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+  }
+
+  // Apply the colors to the grades.
+  &__grades {
+    .field-items {
+      // 4 Point.
+      @include color-nth-child ($colors-ass-sum-grade-4, field-item, ass-sum-key__grade__color, $property: background-color);
+      // 5 Point.
+      .ass-sum-key__grade__scale-5 & {
+        @include color-nth-child ($colors-ass-sum-grade-5, field-item, ass-sum-key__grade__color, $property: background-color);
+      }
+    }
+  }
+
+  &__trends {
+    .ass-sum-key__icon {
+      font-size: 2em;
+      border: 2px solid $ass-sum-key-icon-color;
+    }
+  }
+
+  &__trends {
+    @extend %clearfix;
+
+    li {
+      @include span(50%);
+    }
+  }
+
+  &__layout {
+
+    @include at-bp(large) {
+
+      &__col-1 {
+        @include span(9);
+        padding-right: 2em;
+      }
+
+      &__col-2 {
+        @include span(9 last);
+        padding-left: 2em;
+      }
+
+    }
+
+  }
+
+  &__trends, &__confidence, &__comparability {
+    padding-left: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+}

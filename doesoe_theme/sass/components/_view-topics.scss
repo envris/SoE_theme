@@ -1,0 +1,23 @@
+.view-topics {
+  .views-exposed-form__wrapper {
+    .views-exposed-widget {
+      float: none;
+      width: 100%;
+      padding: 0 0 $half-spacing-unit 0;
+
+      @include at-bp(small) {
+        @include span(50%);
+        padding-right: $base-spacing-unit;
+      }
+      @include at-bp(large) {
+        @include span(33.33%);
+      }
+      @include at-bp(xlarge) {
+        @include span(25%);
+      }
+      .form-submit {
+        margin-top: $base-spacing-unit;
+      }
+    }
+  }
+}

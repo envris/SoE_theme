@@ -1,0 +1,7 @@
+
+// As we are not using the IPE, remove the control container
+// from the page as it gets in the way of other elements.
+// If IPE is required, remove this code.
+#panels-ipe-control-container {
+  display: none !important;
+}

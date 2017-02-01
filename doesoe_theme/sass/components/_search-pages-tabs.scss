@@ -1,0 +1,121 @@
+
+.search-tabs {
+  border-bottom: 1px solid $color-border-light;
+  padding-bottom: 48px;
+  position: relative;
+
+  &__list {
+    @include container($content-max-width-large);
+    margin: $one-n-half-spacing-unit auto 0;
+    padding: 0;
+  }
+
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  &__tab {
+    list-style: none;
+    text-align: center;
+    margin-bottom: 0;
+
+    &:not(.last) {
+      a:not(.active) {
+        position: relative;
+
+        &:after {
+          content: '';
+          display: block;
+          width: 1px;
+          height: 80%;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          position: absolute;
+          right: -1px;
+          background: $color-border-light;
+        }
+      }
+    }
+
+    &.search2 {
+      a {
+        &:before {
+          content: icon-get-code(search2);
+        }
+      }
+    }
+
+    &.map-marker {
+      a {
+        &:before {
+          content: icon-get-code(map-marker)
+        }
+      }
+    }
+
+    &.ct-assessment-summary {
+      a {
+        &:before {
+          content: icon-get-code(ct-assessment-summary);
+          font-size: 2.2em;
+          line-height: 0.65em;
+        }
+      }
+    }
+  }
+
+  a {
+    display: block;
+    padding: $half-spacing-unit;
+    margin-bottom: -1px;
+    color: $color-grey-dim-gray;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-small;
+    border-top: 1px solid $color-grey-alto;
+
+    &.active {
+      background: $color-alabaster;
+      border-top: 4px solid $color-red-copper-rust;
+      border-left: 1px solid $color-border-light;
+      border-right: 1px solid $color-border-light;
+      color: $color-grey-charcoal;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    &:before {
+      @extend %icon;
+      margin-right: $half-spacing-unit;
+      font-size: $font-size-large;
+      vertical-align: middle;
+    }
+  }
+
+  @include at-bp(medium) {
+    padding-bottom: 0;
+
+    &__list {
+      padding: 0 $base-spacing-unit;
+    }
+
+    &__tab {
+      float: left;
+      width: 33.33%;
+      height: 71px;
+    }
+
+    a {
+      padding: $base-spacing-unit $half-spacing-unit;
+      border-top: none;
+
+      &.active {
+        position: static;
+        width: auto;
+      }
+    }
+  }
+}

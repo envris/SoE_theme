@@ -1,0 +1,18 @@
+// Button mixins
+
+$button-padding-top-width:  6px;
+$button-border-top-width:   5px;
+$button-padding-tb:         10px;
+$button-padding-lr:         25px;
+$button-bottom-left-radius: 8px;
+
+@mixin button-style ($background-color, $text-color, $padding-top-color ) {
+  border-top: $button-border-top-width solid $padding-top-color;
+  box-shadow: none;
+  padding: $button-padding-tb $button-padding-lr;
+  border-bottom-left-radius: $button-bottom-left-radius;
+  font-family: $base-font-family;
+  font-weight: $font-weight-light;
+  color: $text-color;
+  background: $background-color;
+}

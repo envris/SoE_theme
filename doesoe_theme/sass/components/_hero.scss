@@ -1,0 +1,74 @@
+// Hero
+
+$hero-body-padding-top:         75px;
+$hero-body-margin:              30px;
+$hero-title-font-size:          1.8em;
+$hero-title-font-size-large:    $font-size-xxlarge;
+$hero-title-line-height:        1em;
+$hero-subtitle-font-size:       1.2em;
+$hero-subtitle-font-size-large: $font-size-xlarge;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: $content-feature-height-mobile;
+  background: transparent 50% 50% no-repeat;
+  background-size: cover;
+
+  @include at-bp(large) {
+    height: $content-feature-height-desktop;
+  }
+
+  &__image {
+    @include position-absolute(left 0 right 0 top 0);
+
+    img {
+      @include position-absolute(left 0 right 0 top 0);
+      @extend %generic-transition;
+      max-width: none;
+      height: auto;
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 0;
+    }
+  }
+
+  &__body {
+    @extend %layout-page-container;
+    @extend %hero-shadow;
+    @include gutter-vertical($hero-body-margin);
+    @include gutter-responsive();
+    position: relative;
+    z-index: 1;
+
+    @include at-bp(large) {
+      padding-top: $hero-body-padding-top;
+    }
+  }
+
+  &__title {
+    color: $color-white;
+    line-height: $hero-title-line-height;
+    font-size: $hero-title-font-size;
+
+    @include at-bp(large) {
+      font-size: $hero-title-font-size-large;
+    }
+  }
+
+  &__region,
+  &__subtitle {
+    color: $color-white;
+    font-size: $hero-subtitle-font-size;
+
+    @include at-bp(large) {
+      font-size: $hero-subtitle-font-size-large;
+    }
+  }
+}
+
+.historic-content .hero {
+  @include filter(grayscale(100%));
+  background-color: $color-silver-sand !important;
+}

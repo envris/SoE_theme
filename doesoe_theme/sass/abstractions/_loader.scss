@@ -1,0 +1,25 @@
+// Loader keyframes
+@include keyframes("lineloading") {
+  0% { width: 0; margin-left: 0; }
+  50% { width: 100%; margin-left: 0; }
+  100% { margin-left: 100%; width: 0; }
+}
+
+// Youtube style loading bar.
+@mixin loader-bar($height: 5px) {
+  @include position-fixed(bottom 0 right 0 left 0);
+  height: $height;
+  background: rgba($color-white, 0.7);
+  z-index: 999999;
+
+  .throbber {
+    @include animation(lineloading 4s infinite);
+    width: 100%;
+    background: $color-brand-primary;
+    height: $height;
+  }
+}
+
+%loader-bar {
+  @include loader-bar();
+}

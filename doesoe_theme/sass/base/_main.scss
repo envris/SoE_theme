@@ -1,0 +1,28 @@
+// Main Html and body
+
+html {
+  background: $color-grey-night-rider;
+  position: relative;
+}
+
+body {
+  max-width: $site-max-width;
+  margin: 0 auto;
+  color: $color-grey-charcoal;
+}
+
+.main {
+  @extend %clearfix;
+  overflow-x: hidden;
+  min-height: 45em;
+
+  .front & {
+    overflow: hidden;
+  }
+
+  .with-nav-side & {
+    @include at-bp($bp-side-nav-visible) {
+      padding-left: $sidebar-first-width;
+    }
+  }
+}

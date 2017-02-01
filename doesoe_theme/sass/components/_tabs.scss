@@ -1,0 +1,30 @@
+// Tabs
+
+// Local tasks.
+.tabs {
+  padding: 0;
+
+  &.primary {
+    margin-top: 0;
+    overflow: hidden;
+    border: 0;
+
+    li {
+      float: left;
+      margin: 0;
+    }
+  }
+
+  a {
+    color: $color-grey;
+    border-top: 2px solid transparent;
+
+    &:hover {
+      background: rgba($color-grey, 0.1);
+    }
+
+    &.is-active {
+      border-left: solid 1px #d9d9d9;
+    }
+  }
+}

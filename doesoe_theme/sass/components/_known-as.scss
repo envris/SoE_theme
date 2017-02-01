@@ -1,0 +1,37 @@
+.known-as,
+%known-as {
+  &__popup-content {
+    display: none;
+  }
+
+  &__prev-as &__title::before {
+    content: 'View the original assessment summary: ';
+  }
+
+  &__now-as &__title::before {
+    content: 'View the current assessment summary: ';
+  }
+
+  &__prev-asc &__title::before {
+    content: 'View the original assessment summary component: ';
+  }
+
+  &__now-asc &__title::before {
+    content: 'View the current assessment summary component: ';
+  }
+
+  &__popup-link {
+    @extend .ass-sum__item__metadata-link;
+  }
+
+}
+
+.paragraphs-item-known-as {
+  &.view-mode-full {
+
+    .known-as__popup-content {
+      @extend %known-as__popup-content;
+    }
+
+  }
+}

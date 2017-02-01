@@ -1,0 +1,53 @@
+
+%listnav {
+  &__nav {
+    margin: $base-spacing-unit 0 $double-spacing-unit;
+
+    .ln-letters {
+      border-bottom: 2px solid $color-grey-gallery;
+      a {
+        border: none;
+        font-size: 1em;
+      }
+    }
+
+    .ln-letter-count {
+      color: $color-grey-silver;
+    }
+  }
+
+  &__list {
+    @include list-reset();
+    margin: $double-spacing-unit 0;
+
+    li {
+      margin-bottom: $base-spacing-unit;
+    }
+  }
+
+  &__row {
+    strong {
+      font-size: 120%;
+    }
+
+    p {
+      margin: $half-spacing-unit 0;
+    }
+  }
+}
+
+// Apply to glossary.
+.glossary-terms {
+  .listNav {
+    @extend %listnav__nav;
+  }
+  .listnav-list {
+    @extend %listnav__list;
+    li {
+      @extend %listnav__row;
+    }
+  }
+  .term--description {
+    padding-left: $base-spacing-unit;
+  }
+}

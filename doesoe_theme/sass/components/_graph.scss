@@ -1,0 +1,90 @@
+// Ckan graph node styles.
+
+%graph,
+.graph {
+  margin-bottom: $half-spacing-unit;
+
+  &__title,
+  &__reference {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  &__fallback-image {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  &__dataset {
+
+    .content {
+      @include gutter-horizontal(0);
+    }
+
+    span.file {
+      display: none;
+    }
+  }
+
+  &__button {
+    margin-right: $qtr-spacing-unit;
+    margin-bottom: $half-spacing-unit;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &__chart {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  &__topic {
+    margin: $half-spacing-unit 0;
+
+    // Topic link hidden when graph embedded on a topic page.
+    .node-report-topic-content & {
+      display: none;
+    }
+
+    i {
+      font-size: 1.7em;
+      float: left;
+      margin-right: $qtr-spacing-unit;
+    }
+
+    &__items {
+      display: inline-block;
+      padding-top: 4px;
+    }
+  }
+
+}
+
+// Graph entity.
+.node-ckan-graph {
+  @extend %graph;
+}
+
+// Graph table styles.
+.ckan-display-table {
+
+  button {
+    @extend %graph__button;
+  }
+
+  .table-chart--chart {
+    @extend %graph__chart;
+  }
+}
+
+
+/*
+ * Set a fixed size/AR for the graphs for logged in users.
+ *
+ * This is a temporary style that breaks responsive but is required
+ * while biotext are exporting graphs to retain a 16:9 ratio. Once
+ * exports are complete this must be removed.
+ */
+.logged-in .table-chart--chart {
+  width: 1200px;
+  height: 675px;
+}

@@ -1,0 +1,76 @@
+/*
+ * Palette definition.
+ *
+ * The keys are an identifier for the palette based on the primary colour name, they are
+ * applied as a body class to items tagged with that theme so sub elements can be styled
+ * with the appropriate colours.
+ */
+
+$theme-palette: (
+  // Summary
+  apple: (
+    dark: $color-green-dell,
+    primary: $color-green-apple,
+    secondary: $color-green-gin,
+  ),
+  // Atmosphere
+  flax-smoke: (
+    dark: $color-green-kelp,
+    primary: $color-green-bandicoot,
+    secondary: $color-yellow-solitaire,
+  ),
+  // Inland waters
+  steel-blue: (
+    dark: $color-blue-bluemine,
+    primary: $color-blue-boston-blue,
+    secondary: $color-green-granny-apple,
+  ),
+  // Land
+  sycamore: (
+    dark: $color-green-army,
+    primary: $color-green-highball,
+    secondary: $color-brown-tan,
+  ),
+  // Marine environment
+  fun-blue: (
+    dark: $color-blue-regal-blue,
+    primary: $color-blue-denim,
+    secondary: $color-blue-seagull,
+  ),
+  // Antartic
+  elm: (
+    dark: $color-green-cyprus,
+    primary: $color-blue-allports,
+    secondary: $color-blue-light-still-blue,
+  ),
+  // Biodiversity
+  killarney: (
+    dark: $color-green-zuccini,
+    primary: $color-green-japanese-laurel,
+    secondary: $color-green-primrose,
+  ),
+  // Heritiage
+  piper: (
+    dark: $color-brown-russet,
+    primary: $color-brown-chocolate,
+    secondary: $color-green-spring-rain,
+  ),
+  // Build environment
+  falcon: (
+    dark: $color-violet-loulou,
+    primary: $color-violet-cosmic,
+    secondary: $color-grey-silver,
+  ),
+  // Coast
+  rodeo-dust: (
+    dark: $color-brown-sour-dough,
+    primary: $color-brown-spice,
+    secondary: $color-green-jet-stream,
+  ),
+  // Driver
+  brown-opium: (
+     dark: $color-brown-liver,
+     primary: $color-brown-opium,
+     secondary: $color-blue-regent,
+  ),
+);

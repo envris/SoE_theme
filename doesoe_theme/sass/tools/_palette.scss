@@ -1,0 +1,12 @@
+// =============================================================================
+// Name:            Palette
+// Description:     Collection of functions to assist with palettes.
+// =============================================================================
+
+
+/**
+ * Return a value from a nested map.
+ */
+@function palette-get-color($palette-key, $variant: primary) {
+  @return map-deep-get($theme-palette, $palette-key, $variant);
+}

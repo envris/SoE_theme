@@ -1,0 +1,35 @@
+// Sidebar first
+// TODO: Move to layout component.
+
+$sidebar-first-border-right-width: 10px;
+
+.sidebar__first {
+  z-index: 30;
+  position: absolute;
+  width: $sidebar-first-width;
+  left: -$sidebar-first-width;
+  height: 100%;
+  background: $color-grey-mortar;
+  overflow-y: auto;
+  @include transition(left 0.5s ease);
+
+  @include at-bp(large) {
+    border-right: $sidebar-first-border-right-width solid $color-red-copper-rust;
+  }
+
+  // Default text color.
+  &, h2, h3, h4, a {
+    color: $color-white;
+  }
+
+  body.with-nav-side & {
+    @include at-bp($bp-side-nav-visible) {
+      left: 0;
+    }
+  }
+
+  .menu-open & {
+    left: 0;
+  }
+
+}

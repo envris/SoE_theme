@@ -1,0 +1,20 @@
+// An island is a box of highlighted content.
+
+@mixin island($background: $color-alabaster, $border-color: $color-grey) {
+  padding: $half-spacing-unit $base-spacing-unit;
+  border-left: 3px solid $border-color;
+  background: $background;
+  margin: $half-spacing-unit 0;
+
+  p {
+    margin: 0 0 $half-spacing-unit;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+%island {
+  @include island();
+}

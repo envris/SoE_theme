@@ -1,0 +1,62 @@
+// These are styles to assist authors PRE-LIVE. They identify missing content
+// throughout the site with some bold and bright colours.
+// Should only be visible by logged in  users.
+
+// Colours.
+$color-author-tools-highlight-1: #ff63b6;
+$color-author-tools-highlight-2: #a7ff7f;
+
+body.logged-in {
+
+  // REFERENCES.
+
+  // Unlinked.
+  span {
+    &.Footnote-reference,
+    &.Reference-InText,
+    &.CrossRef,
+    &.FigureRef {
+      background: $color-author-tools-highlight-1;
+    }
+  }
+
+  // Linked.
+  a {
+    &.footnote,
+    &.ref-inline,
+    &.ref-cross,
+    &.ref-figure,
+    > .Reference-InText {
+      background: $color-author-tools-highlight-2;
+    }
+  }
+
+  // ASSESSMENT SUMMARY REFERENCES.
+
+  .figframe__placeholder,
+  .ass-sum-ref__placeholder {
+    &:before {
+      content: "ASSESSMENT SUMMARY PLACEHOLDER";
+      margin: 40px 0 20px;
+      border: 5px solid $color-author-tools-highlight-1;
+      background: rgba($color-author-tools-highlight-1, 0.5);
+      font-weight: 800;
+      padding: 40px 10px;
+      text-align: center;
+      display: block;
+      font-size: 2em;
+    }
+  }
+
+  .figframe__placeholder {
+    background: $color-author-tools-highlight-1;
+    margin: 0 0 20px;
+    padding: 10px;
+    text-align: center;
+    &:before {
+      content: "MISSING FIGURE, MAP OR GRAPH PLACEHOLDER (FILE NOT FOUND)";
+      margin-bottom: 0;
+    }
+
+  }
+}

@@ -1,0 +1,28 @@
+
+.two-col,
+%two-col {
+  @include grid(2, '.grid-col');
+}
+
+.three-col,
+%three-col {
+  @include grid(3, '.grid-col');
+}
+
+.four-col,
+%four-col {
+  @include grid(4, '.grid-col');
+}
+
+
+.entity-paragraphs-item.two-col {
+  @include grid(2, '.entity-paragraphs-item');
+}
+
+.entity-paragraphs-item.three-col {
+  @include grid(3, '.entity-paragraphs-item');
+}
+
+.entity-paragraphs-item.four-col {
+  @include grid(4, '.entity-paragraphs-item');
+}

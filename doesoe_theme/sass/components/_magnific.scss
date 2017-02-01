@@ -1,0 +1,18 @@
+// Magnific popup default styles.
+
+.mfp-content {
+
+  max-width: 50em;
+  background: $color-white;
+  position: relative;
+
+  > div {
+    padding: $region-gutter-large;
+  }
+
+}
+
+.mfp-figure:after {
+  background: transparent;
+  box-shadow: none;
+}

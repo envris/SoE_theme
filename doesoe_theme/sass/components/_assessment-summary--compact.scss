@@ -1,0 +1,16 @@
+// An assessment summary report compact (used for embedding in a report).
+
+.ass-sum__compact {
+
+  &__label {
+    font-weight: $font-weight-medium;
+    padding: #{$qtr-spacing-unit / 2} 0;
+    font-size: 1.1em;
+  }
+
+  &__title {
+    font-weight: $font-weight-medium;
+    font-size: 1.3em;
+    margin-bottom: $qtr-spacing-unit;
+  }
+}

@@ -1,0 +1,12 @@
+// Links
+
+a {
+  @extend %generic-transition;
+  color: $color-link;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover, &:visited, &:focus {
+    text-decoration: none;
+    color: $color-link-hover;
+  }
+}

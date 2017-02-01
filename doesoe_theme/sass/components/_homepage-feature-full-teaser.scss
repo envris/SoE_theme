@@ -1,0 +1,99 @@
+.homepage-feature-full-teaser {
+  position: relative;
+  overflow: hidden;
+  max-height: 200px;
+
+  @include at-bp(medium) {
+    max-height: none;
+  }
+
+  &__image-wrap {
+    position: relative;
+    z-index: 5;
+
+    &:before {
+      @include position-absolute(top 0 bottom 0 left 0 right 0);
+      background: rgba($color-black, 0.3);
+      content: '';
+      z-index: 6;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+    &:before, img {
+      @include transition(0.5s all linear);
+    }
+  }
+
+  &__content {
+    @include position-absolute(top 5% bottom 0 left 0 right 0);
+    color: $color-white;
+    z-index: 10;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba($color-black, 0.5);
+    padding: $base-spacing-unit;
+    @include at-bp(large) {
+      top: 20%;
+    }
+  }
+
+  &__title {
+    font-size: 1.3em;
+    font-weight: $font-weight-regular;
+    margin-bottom: $base-spacing-unit;
+  }
+
+  &__body {
+    p {
+      margin: $base-spacing-unit 0;
+      color: rgba($color-white, 0.8);
+    }
+    @include at-bp(medium) {
+      &:after {
+        content: "FIND OUT MORE  ⟶";
+        color: rgba($color-white, 0.9);
+        opacity: 0;
+      }
+    }
+    &:after, p {
+      @include transition(0.5s all linear);
+    }
+  }
+
+  &__title,
+  &__body {
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__link {
+    a {
+      @include position-absolute(top 0 bottom 0 left 0 right 0);
+      z-index: 20;
+      text-indent: -99999px;
+      outline: none;
+    }
+  }
+
+  &:hover {
+    .homepage-feature-full-teaser {
+      &__image-wrap:before {
+        background: rgba($color-black, 0.6);
+      }
+      &__body {
+        p {
+          color: rgba($color-white, 0.6);
+        }
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+    img {
+      @include transform(scale(1.1));
+    }
+  }
+}

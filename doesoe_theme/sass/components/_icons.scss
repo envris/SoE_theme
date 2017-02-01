@@ -1,0 +1,28 @@
+
+// Create icon classes for bundles.
+// Format: .icon-bundle-{bundle_machine_name}
+@each $bundle, $icon-code in $icon-bundle-mappings {
+  .icon-bundle-#{$bundle} {
+    &:before {
+      content: icon-get-code($icon-code);
+    }
+  }
+}
+
+// Add as an outer field wrapper with the label as the icon
+// to style as a category under a title.
+.category-with-icon {
+  @extend %icon-category;
+
+  &__year {
+    @extend %icon-category-year;
+  }
+
+  &__topic {
+    @extend %icon-category-topic;
+  }
+
+  &__map-marker {
+    @extend %icon-category-map-marker;
+  }
+}

@@ -1,0 +1,35 @@
+// Table
+
+$cell-padding-tb:   0.5%;
+$cell-padding-lr:   1%;
+
+table {
+  background: $color-white;
+  font-weight: $font-weight-light;
+  font-size: $font-size-small;
+  width: 100%;
+  border: 1px solid $color-grey;
+  margin: $half-spacing-unit 0;
+}
+
+th {
+  background: $color-grey;
+  color: $color-white;
+  text-align: left;
+  font-weight: $font-weight-light;
+  padding: $cell-padding-tb $cell-padding-lr;
+  border: none;
+}
+
+tr {
+  &.odd,
+  &.even {
+    background-color: transparent;
+  }
+}
+
+td {
+  padding: $cell-padding-tb $cell-padding-lr;
+  border: 1px solid $color-grey;
+  border-width: 0 1px 1px 0;
+}

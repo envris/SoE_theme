@@ -1,0 +1,15 @@
+// Theme intro
+
+.theme-intro {
+  @extend %basic-content-typography;
+
+  &__year {
+    .views-exposed-form .views-exposed-widget .form-submit {
+      margin: 0;
+    }
+  }
+
+  &__sub-theme {
+    margin-bottom: $region-gutter-xlarge;
+  }
+}

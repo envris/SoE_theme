@@ -1,0 +1,60 @@
+.theme-framework_theme_item {
+  margin-bottom: $base-spacing-unit;
+  // Apply colour based on palette.
+  @each $palette-key, $palette-colors in $theme-palette {
+    &.row-palette__#{$palette-key} {
+      &, a {
+        color: palette-get-color($palette-key, dark);
+      }
+      .theme-framework_theme_item__icon {
+        background: palette-get-color($palette-key, dark);
+      }
+      .at-a-glance__content {
+        background: rgba(palette-get-color($palette-key, primary), .2);
+      }
+    }
+  }
+  &__title {
+    padding-bottom: $qtr-spacing-unit;
+    @include font-adjust-size-to($font-size-medium, $font-weight-medium);
+  }
+  &__icon {
+    @extend %icon-box;
+  }
+  &__content {
+    margin-left: 70px;
+  }
+  &__link, .at-a-glance__label {
+    line-height: $base-line-height * 1.1;
+    font-size: $font-size-regular * 1.02;
+  }
+  &__at-a-glance {
+    .at-a-glance-toggle-processed {
+      .at-a-glance__label {
+        cursor: pointer;
+        &:before {
+          content: '+';
+          display: inline-block;
+          width: 10px;
+        }
+      }
+      .at-a-glance__content {
+        display: none;
+      }
+      .open {
+        .at-a-glance__label:before {
+          content: '-';
+        }
+        .at-a-glance__content {
+          display: block;
+        }
+      }
+    }
+    .at-a-glance__content {
+      @include border-radius($qtr-spacing-unit);
+      padding: $qtr-spacing-unit $base-spacing-unit;
+      margin-top: $half-spacing-unit;
+      margin-bottom: $half-spacing-unit;
+    }
+  }
+}

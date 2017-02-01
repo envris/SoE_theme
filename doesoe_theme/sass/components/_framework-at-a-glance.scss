@@ -1,0 +1,23 @@
+.framework-at-a-glance {
+  &__icon {
+    &:before {
+      display: inline-block;
+      font-size: $font-size-xxlarge;
+      padding-right: $half-spacing-unit;
+      vertical-align: middle;
+    }
+    h4, h3 {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  &__glance {
+    padding: $region-gutter-large;
+    margin-bottom: $base-spacing-unit;
+    @include border-bottom-left-radius(30px);
+    p {
+      margin-bottom: $half-spacing-unit;
+      line-height: 1.7em;
+    }
+  }
+}

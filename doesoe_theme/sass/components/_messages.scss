@@ -1,0 +1,16 @@
+// Messages
+
+.messages.status {
+  @include message-style('status', $color-green-sushi,
+          $icon-font-family, icon-get-code('check'));
+}
+
+.messages.warning {
+  @include message-style('warning', $color-yellow-school-bus,
+          $icon-font-family, icon-get-code('warning'));
+}
+
+.messages.error {
+  @include message-style('error', $color-red-alizarin,
+          $icon-font-family, icon-get-code('error'));
+}

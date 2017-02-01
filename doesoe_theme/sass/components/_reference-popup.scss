@@ -1,0 +1,115 @@
+// Reference popup
+
+$ref-button-top:            50px;
+$ref-main-width:            80%;
+$ref-main-width-large:      60%;
+$ref-main-width-xlarge:     50%;
+$ref-main-margin-tb:        20px;
+$ref-main-padding-tb-large: 50px;
+$ref-header-height:         30px;
+$ref-bottom:                -1000px;
+$ref-default-col:           darken($color-brand-primary, 10%);
+$ref-default-col-alt:       lighten($color-brand-primary, 30%);
+
+.reference-popup {
+  @include transition(bottom 0.5s ease);
+  position: fixed;
+  left: 0;
+  bottom: $ref-bottom;
+  width: 100%;
+  z-index: 50;
+  color: $color-white;
+  padding: $region-gutter-large;
+  background: $ref-default-col;
+
+  &.is-active {
+    bottom: 0;
+  }
+
+  &__header {
+    height: $ref-header-height;
+    overflow: hidden;
+    position: relative;
+    margin: $ref-header-height 0;
+
+    @include at-bp(medium) {
+      margin: $ref-header-height 0;
+    }
+  }
+
+  &__title {
+    color: $ref-default-col-alt;
+    font-weight: $font-weight-light;
+  }
+
+  &__main {
+    margin: $ref-main-margin-tb 0;
+    position: relative;
+    @include at-bp(medium) {
+      width: $ref-main-width;
+      margin: 0 auto;
+    }
+
+    @include at-bp(large) {
+      width: $ref-main-width-large;
+      padding: $ref-main-padding-tb-large 0;
+    }
+
+    @include at-bp(xlarge) {
+      width: $ref-main-width-xlarge;
+    }
+  }
+  &__content {
+    @include at-bp(medium) {
+      margin: $ref-header-height 0;
+    }
+  }
+
+  &__close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: $ref-default-col-alt;
+    background: transparent;
+    height: $ref-header-height;
+    width: $ref-header-height;
+    outline: none;
+    &:before {
+      font-family: $icon-font-family;
+      font-size: $ref-header-height;
+      content: icon-get-code('close-circle');
+      display: block;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
+  &__copy-button {
+    outline: none;
+    background-color: transparent;
+    color: $color-white;
+    padding-left: 0;
+    &:before {
+      font-family: $icon-font-family;
+      font-size: $ref-header-height;
+      content: icon-get-code('copy');
+      display: inline-block;
+      position: relative;
+      bottom: -7px;
+      padding-right: $qtr-spacing-unit;
+    }
+  }
+  &__footer {
+    margin-bottom: $ref-header-height;
+  }
+
+  @each $palette-key, $palette-colors in $theme-palette {
+    &__palette__#{$palette-key} {
+      background: palette-get-color($palette-key, primary);
+      .reference-popup__title,
+      .reference-popup__close-button {
+        color: palette-get-color($palette-key, secondary);
+      }
+    }
+  }
+}

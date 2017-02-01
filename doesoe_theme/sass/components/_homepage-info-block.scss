@@ -1,0 +1,37 @@
+.homepage-info-block {
+  text-align: center;
+  background: image-url('brand-gradient-pattern.png'), $color-brand-primary;
+  position: relative;
+  padding: $double-spacing-unit $base-spacing-unit;
+  background-attachment: fixed;
+
+  .pane-content {
+    color: transparentize($color-white, 0.6);
+    max-width: 690px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+
+    p {
+      font-size: $font-size-large;
+    }
+
+    h2 {
+      color: $color-white;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xlarge *  1.25;
+      margin-bottom: $base-spacing-unit;
+    }
+  }
+
+  @include at-bp(medium) {
+    height: 50vh;
+
+    .pane-content {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      @include transform(translateY(-50%));
+    }
+  }
+}

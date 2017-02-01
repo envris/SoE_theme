@@ -1,0 +1,119 @@
+// Base colors.
+
+$color-grey-night-rider:      #333333;
+$color-grey-mortar:           #575757;
+$color-grey-dark:             #9f9f9f;
+$color-green-tiber:           #1a4d4c;
+$color-grey-dim-gray:         #727272;
+$color-red-pink-flare:        #debbbb;
+$color-blue-seagull:          #79aece;
+$color-green-dell:            #3e5e2c;
+$color-green-apple:           #68a041;
+$color-green-gin:             #d1dbc5;
+$color-green-kelp:            #4b4d3e;
+$color-green-bandicoot:       #7e8066;
+$color-yellow-solitaire:      #eddbcb;
+$color-blue-bluemine:         #2e5a6a;
+$color-blue-boston-blue:      #4990aa;
+$color-green-granny-apple:    #cbe7d3;
+$color-yellow-broze-olive:    #585523;
+$color-green-highball:        #9a953a;
+$color-brown-tan:             #d1ba8d;
+$color-blue-regal-blue:       #1c3867;
+$color-blue-denim:            #155da5;
+$color-green-cyprus:          #125255;
+$color-blue-allports:         #1f7e87;
+$color-steel-blue:            #4a90ab;
+$color-blue-light-still-blue: #bbd0e1;
+$color-green-zuccini:         #174724;
+$color-green-japanese-laurel: #316f3c;
+$color-green-primrose:        #d1e289;
+$color-brown-russet:          #8b3a1d;
+$color-brown-chocolate:       #c15120;
+$color-green-spring-rain:     #afc4a6;
+$color-violet-loulou:         #533a47;
+$color-violet-cosmic:         #7e596c;
+$color-grey-silver:           #c6c4c4;
+$color-brown-spice:           #6c513d;
+$color-brown-sour-dough:      #c6ad99;
+$color-green-jet-stream:      #bed2d2;
+$color-red-copper-rust:       #9a504f;
+$color-grey-charcoal:         #464646;
+$color-white:                 #ffffff;
+$color-black:                 #000000;
+$color-mine-shaft:            #262626;
+$color-grey:                  #787878;
+$color-grey-sub:              #8c8c8c;
+$color-blue-madison:          #30465d;
+$color-white-gainsboro:       #e4e4e4;
+$color-blue-pacific-blue:     #00aac6;
+$color-red-charm:             #d17f85;
+$color-green-sushi:           #7cb739;
+$color-green-wasabi:          #819939;
+$color-yellow-school-bus:     #fbd800;
+$color-red-alizarin:          #e71923;
+$color-grey-mortar:           #515151;
+$color-grey-alto:             #dddddd;
+$color-grey-silver:           #cccccc;
+$color-blue-boston:           #3a8a9e;
+$color-alabaster:             #fafafa;
+$color-gallery:               #f0f0f0;
+$color-brown-opium:           #9C8A8B;
+$color-brown-liver:           #565456;
+$color-blue-regent:           #93BBD7;
+$color-green-army:            #585520;
+$color-green-highball:        #9B963B;
+$color-grey-gallery:          #eeeeee;
+$color-silver-sand:           #C7C8CA;
+$color-oslo-gray:             #939598;
+$color-mercury:               #e5e5e5;
+$color-silver:                #BBBBBB;
+
+$color-red-punch:              #c83320;
+$color-orange-peel:            #f49800;
+$color-yellow-supernova:       #f8c800;
+$color-green-buddha-gold:      #bebe00;
+$color-green-citron:           #84b027;
+
+// Brand
+$color-brand-primary:         $color-red-copper-rust;
+
+// Historic colors (alternate for theme palette)
+$color-historic-text:         $color-grey-dim-gray;
+
+// Borders
+$color-border-dark:           $color-grey-dark;
+$color-border-light:          $color-grey-alto;
+$color-border-extra-light:    $color-mercury;
+
+// Text
+$color-heading:               $color-grey-charcoal;
+$color-heading-strong:        $color-black;
+$color-body:                  $color-grey-charcoal;
+
+// Links
+$color-link:                  $color-brand-primary;
+$color-link-hover:            $color-brand-primary;
+
+// Icons
+$color-category-icon:         $color-silver;
+
+// Sidebar Second
+$color-sbs-text-level-1: $color-heading-strong;
+$color-sbs-text-level-2: $color-historic-text;
+$color-sbs-heading-text: $color-white;
+$color-sbs-icon: $color-silver-sand;
+
+
+// See _palette.scss for category based colour palettes.
+
+// Assessment summary palettes (used ass sum visualisations)
+// 4 point scale (default).
+$colors-ass-sum-grade-4: #79b843 #ffc340 #ff9528 #dd3a24;
+$colors-ass-sum-grade-4-historic: #c4c4c6 #9a9b9f #6f7175 #595b60;
+// 5 point scale (atmosphere).
+$colors-ass-sum-grade-5: #21b7cb #79b843 #ffc340 #ff9528 #f02d92;
+$colors-ass-sum-grade-5-historic: #c4c4c6 #9a9b9f #6f7175 #595b60 #42454a;
+
+// Risk table colours.
+$colors-table-risk: $color-white $color-red-punch $color-orange-peel $color-yellow-supernova $color-green-buddha-gold $color-green-citron;

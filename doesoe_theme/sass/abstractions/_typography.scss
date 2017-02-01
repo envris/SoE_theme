@@ -1,0 +1,60 @@
+// Typography abstractions.
+
+// Base heading.
+%heading {
+  font-family: $base-font-family;
+  color: $color-heading;
+}
+
+// Improves readability of white text on an image.
+%hero-shadow {
+  text-shadow: 0 1px 10px rgba($color-black, 0.4);
+}
+
+// Basic content typography. Great for content blocks.
+%basic-content-typography {
+  p {
+    margin-bottom: 1em;
+  }
+  h2 {
+    margin-top: 0.5em;
+  }
+  h2, h3 {
+    margin-top: 1em;
+  }
+  h4, h5 {
+    margin-top: 1.5em;
+  }
+}
+
+
+// Landing page headings.
+@mixin landing-heading($font-size) {
+  font-weight: $font-weight-bold;
+  font-size: $font-size;
+  &, a {
+    @include link-color($color-mine-shaft);
+  }
+  a:hover {
+    color: $color-link-hover;
+  }
+}
+%landing-heading {
+  &__alpha {
+    @include landing-heading($font-size-xlarge);
+  }
+  &__beta {
+    @include landing-heading($font-size-large);
+  }
+  &__gamma {
+    @include landing-heading($font-size-medium);
+  }
+}
+
+// Landing page text.
+@mixin landing-text() {
+  color: $color-grey-dim-gray;
+}
+%landing-text {
+  @include landing-text;
+}

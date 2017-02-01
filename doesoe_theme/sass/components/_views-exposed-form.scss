@@ -1,0 +1,22 @@
+// Generic views exposed form styles.
+.views-exposed-form {
+
+  label {
+    font-weight: $font-weight-regular;
+    margin: 0 0 $qtr-spacing-unit 0;
+  }
+
+  .views-exposed-widget .form-submit {
+    margin-top: 1em;
+  }
+
+}
+
+// Re-apply views js-hide with important to prevent overrides.
+html.js .js-hide {
+  display: none !important;
+}
+
+.default-view-style {
+
+}

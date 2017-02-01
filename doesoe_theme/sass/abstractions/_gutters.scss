@@ -1,0 +1,28 @@
+// Gutter mixins.
+
+// Add a horizontal gutter (padding top/bottom).
+@mixin gutter-horizontal($size) {
+  padding-left: $size;
+  padding-right: $size;
+}
+
+// Add a vertical gutter (padding top/bottom).
+@mixin gutter-vertical($size) {
+  padding-top: $size;
+  padding-bottom: $size;
+}
+
+// Adjust left & right gutters depending on breakpoint.
+@mixin gutter-responsive() {
+  @include gutter-horizontal($region-gutter-small);
+  @include at-bp(large) {
+    @include gutter-horizontal($region-gutter-large);
+  }
+  @include at-bp(xlarge) {
+    @include gutter-horizontal($region-gutter-xlarge);
+  }
+}
+
+%gutter-responsive {
+  @include gutter-responsive();
+}

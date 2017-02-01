@@ -1,0 +1,57 @@
+%historic-banner {
+  overflow-y: hidden;
+  display: none;
+  background: $color-grey-alto;
+  color: $color-grey-charcoal;
+
+  // Only display if body has historic content class.
+  .historic-content & {
+    display: block;
+    border-bottom: 1px solid $color-grey-silver;
+  }
+
+  // Search pages require an extra margin.
+  .section-search &,
+  .section-assessment-summary-components & {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  .block__content {
+    text-align: center;
+    @include gutter-vertical($half-spacing-unit);
+    @extend %gutter-responsive;
+  }
+
+  strong {
+    font-size: $font-size-medium;
+    padding-right: $half-spacing-unit;
+    font-weight: $font-weight-regular;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    z-index: 9999999;
+  }
+
+  .block__content {
+    @include at-bp(large) {
+      @include span(12);
+    }
+    @include at-bp(xlarge) {
+      @include span(13);
+    }
+    @include at-bp(xxlarge) {
+      @include span(14);
+    }
+  }
+
+}
+
+#block-bean-historic-banner {
+  @extend %historic-banner;
+}

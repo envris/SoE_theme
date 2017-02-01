@@ -1,0 +1,292 @@
+// Slider
+$slider-z-index-top: 10;
+$slider-z-index-mid: 5;
+$slider-z-index-bottom: 1;
+$slider-teaser-height: 90px;
+$slider-teaser-width: 400px;
+$slider-teaser-padding: 15px;
+$slider-medium-bp: medium;
+$slider-large-bp: xlarge;
+
+
+// Standard style for a slider control.
+%slider-control {
+  opacity: 0.5;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// Slider height based on screen size
+%slider-height {
+  height: 600px;
+  height: 93vh;
+  @include at-bp($slider-medium-bp) {
+    height: 720px;
+    height: 95vh;
+  }
+  @include at-bp($slider-large-bp) {
+    height: 1080px;
+    height: 100vh;
+  }
+}
+
+// Slider container.
+.slider {
+  @extend %slider-height;
+
+  // Image is set as background image so we can background cover.
+  &__image {
+    @extend %slider-height;
+    background-position: 50% 50%;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    &:before {
+      @include position-absolute(top 0 bottom 0 left 0 right 0);
+      background-position: 50% 50%;
+      background-image: image-url('slide-overlay-small.png');
+      content: "";
+      @include at-bp($slider-large-bp) {
+        background-image: image-url('slide-overlay.png')
+      }
+    }
+  }
+
+  // Slide content.
+  &__content {
+    @include position-absolute(top 5% left 5% right 5%);
+    @include container(600px);
+    z-index: 10;
+
+    &, h2 {
+      color: $color-white;
+    }
+
+    h2 {
+      font-size: 2em;
+      font-weight: $font-weight-bold;
+      line-height: 1.2em;
+    }
+
+    @include at-bp($slider-medium-bp) {
+      top: 20%;
+    }
+
+    @include at-bp($slider-large-bp) {
+      max-width: 400px;
+      top: 30%;
+      left: 55%;
+      right: auto;
+    }
+  }
+
+  // Slide text.
+  &__body {
+    margin: $base-spacing-unit 0 $base-spacing-unit;
+    font-weight: $font-weight-light;
+    font-size: 1.1em;
+    color: rgba($color-white, 0.8);
+    @include at-bp($slider-medium-bp) {
+      margin-bottom: $one-n-half-spacing-unit;
+    }
+  }
+
+  // Teaser showing next slide in bottom right corner.
+  &__next-teaser {
+    @include position-absolute(bottom 0 right 0);
+    @include transition(0.5s all linear);
+    z-index: 20;
+    width: $slider-teaser-height - 20;
+    height: $slider-teaser-height - 20;
+    border-radius: 30px 0 0 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: $color-white;
+    display: none;
+    &:hover {
+      background: darken($color-white, 5%);
+      box-shadow: 0 2px 5px 0 rgba($color-black, 0.1);
+    }
+    @include at-bp(large) {
+      display: block;
+      height: $slider-teaser-height;
+      width: $slider-teaser-width;
+    }
+    &__img {
+      width: $slider-teaser-height;
+      height: $slider-teaser-height;
+      background-size: cover;
+      float: left;
+      margin-right: $slider-teaser-padding;
+    }
+    &__title {
+      margin: $slider-teaser-padding 0;
+      span {
+        text-transform: uppercase;
+        color: $color-oslo-gray;
+        font-size: 0.9em;
+      }
+      h4 {
+        font-size: 1.1em;
+        margin: 0 #{$slider-teaser-padding * 2} 0 0;
+      }
+      &:after {
+        @include icon-style();
+        @include position-absolute(bottom 0 right 0 top 0 left 0);
+        content: icon-get-code(arrow-next);
+        margin: auto $half-spacing-unit;
+        height: 14px;
+        opacity: 0.8;
+        text-align: center;
+        color: $color-white;
+        @include at-bp($slider-medium-bp) {
+          color: $color-body;
+          left: auto;
+        }
+      }
+    }
+
+  }
+
+  // Scroll down to next section (mouse).
+  &__scroll-next {
+    @extend %slider-control;
+    @include position-absolute(bottom 3em right 0 left 0);
+    background: image-url('slide-mouse.png') 0 0 no-repeat;
+    margin: 0 auto;
+    width: 22px;
+    height: 48px;
+    text-indent: -9999px;
+    @include animation(bounce 4s infinite);
+    display: none;
+    @include at-bp(small) {
+      display: block;
+    }
+  }
+
+  // Play/Pause.
+  &__toggle-slideshow {
+    @extend %slider-control;
+    @include position-absolute(bottom 1.8em left 1.8em);
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+    z-index: 50;
+    span {
+      display: block;
+      width: 18px;
+      height: 18px;
+      background: image-url('slide-pause.png') 0 0 no-repeat;
+    }
+    &.paused span {
+      background-position: -18px 0;
+    }
+  }
+
+  // CTA in content.
+  .button--primary {
+    background: none;
+    border: none;
+    padding: 0;
+
+    a {
+      @include border-radius(0 0 0 10px);
+      @include transition(all 0 linear);
+      background: $color-white;
+      font-weight: $font-weight-bold;
+      padding: 15px 15px;
+      display: inline-block;
+      margin-bottom: $base-spacing-unit;
+      font-size: 1.1;
+
+      &, &:visited, &:focus, &:active {
+        color: $color-body;
+      }
+      &:hover {
+        background: $color-brand-primary;
+        color: $color-white;
+      }
+      @include at-bp(small) {
+        padding: 15px 35px;
+      }
+    }
+  }
+}
+
+// iOS height fix.
+@include vh_ios('.slider, .slider__image', 100);
+
+// Slick styles.
+.slick-slider {
+
+  // Prev/Next arrows.
+  .slick-arrow {
+    @extend %slider-control;
+    @include position-absolute(bottom 1.7em);
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    background: none;
+    outline: none;
+    cursor: pointer;
+
+    i {
+      color: $color-white;
+      outline: none;
+      font-size: 1.5em;
+    }
+
+    &.slick-prev {
+      left: 0;
+      display: none !important; // No prev arrow.
+    }
+    &.slick-next {
+      right: 1.9em;
+      @include at-bp(large) {
+        display: none !important; // Only show at small bp. gets replaced with next teaser.
+      }
+    }
+
+    @include at-bp($slider-large-bp) {
+      display: none; // Remove to used prev-next arrows.
+    }
+  }
+
+  // Slick pagination.
+  .slick-dots {
+    display: none !important; // Remove to enable dots.
+    @include position-absolute(left 0 bottom 0.5em);
+    z-index: 20;
+    li {
+      display: inline-block;
+      width: 25px;
+      &.slick-active button {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+    button {
+      background: $color-white;
+      text-indent: -9999px;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      opacity: 0.5;
+      display: block;
+      padding: 0;
+      outline: none;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .toggle-slideshow {
+    @include position-absolute(left 0 bottom 0);
+    width: 5em;
+    height: 5em;
+    z-index: 20;
+  }
+}

@@ -1,0 +1,13 @@
+// Default static hero (when not using a dynamic hero.
+
+// Adds a background to emulate a hero, used on pages which
+// have forms or complex markup in the hero. Eg. search.
+@mixin hero-static($image: 'default-hero-static.jpg') {
+  background: $color-grey-charcoal 50% 50% no-repeat;
+  background-size: cover;
+  background-image: image-url($image);
+}
+
+%hero-static {
+  @include hero-static();
+}

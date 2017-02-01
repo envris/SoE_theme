@@ -1,0 +1,92 @@
+//// Key finding teaser
+$fw-content-margin-left:      55px;
+
+%key-finding-teaser,
+.key-finding-teaser {
+
+  &__icon {
+    @extend %icon-circle;
+  }
+
+  &__content {
+    margin-left: $fw-content-margin-left;
+    a {
+      color: $color-grey-dim-gray;
+      &:hover {
+        color: $color-brand-primary;
+      }
+    }
+    h4 {
+      @extend %landing-heading__gamma;
+    }
+    p {
+      @extend %landing-text;
+      &:last-child {
+        padding-bottom: $qtr-spacing-unit;
+      }
+    }
+  }
+
+  &__title {
+    margin: $qtr-spacing-unit 0 $half-spacing-unit;
+  }
+
+  &__theme {
+    .label {
+      @extend %btn-uppercase;
+      padding-right: $half-spacing-unit;
+      font-size: 0.9em;
+    }
+  }
+
+  &__year {
+    float: right;
+  }
+
+  &__term-label {
+    color: $color-mine-shaft;
+  }
+
+  &__body {
+    padding-bottom: $qtr-spacing-unit;
+  }
+
+  &__relates-to {
+    > strong {
+      @extend %btn-uppercase;
+      display: inline-block;
+      padding-right: $three-qtr-spacing-unit;
+    }
+    > div {
+      display: inline-block;
+    }
+  }
+
+}
+
+// Full key finding teaser.
+.key-finding {
+
+  &__body {
+    @extend %key-finding-teaser__body;
+  }
+
+  &__relates-to {
+    @extend %key-finding-teaser__relates-to;
+  }
+
+  &__year {
+    @extend %icon-category-year;
+    @extend %key-finding-teaser__year;
+  }
+
+  &__theme {
+    @extend %key-finding-teaser__theme;
+  }
+
+  .category-with-icon__year span,
+  .theme-icon__title {
+    @extend %key-finding-teaser__term-label;
+  }
+}
+

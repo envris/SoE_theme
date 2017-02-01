@@ -1,0 +1,61 @@
+
+.bean--subscribe-box-form {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.20);
+  margin-bottom: $double-spacing-unit;
+
+  .form-text {
+    height: $header-search-height;
+    background: $color-alabaster;
+    font-size: $font-size-base;
+    border: 0;
+  }
+
+  form {
+    position: relative;
+  }
+
+  .form-actions {
+    position: absolute;
+    background: $color-white;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+    &:before {
+      @extend %icon;
+      content: icon-get-code(ic_arrow);
+      color: $color-red-copper-rust;
+      font-size: $font-size-large;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      @include transform(translate(-50%, -50%))
+    }
+  }
+
+  .form-submit {
+    margin: 0;
+    height: $header-search-height;
+    width: $header-search-button-width;
+    border-radius: 0;
+    padding: 0;
+    border-left: 1px solid $color-white-gainsboro;
+    background: transparent;
+    text-indent: -9999px;
+    position: relative;
+  }
+}
+
+.bean--subscribe-box-text {
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  font-size: $font-size-base;
+  text-align: center;
+  margin-bottom: $base-spacing-unit;
+
+  @include at-bp(medium) {
+    text-align: left;
+  }
+}

@@ -1,0 +1,18 @@
+// Buttons
+
+.button--primary {
+  @include button-style($color-white, $color-blue-madison, $color-blue-pacific-blue);
+}
+
+.button--secondary {
+  @include button-style($color-red-copper-rust, $color-white, $color-red-charm);
+}
+
+.button--pill {
+  @extend %btn-pill;
+}
+
+.button--arrow--wrapper a,
+.button--arrow {
+  @extend %btn-arrow;
+}

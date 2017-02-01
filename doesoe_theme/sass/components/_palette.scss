@@ -1,0 +1,183 @@
+// =============================================================================
+// Name:            Palette component
+// Description:     Apply palettes to elements within the site based on body
+//                  palette__X class.
+// =============================================================================
+
+body.palette {
+  @each $palette-key, $palette-colors in $theme-palette {
+    &__#{$palette-key} {
+      // Add elements requiring theme palette based colors here.
+
+      // A generic class that can be added to a wrapper to apply theme palette to its children.
+      .theme-palette-inherit {
+        color: palette-get-color($palette-key, primary);
+      }
+      .theme-palette-inherit-links a {
+        color: palette-get-color($palette-key, primary);
+      }
+      .theme-palette-inherit__dark {
+        color: palette-get-color($palette-key, dark);
+      }
+      .theme-palette-inherit-links__dark a {
+        color: palette-get-color($palette-key, dark);
+      }
+      .theme-palette-inherit-headings__dark {
+        h1, h2, h3, h4, h5, h6 {
+          &, a {
+            color: palette-get-color($palette-key, dark);
+          }
+        }
+      }
+
+      // First sidebar (nav)
+      .sidebar__first {
+        border-right-color: palette-get-color($palette-key, primary);
+
+        ul.menu > li li {
+          > a {
+            &:hover {
+              background-color: palette-get-color($palette-key, primary);
+            }
+            &.active {
+              background-color: palette-get-color($palette-key, primary);
+            }
+          }
+        }
+
+        .link-header {
+          border-left-color: palette-get-color($palette-key, primary) !important;
+        }
+      }
+
+      // Second sidebar (content).
+      .sidebar__second__content {
+        .block {
+          .block__title:before {
+            background: palette-get-color($palette-key, primary);
+          }
+        }
+      }
+
+      // Tables.
+      table, td {
+        border-color: rgba(palette-get-color($palette-key, dark), 0.4);
+      }
+      th {
+        background: palette-get-color($palette-key, dark);
+      }
+
+      // Islands.
+      .island {
+        background: rgba(palette-get-color($palette-key, primary), 0.15);
+        border-color: palette-get-color($palette-key, primary);
+      }
+
+      // Charts and maps action buttons.
+      .map__actions a,
+      .ckan-display-table button {
+        background-color: palette-get-color($palette-key, dark);
+        color: $color-white;
+      }
+
+      // Hero feature
+      .content-feature {
+        background-color: rgba(palette-get-color($palette-key, primary), 0.75);
+      }
+
+      // Key finding
+      .node-key-finding.current-year {
+        .key-finding-teaser__icon {
+          background-color: palette-get-color($palette-key, primary);
+        }
+      }
+
+      // Framework
+      .frameworks-teaser {
+        &__icon {
+          background: palette-get-color($palette-key, primary);
+        }
+      }
+
+      // Reference popup
+      .reference-popup {
+        background: palette-get-color($palette-key, primary);
+        &__title,
+        &__close-button {
+          color: palette-get-color($palette-key, secondary);
+        }
+      }
+
+      // Assessment summary
+      .ass-sum__circle-icon {
+        background: palette-get-color($palette-key, primary);
+      }
+
+      .node-assessment-summary.ds-link-teaser {
+        color: palette-get-color($palette-key, dark);
+        &:hover {
+          color: palette-get-color($palette-key, primary);
+        }
+      }
+
+      .layout__content {
+        .report-topic__full__components {
+          h1, h2, h3, h4, h5, h6 {
+            &, a {
+              color: palette-get-color($palette-key, dark);
+            }
+          }
+        }
+        .paragraphs-item-basic-content {
+          a {
+            color: palette-get-color($palette-key, primary);
+          }
+        }
+      }
+
+      // Topic teaser.
+      .ds-icon-teaser.current-year {
+        a, .ds-icon-teaser__side {
+          color: palette-get-color($palette-key, dark);
+        }
+        a:hover {
+          color: palette-get-color($palette-key, primary);
+        }
+      }
+
+      // Box content
+      .highlight {
+        background: rgba(palette-get-color($palette-key, primary), .2);
+        color: palette-get-color($palette-key, dark);
+        h4 {
+          color: palette-get-color($palette-key, dark);
+        }
+      }
+
+      // Framework at a glance
+      .framework-at-a-glance__glance {
+        background: rgba(palette-get-color($palette-key, primary), .2);
+        color: palette-get-color($palette-key, dark);
+        h3 {
+          color: palette-get-color($palette-key, dark);
+        }
+      }
+
+      // Table of contents.
+      .bean--topic-table-of-contents {
+        &, a {
+          color: palette-get-color($palette-key, dark);
+        }
+      }
+
+      // Logo+Footer
+      .header__branding,
+      .footer {
+        background-color: palette-get-color($palette-key, primary);
+      }
+      .bean--subscribe-box-form .form-actions:before {
+        color: palette-get-color($palette-key, primary);
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+// Highlight styles.
+
+.highlight {
+  padding: $region-gutter-large;
+  background: rgba($color-grey-alto, 0.3);
+  margin-bottom: $base-spacing-unit;
+
+  h4 {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  .island {
+    // Override island colour when in a highlight/box content.
+    background: rgba($color-white, 0.5) !important;
+  }
+}

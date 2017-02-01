@@ -1,0 +1,21 @@
+// Styles for a full ass sum page.
+
+.ass-sum__full {
+
+  &__year,
+  &__theme,
+  &__framework,
+  &__topics {
+    @extend %icon-category;
+
+    // Hide categories if embedded.
+    .paragraphs-item-assessment-summary-reference & {
+      display: none;
+    }
+  }
+
+  &__topics {
+    @extend %icon-category-topic;
+  }
+}
+

@@ -1,0 +1,209 @@
+// Menu side menu (mobile and desktop).
+
+// Variables.
+$nav-side-active-bg-color:            $color-grey-charcoal;
+$nav-side-border-color:               rgba($color-border-light, 0.1);
+$nav-side-link-vertical-gutter-small: $half-spacing-unit;
+$nav-side-link-vertical-gutter-large: 15px;
+$nav-side-link-with-icon-inset:       4.1em;
+$nav-side-heading-with-icon-inset:    2.8em;
+$nav-side-heading-icon-size:          1.2em;
+$nav-side-icon-size:                  1.7em;
+
+
+// Styles for a single link in the side nav.
+%menu-side__link {
+  border-top: 1px solid $nav-side-border-color;
+  border-left: 5px solid transparent;
+  background: none;
+  padding: $nav-side-link-vertical-gutter-small $base-spacing-unit;
+  display: block;
+  font-weight: $font-weight-light;
+  color: rgba($color-alabaster, 0.9);
+  position: relative;
+
+  &:focus,
+  &:hover {
+    background-color: rgba($nav-side-active-bg-color, 0.6);
+    outline: none;
+  }
+
+  // No icon for mobile.
+  .icon {
+    display: none;
+    opacity: 0.8;
+  }
+
+  // Desktop link style tweaks (adding icon).
+  @include at-bp($bp-side-nav-visible) {
+    @include gutter-vertical($nav-side-link-vertical-gutter-large);
+    color: $color-alabaster;
+    border: none;
+    padding-left: #{$base-spacing-unit + 5};
+
+    .icon {
+      display: block;
+      font-size: $nav-side-icon-size;
+      @include position-absolute(top $region-gutter-small left $region-gutter-large);
+    }
+
+    &.with-icon {
+      padding-left: $nav-side-link-with-icon-inset;
+    }
+  }
+}
+
+%link-header {
+  background: $nav-side-active-bg-color;
+  border-left-color: $color-brand-primary;
+  color: $color-white;
+
+  @include at-bp($bp-side-nav-visible) {
+    @include gutter-vertical(16px);
+    margin-top: $half-spacing-unit;
+    font-size: $font-size-xlarge;
+    line-height: 1.1;
+    background: none;
+    .icon {
+      font-size: $nav-side-heading-icon-size;
+    }
+    &.with-icon {
+      padding-left: $nav-side-heading-with-icon-inset;
+    }
+  }
+}
+
+
+// Styles for the full side nav tree.
+%menu-side__tree,
+.menu-side__tree {
+
+  .block__header {
+    display: none;
+  }
+
+  .block__content {
+
+    ul.menu {
+
+      a {
+        @extend %menu-side__link;
+      }
+
+      > li {
+
+        > a {
+
+          &.link-header {
+            @extend %link-header;
+          }
+        }
+
+        // Suppress sub levels (3+).
+        ul ul {
+          display: none;
+        }
+
+        // Second level.
+        li {
+          position: relative;
+
+          // Right arrow.
+          &:after {
+            @include position-absolute(top 35% right $base-spacing-unit);
+            @extend %icon;
+            content: icon-get-code(arrow-next);
+            z-index: 5;
+            color: rgba($color-black, 0.4);
+          }
+
+          &.active:after {
+            color: $color-white;
+          }
+
+          a.active {
+            border-left-color: transparent !important;
+            background: rgba($nav-side-active-bg-color, 0.5);
+            color: $color-white;
+          }
+
+          // Right arrow changes colour at desktop.
+          @include at-bp($bp-side-nav-visible) {
+            &:after {
+              color: rgba($color-border-light, 0.5);
+            }
+          }
+        }
+      }
+
+      // Special condition for themes tree on desktop, no arrow :(
+      .tree__themes {
+        @include at-bp($bp-side-nav-visible) {
+          li:after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .back-link {
+      @extend %menu-side__link;
+
+      span {
+        @include icon(arrow-prev);
+        font-size: $font-size-xsmall;
+        margin-right: $half-spacing-unit;
+        font-weight: $font-weight-bold;
+      }
+
+      // Don't need a back link on desktop.
+      @include at-bp($bp-side-nav-visible) {
+        margin-top: $base-spacing-unit;
+
+        span {
+          // Left arrow.
+          padding: 10px;
+          width: 32px;
+          height: 32px;
+          display: inline-block;
+          text-align: center;
+        }
+      }
+    }
+
+    // Hide the icon if depth is 2 or 3. Required for atmo theme with 3 levels.
+    .depth-2,
+    .depth-3 {
+      ul.menu ul.menu .menu__link.with-icon {
+        padding-left: #{$base-spacing-unit + 5};
+        .icon {
+          display: none;
+        }
+      }
+    }
+
+  }
+
+}
+
+// Only thing in the first sidebar should be the menu.
+// A fairly loose selector is used so it is easier to override (eg palettes).
+.sidebar__first {
+  @extend %menu-side__tree;
+
+  body.with-nav-side.no-main-menu-sidebar & {
+    #block-menu-block-govcms-menu-block-main-menu {
+      display: none;
+    }
+    #block-menu-block-4 .block__header {
+      display: block;
+      .block__title {
+        font-size: $font-size-base;
+        a {
+          @extend %link-header;
+          @extend %menu-side__link;
+        }
+      }
+    }
+  }
+}

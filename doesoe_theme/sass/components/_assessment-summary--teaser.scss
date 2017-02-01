@@ -1,0 +1,28 @@
+// An assessment summary report teaser.
+
+.ass-sum__teaser {
+
+  &__years,
+  &__framework {
+    @extend %icon-category;
+  }
+
+  &__years {
+    @extend %icon-category-year;
+  }
+
+  &__year {
+    padding-right: $qtr-spacing-unit;
+  }
+
+  &__read-more {
+    display: block;
+
+    a {
+      &:before {
+        content: "> ";
+      }
+    }
+  }
+
+}

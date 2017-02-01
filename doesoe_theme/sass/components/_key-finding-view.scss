@@ -1,0 +1,25 @@
+$key-finding-view__select-width: 250px;
+
+.view-key-findings-by-theme {
+  .view-filters {
+    .views-exposed-widget {
+      width: 100%;
+      display: block;
+      float: none;
+      @include at-bp(small) {
+        width: $key-finding-view__select-width;
+      }
+    }
+    select {
+      width: 100%;
+    }
+    .views-exposed-widget__actions, .views-exposed-widget__elements {
+      @include at-bp(small) {
+        display: inline-block;
+      }
+    }
+    .form-submit {
+      margin: $half-spacing-unit 0;
+    }
+  }
+}

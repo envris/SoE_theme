@@ -1,0 +1,72 @@
+// Typography
+
+@font-face {
+  font-family: "Icons for Assessment Summary Table";
+  src:url('../fonts/doesoe-icons/assessment-summary/icons-for-assessment-summary-table.eot');
+  src:url('../fonts/doesoe-icons/assessment-summary/icons-for-assessment-summary-table.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/doesoe-icons/assessment-summary/icons-for-assessment-summary-table.woff') format('woff'),
+  url('../fonts/doesoe-icons/assessment-summary/icons-for-assessment-summary-table.ttf') format('truetype'),
+  url('../fonts/doesoe-icons/assessment-summary/icons-for-assessment-summary-table.svg#') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: $icon-font-family;
+  src:url('../fonts/icomoon/fonts/icomoon.eot');
+  src:url('../fonts/icomoon/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/icomoon/fonts/icomoon.woff') format('woff'),
+  url('../fonts/icomoon/fonts/icomoon.ttf') format('truetype'),
+  url('../fonts/icomoon/fonts/icomoon.svg#') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: $base-font-family;
+  font-weight: $font-weight-regular;
+  font-size:  $font-size-base;
+  line-height: $base-line-height;
+  color: $color-body;
+  background: $color-white;
+}
+
+h1, h2, h3, h4, h5 {
+  @extend %heading;
+}
+
+h1 {
+  @include font-adjust-size-to($font-size-xxlarge, $font-weight-regular);
+}
+h2 {
+  @include font-adjust-size-to($font-size-xlarge, $font-weight-regular);
+}
+h3 {
+  @include font-adjust-size-to($font-size-large, $font-weight-medium);
+}
+h4 {
+  @include font-adjust-size-to($font-size-medium, $font-weight-medium);
+}
+h5 {
+  @include font-adjust-size-to($font-size-regular, $font-weight-medium);
+  color: $color-grey-charcoal;
+}
+h6 {
+  @include font-adjust-size-to($font-size-regular, $font-weight-regular);
+}
+
+p {
+  line-height: $base-line-height * 1.1;
+  &.small {
+    font-size: $font-size-small;
+  }
+}
+
+ul {
+  @extend %list-default;
+}
+
+ol {
+  @extend %list-numbered-default;
+}

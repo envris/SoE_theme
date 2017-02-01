@@ -1,0 +1,13 @@
+
+%figure,
+.figure {
+  margin-bottom: $half-spacing-unit;
+
+  &__image {
+    margin-bottom: $base-spacing-unit;
+  }
+}
+
+.paragraphs-item-figure {
+  @extend %figure;
+}

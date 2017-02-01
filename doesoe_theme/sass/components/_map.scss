@@ -1,0 +1,52 @@
+
+%map,
+.map {
+
+  &__image {
+    img {
+      display: inline-block;
+    }
+  }
+
+  &__actions {
+    margin: $half-spacing-unit 0;
+
+    a {
+      @extend %btn-action;
+      margin-right: $qtr-spacing-unit;
+      margin-bottom: $half-spacing-unit;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  &__topic {
+    margin: $half-spacing-unit 0;
+
+    // Topic link hidden when map embedded on a topic page.
+    .node-report-topic-content & {
+      display: none;
+    }
+
+    i {
+      font-size: 1.7em;
+      float: left;
+      margin-right: $qtr-spacing-unit;
+    }
+
+    &__items {
+      display: inline-block;
+      padding-top: 4px;
+    }
+  }
+
+  &__modal {
+    .mfp-content {
+      max-width: 95%;
+      height: 90%;
+    }
+  }
+
+}

@@ -1,0 +1,42 @@
+// Theme landing page
+
+%theme,
+.theme {
+  &__component-page {
+    margin-bottom: $base-spacing-unit * 3;
+    h2, h4 {
+      margin: $base-spacing-unit 0 $half-spacing-unit;
+    }
+    &__text-link {
+      padding-top: $qtr-spacing-unit;
+    }
+  }
+
+  &__sub-links {
+    padding: 0;
+    margin: $one-n-half-spacing-unit 0 ($base-spacing-unit * 3);
+
+    li {
+      list-style: none;
+      padding: 0;
+      margin: $base-spacing-unit 0;
+      font-size: $font-size-large;
+
+      i {
+        font-size: 180%;
+        float: left;
+        line-height: 0.5;
+        margin-right: $half-spacing-unit;
+      }
+    }
+  }
+
+}
+
+.theme-page-component-pane {
+  @extend %theme__component-page;
+
+  &__text-link {
+    @extend %theme__component-page__text-link;
+  }
+}

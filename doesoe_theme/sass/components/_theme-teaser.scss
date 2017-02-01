@@ -1,0 +1,14 @@
+// Apply colour based on palette.
+@each $palette-key, $palette-colors in $theme-palette {
+  .row-palette__#{$palette-key} {
+    .theme-teaser__media {
+      background-color: palette-get-color($palette-key, primary);
+    }
+
+    @include at-bp(large) {
+      .theme-teaser__title a {
+        color: palette-get-color($palette-key, primary);
+      }
+    }
+  }
+}

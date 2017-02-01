@@ -1,0 +1,52 @@
+// Footer menu.
+
+.footer-menu,
+%footer-menu {
+  width: 50%;
+  float: left;
+
+  &__items-list {
+    @include list-reset();
+  }
+
+  &__item {
+    margin: $font-size-base 0;
+  }
+
+  &__link {
+    color: $color-white;
+    font-size: $font-size-xsmall;
+    font-weight: $font-weight-medium;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__submenu {
+    display: none;
+  }
+}
+
+// Ugly Drupal selectors.
+
+.menu-footer-primary,
+.menu-footer-secondary {
+  @extend %footer-menu;
+
+  .menu {
+    @extend %footer-menu__items-list;
+
+    li {
+      @extend %footer-menu__item;
+    }
+
+    a {
+      @extend %footer-menu__link;
+    }
+  }
+
+  .menu .menu {
+    @extend %footer-menu__submenu;
+  }
+}

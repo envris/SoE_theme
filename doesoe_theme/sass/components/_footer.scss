@@ -1,0 +1,97 @@
+// Footer
+
+.footer {
+  background-color: $color-red-copper-rust;
+  position: relative;
+}
+
+.footer__top {
+  height: $footer-top-height;
+  background: $color-grey-dim-gray;
+  padding: $region-gutter-small;
+}
+
+.footer__content {
+  overflow: auto;
+  color: transparentize($color-white, .5);
+  max-width: $content-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding: $region-gutter-small;
+  box-sizing: content-box;
+  margin-bottom: $base-spacing-unit;
+  font-size: $font-size-medium;
+  -webkit-font-smoothing: antialiased;
+
+  @include at-bp(medium) {
+    padding: ($base-spacing-unit * 4) $region-gutter-small;
+    margin-bottom: 0;
+  }
+}
+
+.footer__first {
+  max-width: $footer-component-width;
+  margin: 0 auto $double-spacing-unit;
+  font-size: $font-size-small;
+
+  .media .content {
+    padding-left: 0;
+  }
+
+  .footer-freetext {
+    img {
+      display: inline;
+    }
+  }
+
+  @include at-bp(medium) {
+    width: $footer-first-width;
+    float: left;
+    padding-right: $double-spacing-unit;
+    max-width: none;
+  }
+
+  @include at-bp(large) {
+    padding-right: $double-spacing-unit*2;
+  }
+
+  @include at-bp(xlarge) {
+    padding-left: 0;
+  }
+}
+
+.footer__second {
+  @include clearfix;
+  max-width: $footer-component-width;
+  margin: 0 auto;
+
+  @include at-bp(medium) {
+    width: $footer-second-width;
+    float: right;
+  }
+  @include at-bp(xlarge) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.footer__bottom {
+  background-color: $color-black;
+  padding: $one-n-half-spacing-unit $region-gutter-small;
+  font-size: $font-size-medium;
+  -webkit-font-smoothing: antialiased;
+
+  .region {
+    max-width: $footer-component-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include at-bp(large) {
+    @include clearfix;
+
+    .region {
+      max-width: $content-max-width;
+    }
+  }
+}

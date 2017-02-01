@@ -1,0 +1,10 @@
+// Content feature
+
+.content-feature {
+  max-height: $content-feature-height-desktop;
+  background: $color-grey-silver;
+
+  .front & {
+    max-height: none;
+  }
+}

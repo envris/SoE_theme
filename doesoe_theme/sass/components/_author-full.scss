@@ -1,0 +1,85 @@
+$author-large-bp: large;
+
+%author-full {
+  padding-top: $qtr-spacing-unit;
+
+  @include at-bp($author-large-bp) {
+    padding-top: $half-spacing-unit;
+  }
+
+  &__col-1 {
+    @include at-bp($author-large-bp) {
+      @include span(8 of 12 last);
+    }
+  }
+
+  &__col-2 {
+    @include at-bp($author-large-bp) {
+      @include span(4 of 12);
+      padding-right: $one-n-half-spacing-unit;
+    }
+  }
+
+  &__image {
+    @include container(400px);
+    margin-top: $half-spacing-unit;
+    img {
+      @include border-radius(0 0 0 50px);
+    }
+  }
+
+  &__title {
+    margin: $base-spacing-unit 0;
+  }
+
+  &__body {
+    margin-bottom: $base-spacing-unit;
+  }
+
+  &__sidebar-themes {
+    ul.themes {
+      @extend %list-reset;
+    }
+
+    // Assign a colour to each theme.
+    @each $palette-key, $palette-colors in $theme-palette {
+      .row-palette--#{$palette-key} {
+        &, a {
+          color: palette-get-color($palette-key, primary);
+        }
+      }
+    }
+  }
+}
+
+
+
+.node-author.view-mode-full {
+  @extend %clearfix;
+  @extend %author-full;
+
+  .ds-content__two-col {
+    &__col-1 {
+      @extend %author-full__col-1;
+    }
+    &__col-2 {
+      @extend %author-full__col-2;
+    }
+  }
+
+  .node-author {
+    &__image {
+      @extend %author-full__image;
+    }
+    &__title {
+      @extend %author-full__title;
+    }
+    &__body {
+      @extend %author-full__body;
+    }
+  }
+}
+
+.views--authors-author-themes-block {
+  @extend %author-full__sidebar-themes;
+}

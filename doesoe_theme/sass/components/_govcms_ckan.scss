@@ -1,0 +1,52 @@
+/*
+ * This gets both included in the site styles but also embedded in a
+ * ckan graph on export, so keep it light and be mindful of includes.
+ */
+
+svg.chart-export {
+
+  font-size: 9pt;
+
+  .c3-xgrid, .c3-ygrid {
+    stroke-dasharray: none;
+    stroke: $color-silver-sand;
+    stroke-width: 0.5px;
+  }
+
+  .c3-axis path {
+    stroke: $color-oslo-gray;
+  }
+
+  .c3-chart-lines .c3-line {
+    stroke-width: 2px;
+  }
+
+  .c3-axis-x .tick text {
+    transform: translateY(5px);
+  }
+
+  .c3-axis-y .tick text {
+    transform: translateX(-5px);
+  }
+
+  .c3-title {
+    transform: translateY(-3px);
+  }
+  
+  .c3-legend-item {
+    transform: translateY(5px);
+  }
+}
+
+// Display legend swatch as a line on line and spline graphs.
+.table-chart--chart--line,
+.table-chart--chart--spline {
+  .c3-legend-item-tile {
+    stroke-width: 3;
+  }
+}
+
+// Make legend swatch for dashed lines, dashed.
+.c3-legend-item.c3-style-dashed {
+  stroke-dasharray: 2, 2;
+}

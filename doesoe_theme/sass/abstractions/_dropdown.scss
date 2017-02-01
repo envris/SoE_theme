@@ -1,0 +1,43 @@
+// Dropdown styles.
+
+%dropdown {
+
+  .dropdown-wrapper {
+
+    &.open ul {
+      display: block;
+    }
+
+    ul {
+      @include position-absolute(top 100% right 0);
+      @include border-radius(3px);
+      @include box-shadow(0 1px 5px 5px rgba($color-grey-charcoal, 0.5));
+      z-index: 2;
+      background: $color-white;
+      color: $color-grey-charcoal;
+      display: none;
+      padding-left: 0;
+
+      &:before {
+        @include position-absolute(top -12px right 19px);
+        content: "";
+        border: $qtr-spacing-unit solid transparent;
+        border-bottom-color: $color-white;
+        width: 0;
+        height: 0;
+      }
+
+      li {
+        white-space: nowrap;
+        font-size: 0.8em;
+        padding: $qtr-spacing-unit $base-spacing-unit;
+        text-align: right;
+        list-style: none;
+
+        &:hover {
+          color: $color-brand-primary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,158 @@
+// Style overrides for printing.
+
+.search-form-values-print {
+  display: none;
+  padding: .25cm;
+  margin-bottom: .5cm;
+  background: #eaeaea;
+  border-bottom: 1px solid black;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  div {
+    display: inline-block;
+    margin-right: 1cm;
+  }
+}
+
+@include print {
+  .header__content,
+  .hero__image,
+  .footer,
+  .reference-popup,
+  .layout__sidebar-first,
+  body.two-sidebars .layout__sidebar-second,
+  body.sidebar-second .layout__sidebar-second,
+  body.with-nav-side .sidebar__first {
+    display: none;
+  }
+
+  .header {
+    top: 0;
+    margin-bottom: 1cm;
+    padding: 0;
+
+    .header__branding {
+      padding-left: 0;
+    }
+  }
+
+  body.two-sidebars .layout__content,
+  body.sidebar-second .layout__content {
+    float: none;
+    width: 100%;
+  }
+
+  .hero {
+    height: auto !important;
+
+    &__body {
+      padding: 0;
+    }
+
+    &__title,
+    &__subtitle {
+      color: $color-heading !important;
+      text-shadow: none !important;
+    }
+  }
+
+  .content-feature {
+    background-color: transparent !important;
+  }
+
+  a[href^="http"] {
+    &:after {
+      content: " (" attr(href) ") ";
+    }
+  }
+
+  a[href^="#"] {
+    &:after {
+      content: " (" attr(href) ") ";
+      font-style: italic;
+    }
+  }
+
+  [data-readmore] {
+    height: auto !important;
+    &:after {
+      display: none;
+    }
+    + .readmore-toggle {
+      display: none;
+    }
+  }
+
+  body {
+    overflow: visible !important;
+  }
+
+  .main {
+    overflow-x: visible !important;
+  }
+
+  .mfp-wrap {
+    & ~ .main {
+      display: none;
+    }
+  }
+
+  @page {
+    margin-top: 1cm;
+    margin-bottom: 2cm;
+ }
+
+ img {
+    margin: 0 auto;
+  }
+
+  .with-nav-side .main {
+    padding-left: 0;
+  }
+
+  html {
+    background: transparent;
+  }
+
+  div.reference-attachment__wrapper {
+    display: block;
+    padding: 0.5cm 0;
+    border-top: 1px solid black;
+
+    .paragraphs-item-reference-attachment {
+      &:before {
+        content: "Reference #"attr(id);
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .search-form-values-print {
+    display: block;
+
+    &__filters {
+      display: none;
+    }
+  }
+
+  #search-map {
+    display: none;
+  }
+
+  /*
+   * Hide administration menu.
+   */
+  #navbar-administration {
+    display: none;
+  }
+
+  /*
+   * Hide Panels IPE controls.
+   */
+  #panels-ipe-control-container {
+    display: none;
+  }
+}

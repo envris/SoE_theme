@@ -1,0 +1,21 @@
+// Breadcrumb
+
+.breadcrumb {
+  padding: 0;
+  border: none;
+
+
+  &__wrapper {
+    border-bottom: 1px solid $color-border-light;
+    padding: $region-gutter-small 0;
+    @include gutter-responsive();
+  }
+
+  @include at-bp(large) {
+    font-size: $font-size-regular;
+
+    &__wrapper {
+      @include gutter-vertical(2.1em);
+    }
+  }
+}

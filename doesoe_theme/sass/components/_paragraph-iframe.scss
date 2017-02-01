@@ -1,0 +1,8 @@
+// Paragraph iframe.
+
+.paragraph-iframe {
+  overflow: hidden;
+  &__iframe {
+    margin-bottom: $base-spacing-unit;
+  }
+}

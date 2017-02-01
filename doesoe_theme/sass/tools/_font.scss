@@ -1,0 +1,7 @@
+// Font mixins
+
+@mixin font-adjust-size-to($font-size, $font-weight, $line-height: $base-line-height ) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}

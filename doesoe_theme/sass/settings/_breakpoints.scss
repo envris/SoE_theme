@@ -1,0 +1,25 @@
+// Breakpoints
+
+$bp-xsmall : 25em;
+$bp-small : 37em;
+$bp-medium : 49em;
+$bp-med-large : 53em;
+$bp-large : 62em;
+$bp-xl : 80em;
+$bp-xxl : 103em;
+
+$breakpoints: (
+  xsmall: $bp-xsmall,
+  small: $bp-small,
+  medium: $bp-medium,
+  med-large: $bp-med-large,
+  large: $bp-large,
+  xlarge: $bp-xl,
+  xxlarge: $bp-xxl,
+);
+
+// State based breakpoints.
+$bp-side-nav-visible: medium;
+$bp-top-nav-visible: med-large;
+$bp-advanced-filters-visible: medium;
+$bp-right-sidebar-visible: large;

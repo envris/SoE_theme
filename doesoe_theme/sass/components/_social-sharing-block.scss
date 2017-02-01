@@ -1,0 +1,21 @@
+$ssb-wrapper-size: 28px;
+$ssb-icon-size: 24px;
+
+// Override default addthis styles to make icons smaller and round.
+.social-sharing-block {
+
+  .at-icon-wrapper {
+    @include border-radius(100%);
+    width: $ssb-wrapper-size !important;
+    height: $ssb-wrapper-size !important;
+    position: relative;
+  }
+
+  .at-icon {
+    @include position-absolute(top 0 left 0 right 0 bottom 0);
+    margin: auto;
+    width: $ssb-icon-size !important;
+    height: $ssb-icon-size !important;
+  }
+
+}

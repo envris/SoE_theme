@@ -1,0 +1,13 @@
+// Slider
+
+#block-views-slideshow-block {
+  position: relative;
+  z-index: 1;
+
+  .field-name-field-slide-image img {
+    width: auto;
+  }
+  .block-title {
+    display: none;
+  }
+}

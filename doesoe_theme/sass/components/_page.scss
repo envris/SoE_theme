@@ -1,0 +1,42 @@
+// Page
+
+$page-max-width: 1920px;
+
+#page.page {
+  max-width: $page-max-width;
+  box-shadow: none;
+}
+
+.page__content-wrapper {
+  position: relative;
+}
+
+.page-full {
+
+  &__components {
+    padding-top: $qtr-spacing-unit;
+    h2, h3 {
+      color: $color-brand-primary;
+    }
+    h3, h4 {
+      margin-top: $base-spacing-unit;
+    }
+    a {
+      color: $color-brand-primary;
+    }
+  }
+
+  &__component {
+    margin-bottom: 0;
+    .content {
+      padding: 0;
+    }
+    .paragraphs-item-box-content {
+      padding-bottom: $base-spacing-unit;
+      > h3,
+      > h4 {
+        margin-top: 0;
+      }
+    }
+  }
+}

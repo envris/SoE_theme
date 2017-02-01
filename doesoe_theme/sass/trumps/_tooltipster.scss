@@ -1,0 +1,8 @@
+// Override default tooltipster theme.
+.tooltipster-default {
+  border: none;
+  background: rgba(20,20,20,0.85);
+}
+.tooltipster-base .tooltipster-content {
+  max-width: 500px;
+}

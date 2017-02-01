@@ -1,0 +1,12 @@
+// Add the .view-default class to your view wrapper to apply
+// standard view styles for filters and content layout.
+
+.view-default {
+  // Apply a standardised exposed filter styles.
+  @extend %responsive-exposed-form--small;
+
+  // Restrict the content from getting to wide.
+  .view-content {
+    max-width: $content-max-width;
+  }
+}

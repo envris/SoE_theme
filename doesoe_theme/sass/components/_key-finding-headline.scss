@@ -1,0 +1,23 @@
+.key-finding-headline {
+  &__title {
+    @include font-adjust-size-to($font-size-medium, $font-weight-medium);
+    padding-bottom: 0;
+    margin-bottom: 0
+  }
+
+  &__body {
+    margin-bottom: $half-spacing-unit;
+  }
+
+  &__icon {
+    @extend .key-finding-teaser__icon;
+  }
+  &__content {
+    @extend .key-finding-teaser__content;
+  }
+
+  .readmore-toggle {
+    display: block;
+  }
+
+}

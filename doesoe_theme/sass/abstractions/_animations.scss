@@ -1,0 +1,5 @@
+
+// Generic transition (used on links)
+%generic-transition {
+  @include transition(0.3s linear all);
+}

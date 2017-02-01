@@ -1,0 +1,120 @@
+%author-teaser {
+  margin: $base-spacing-unit 0;
+  max-width: 800px;
+  padding-right: $base-spacing-unit;
+
+  &__col-1 {
+    @include span(1 of 4);
+    padding-right: $base-spacing-unit;
+  }
+
+  &__col-2 {
+    @include span(3 of 4 last);
+  }
+
+  &__image {
+    img {
+      @include border-radius(0 0 0 40px);
+    }
+  }
+
+  &__title {
+    font-size: $font-size-large;
+  }
+
+  &__themes {
+    @extend %list-reset;
+    display: inline-block;
+  }
+
+  &__theme {
+    @extend %icon-category;
+  }
+
+  &__year {
+    @extend %icon-category-year;
+  }
+}
+
+
+// Full authors list.
+.authors-list .node-author {
+  @extend %author-teaser;
+
+  .ds-content__two-col {
+    &__col-1 {
+      @extend %author-teaser__col-1;
+    }
+    &__col-2 {
+      @extend %author-teaser__col-2;
+    }
+  }
+
+  .author-teaser {
+    &__image {
+      @extend %author-teaser__image;
+    }
+    &__title {
+      @extend %author-teaser__title;
+    }
+    &__themes {
+      @extend %author-teaser__themes;
+      li.author-teaser__theme {
+        @extend %author-teaser__theme;
+      }
+    }
+    &__year {
+      @extend %author-teaser__year;
+    }
+  }
+}
+
+.authors-list.view {
+  @extend %clearfix;
+  .view-content {
+    max-width: none;
+  }
+  @include at-bp(xlarge) {
+    .views-row {
+      @include span(50%);
+    }
+  }
+}
+
+
+// How page authors grid.
+.authors-grid .node-author {
+  padding-bottom: $base-spacing-unit;
+}
+
+.authors-grid.view {
+  max-width: 1200px;
+  @include grid(4, '.views-row', 2);
+  .author-teaser {
+    &__image {
+      @extend %author-teaser__image;
+      padding: 0 $base-spacing-unit;
+      max-width: 400px;
+      margin: 0 auto $half-spacing-unit;
+    }
+    &__themes,
+    &__title {
+      text-align: center;
+    }
+    &__title {
+      font-size: 1.1em;
+      margin: $qtr-spacing-unit;
+    }
+    &__themes {
+      @extend %author-teaser__themes;
+      display: block;
+      li.author-teaser__theme {
+        @extend %author-teaser__theme;
+        padding-right: 0 !important;
+      }
+    }
+    &__year {
+      display: none;
+    }
+  }
+}

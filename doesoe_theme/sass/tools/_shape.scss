@@ -1,0 +1,10 @@
+// CSS Shapes.
+
+// CSS Triangle.
+@mixin triangle($edge: bottom, $size: 10px, $color: #ccc) {
+  content: "";
+  border: $size solid transparent;
+  width: 0;
+  height: 0;
+  border-#{$edge}-color: $color;
+}

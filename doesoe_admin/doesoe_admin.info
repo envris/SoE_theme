@@ -1,0 +1,18 @@
+name = DOE SOE Admin theme
+description = DOE sub theme of Shiny for Admin
+core = 7.x
+base theme = shiny
+
+; Generic behaviours.
+scripts[] = js/script.js
+
+; Styles
+stylesheets[screen][] = css/styles.css
+
+regions[content] = Content
+regions[help] = Help
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+regions[sidebar_first] = First sidebar
+regions[footer] = Footer
+regions_hidden[] = sidebar_first

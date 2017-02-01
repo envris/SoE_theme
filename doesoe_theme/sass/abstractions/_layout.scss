@@ -1,0 +1,20 @@
+// Layout abstractions.
+
+// Restrict the max width of content.
+%layout-page-container {
+  @include at-bp(xlarge) {
+    @include container($page-max-width);
+  }
+}
+
+%layout-content-container {
+  @include at-bp(medium) {
+    @include container($content-max-width);
+  }
+}
+
+%layout-content-small-container {
+  @include at-bp(medium) {
+    @include container($content-small-max-width);
+  }
+}

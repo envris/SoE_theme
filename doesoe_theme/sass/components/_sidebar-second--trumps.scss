@@ -1,0 +1,39 @@
+/*
+ * Trumps for the generic sidebar second styles.
+ */
+
+// Related subjext block.
+.views--topic-blocks-related-subjects {
+  .sbs-content-row {
+    &, a {
+      @extend %sidebar-second__sub-list-item;
+    }
+  }
+}
+
+// Topics in same theme + framework, collapse 3rd level
+.views--topic-blocks-related-topics-current {
+  .sidebar-toggle-sub__content {
+    display: none;
+  }
+}
+
+// Assessment summary key  block.
+.block__as-key-link .sbs-content-row {
+  font-weight: $font-weight-medium;
+}
+
+// Author block.
+.views--authors-sidebar-block,
+.bean--sidebar-authors-explore {
+  i {
+    font-weight: $font-weight-regular;
+  }
+  .view-footer .sbs-content-row {
+    background: none;
+    &:after {
+      display: none;
+    }
+  }
+}
+

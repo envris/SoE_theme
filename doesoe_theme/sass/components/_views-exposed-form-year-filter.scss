@@ -1,0 +1,10 @@
+// Theme year filters, found at the top of a theme/{theme-name} and
+// theme/{theme-name}/framework/{framework-name} pages.
+#views-exposed-form-framework-intro-by-theme-framework-panel-pane-1,
+#views-exposed-form-key-findings-by-theme-and-year-panel-pane-1,
+#views-exposed-form-headlines-panel-pane-1,
+#views-exposed-form-key-findings-from-themes,
+#views-exposed-form-headlines-page-1,
+#views-exposed-form-executive-summaries-by-theme-panel-pane-1 {
+  @extend %responsive-exposed-form--small;
+}

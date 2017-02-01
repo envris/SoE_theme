@@ -1,0 +1,50 @@
+.ds-icon-teaser {
+  @extend %clearfix;
+
+  // Default to historic text palette.
+  &, a, h2 a, h3 a {
+    @include link-color($color-historic-text);
+  }
+
+  &__side {
+    @include span(2);
+
+    @include at-bp(medium) {
+      @include span(1);
+    }
+
+    i {
+      @extend %icon;
+      font-size: 3em;
+    }
+  }
+
+  &__content {
+    @include span(16 last);
+    padding-left: $half-spacing-unit;
+    margin-bottom: $base-spacing-unit;
+
+    h2, h3 {
+      font-size: $font-size-large;
+      font-weight: $font-weight-regular;
+      margin: $qtr-spacing-unit 0 $half-spacing-unit;
+    }
+
+    @include at-bp(medium) {
+      @include span(17 last);
+    }
+
+    @include at-bp(xlarge) {
+      padding-left: 0;
+    }
+  }
+
+  // To apply a content type icon to this teaser, follow below.
+  &__content-type-icon:before {
+    .node-assessment-summary & {
+      content: icon-get-code(ct-assessment-summary);
+    }
+  }
+
+}
+

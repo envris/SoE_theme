@@ -1,0 +1,47 @@
+// =============================================================================
+// Name:            Breakpoints
+// Description:     Breakpoint tools
+// =============================================================================
+
+
+/*
+ * This progressively darkens elements starting from a given colour.
+ */
+@mixin lighten-elements ($count, $baseName, $startcolor, $property: fill) {
+  $loop_color: $startcolor;
+  @for $i from 0 through $count {
+    $loop_color: lighten($loop_color, 9%);
+    .#{$baseName}-#{$i} { #{$property}: $loop_color; }
+  }
+}
+
+/*
+ * Loop through a palette (space separated list of cols) and apply to each el.
+ */
+@mixin color-elements ($palette, $baseName, $property: fill) {
+  @each $col in $palette {
+    $idx: index($palette, $col);
+    .#{$baseName}-#{$idx} { #{$property}: $col; }
+  }
+}
+
+/*
+ * Loop through a palette applying a color to the child of nth item.
+ */
+@mixin color-nth-child ($palette, $baseName, $childName, $property: background) {
+  @each $col in $palette {
+    $idx: index($palette, $col);
+    .#{$baseName}:nth-child(#{$idx}) {
+      .#{$childName} { #{$property}: $col; }
+    }
+  }
+}
+
+// Set link colour for all states.
+@mixin link-color($color) {
+  &,
+  &:focus,
+  &:visited {
+    color: $color;
+  }
+}

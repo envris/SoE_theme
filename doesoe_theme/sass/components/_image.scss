@@ -1,0 +1,36 @@
+// Image
+
+$image-title-margin-top: 20px;
+
+.image__title {
+  font-size: $font-size-xsmall;
+  color: $color-grey-charcoal;
+  margin-top: $image-title-margin-top;
+}
+
+.image-meta {
+
+  &__notes,
+  &__reference {
+    margin-bottom: $half-spacing-unit;
+  }
+}
+
+// Image element styles.
+img {
+  &.right {
+    float: right;
+    margin-left: $base-spacing-unit;
+  }
+  &.left {
+    float: left;
+    margin-right: $base-spacing-unit;
+  }
+  &.soe-corner {
+    @include border-radius(0 0 0 15px);
+  }
+  &.soe-corner-large {
+    @include border-radius(0 0 0 30px);
+  }
+}
+
