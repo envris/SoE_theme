@@ -348,6 +348,10 @@
           // Create an element to retrieve the text. This will HTML entities decode so we can use special UTF-8 chars
           // in tooltip text.
           var title = $('<div/>').html($this.attr('title')).text();
+          if (title == '') {
+            // If this title is empty we should skip.
+            return;
+          }
           $this.attr('title', title);
           $this.tooltipster();
         }
