@@ -8,6 +8,8 @@
  * Implements theme_preprocess_page().
  */
 function doesoe_theme_preprocess_page(&$variables) {
+  $variables['logo'] = base_path() . path_to_theme() . '/images/logo-white.png';
+
   $variables['header_class'] = '';
   if ($variables['is_front']) {
     $variables['header_class'] = 'is-transparent';
