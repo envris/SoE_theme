@@ -2,10 +2,15 @@
 
 $image-title-margin-top: 20px;
 
-.image__title {
-  font-size: $font-size-xsmall;
-  color: $color-grey-charcoal;
-  margin-top: $image-title-margin-top;
+.image {
+  &__title {
+    font-size: $font-size-xsmall;
+    color: $color-grey-charcoal;
+    margin-top: $image-title-margin-top;
+  }
+  &__description {
+    font-size: $font-size-small;
+  }
 }
 
 .image-meta {
@@ -33,4 +38,5 @@ img {
     @include border-radius(0 0 0 30px);
   }
 }
+
 

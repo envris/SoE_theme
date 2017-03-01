@@ -2,11 +2,15 @@
 
 .report-topic__teaser,
 %report-topic__teaser {
+  position: relative;
   &__side {
-    width: 3%;
+    @include position-absolute(top $qtr-spacing-unit left 0);
+
   }
   &__content {
-    width: 96%;
+    width: auto;
+    margin-left: $icon-teaser-side-width;
+    float: none;
   }
 
   &__theme {
@@ -14,13 +18,14 @@
       display: none;
     }
     .theme-icon__icon {
-      text-align: center;
-      padding-top: $qtr-spacing-unit;
-      display: inline-block;
-      .icon {
-        font-size: 2.2em;
-      }
+      @extend %icon-circle;
     }
+  }
+
+  &__title {
+    @extend %text-heading__beta;
+    padding-top: $half-spacing-unit;
+    font-size: 1.3em;
   }
 
   &__framework,
@@ -28,25 +33,29 @@
     @extend %icon-category;
   }
 
-  &__year {
-    @extend %icon-category-year;
+  .category-with-icon__year {
+    float: right;
   }
 
-  &__summary,
+  &__relates-to {
+    @extend %group__relates-to;
+  }
+
+  &__summary {
+    margin: $three-qtr-spacing-unit 0;
+  }
+
   .links {
     display: block;
-    clear: both;
-    margin-bottom: $half-spacing-unit;
+    padding-bottom: $qtr-spacing-unit;
   }
 
   .links {
     li {
-      margin-right: $base-spacing-unit;
+      margin: 0 $double-spacing-unit $qtr-spacing-unit 0;
       display: inline-block;
-    }
-    a {
-      &:before {
-        content: "> ";
+      a {
+        @extend %btn-arrow;
       }
     }
   }
@@ -64,4 +73,18 @@
   .ds-icon-teaser__content {
     @extend %report-topic__teaser__content;
   }
+
+  // For all pages we must apply palette to icon.
+  &.current-year {
+    // Apply colour based on palette.
+    @each $palette-key, $palette-colors in $theme-palette {
+      .row-palette__#{$palette-key} {
+        .theme-icon__icon {
+          background: palette-get-color($palette-key, primary);
+        }
+      }
+    }
+  }
+
 }
+

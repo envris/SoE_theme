@@ -2,8 +2,8 @@
 
 // Base heading.
 %heading {
-  font-family: $base-font-family;
-  color: $color-heading;
+  font-family: $heading-font-family;
+  color: $color-mine-shaft;
 }
 
 // Improves readability of white text on an image.
@@ -28,10 +28,11 @@
 }
 
 
-// Landing page headings.
-@mixin landing-heading($font-size) {
+// Standard typography mixins.
+@mixin text-heading($font-size) {
   font-weight: $font-weight-bold;
   font-size: $font-size;
+  font-family: $heading-font-family;
   &, a {
     @include link-color($color-mine-shaft);
   }
@@ -39,22 +40,62 @@
     color: $color-link-hover;
   }
 }
-%landing-heading {
+
+%text-heading {
   &__alpha {
-    @include landing-heading($font-size-xlarge);
+    @include text-heading($font-size-xlarge);
   }
   &__beta {
-    @include landing-heading($font-size-large);
+    @include text-heading($font-size-large);
   }
   &__gamma {
-    @include landing-heading($font-size-medium);
+    @include text-heading($font-size-medium);
+  }
+  &__delta {
+    @include text-heading($font-size-medium-small);
   }
 }
 
-// Landing page text.
-@mixin landing-text() {
-  color: $color-grey-dim-gray;
+%text-body {
+  &__light {
+    color: $color-grey-dim-gray;
+  }
+  &__dark {
+    color: $color-body;
+  }
 }
-%landing-text {
-  @include landing-text;
+
+%text-body__page {
+  h2 {
+    @extend %text-heading__alpha;
+  }
+
+  h3 {
+    @extend %text-heading__beta;
+  }
+
+  h4 {
+    @extend %text-heading__beta;
+  }
+
+  h5 {
+    @extend %text-heading__gamma;
+  }
+
+  h6 {
+    @extend %text-heading__delta;
+  }
 }
+
+@mixin text-body__link($color: $color-brand-primary) {
+  text-decoration: underline;
+  color: $color;
+  &:hover {
+    text-decoration: underline;
+    background-color: rgba($color, 0.1);
+  }
+}
+%text-body__link {
+  @include text-body__link();
+}
+

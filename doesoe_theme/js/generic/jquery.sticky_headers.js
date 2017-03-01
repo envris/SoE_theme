@@ -1,21 +1,20 @@
+/**
+ * @file
+ * Sticky headers.
+ *
+ * Should be applied to the container that wraps the header, if the container is no longer
+ * on screen it should no longer have a sticky header. There is many sticky header plugins
+ * available but sadly none that really do just that.
+ *
+ * TODO: This class could be improved for performance, specifically changing it to a trigger
+ * for sticky-in and sticky-out, but for now this meets MVP.
+ *
+ * Author: jeremy@doghouse.agency
+ */
 
 (function ($) {
 
   "use strict";
-
-  /*
-   * Sticky headers
-   * --------------
-   *
-   * Should be applied to the container that wraps the header, if the container is no longer
-   * on screen it should no longer have a sticky header. There is many sticky header plugins
-   * available but sadly none that really do just that.
-   *
-   * TODO: This class could be improved for performance, specifically changing it to a trigger
-   * for sticky-in and sticky-out, but for now this meets MVP.
-   *
-   * Author: jeremy@doghouse.agency
-   */
 
   var stickyHeaders = [];
 
@@ -46,7 +45,6 @@
       self.$doc = $(document);
       self.$header = $(self.settings.headerSelector, self.$dom);
       self.$parent = $(self.settings.parentContainer);
-
 
       // If header doesn't exist on the page then exit.
       if (self.$header.length === 0) {

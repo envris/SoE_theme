@@ -19,7 +19,7 @@
   }
 
   &__title {
-    font-size: $font-size-large;
+    @extend %text-heading__beta;
   }
 
   &__themes {

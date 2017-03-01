@@ -25,7 +25,7 @@
     &:before {
       @extend %icon;
       content: icon-get-code(ic_arrow);
-      color: $color-red-copper-rust;
+      color: $color-brand-primary;
       font-size: $font-size-large;
       position: absolute;
       top: 50%;

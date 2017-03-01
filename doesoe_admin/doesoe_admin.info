@@ -4,6 +4,7 @@ core = 7.x
 base theme = shiny
 
 ; Generic behaviours.
+scripts[] = js/excellentexport.min.js
 scripts[] = js/script.js
 
 ; Styles

@@ -36,7 +36,8 @@ function _doesoe_theme_get_hero_image() {
   // Override with theme.
   $theme = _doesoe_theme_get_current_theme_term();
   if (!empty($theme->tid)) {
-    $hero_image = _doesoe_theme_entity_get_value('taxonomy_term', $theme, 'field_hero_image');
+    $term_hero_image = _doesoe_theme_entity_get_value('taxonomy_term', $theme, 'field_hero_image');
+    $hero_image = empty($term_hero_image) ? $hero_image : $term_hero_image;
   }
 
   // Override with node.

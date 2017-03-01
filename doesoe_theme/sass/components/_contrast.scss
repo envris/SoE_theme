@@ -1,0 +1,136 @@
+// High contrast view.
+
+.region-page-top {
+
+  @include at-bp($bp-top-nav-visible) {
+    .front & {
+      @include position-fixed(left 0 right 0 top 0);
+      z-index: 30;
+    }
+    // Account for admin bar.
+    .front.navbar-administration & {
+      top: 39px;
+    }
+    .front.navbar-tray-open & {
+      top: 79px;
+    }
+  }
+
+}
+
+#high-contrast {
+  line-height: 1em;
+  padding: 0.5em;
+  color: $color-mercury;
+  background-color: $color-grey-night-rider;
+  text-align: center;
+
+  a {
+    margin-left: 0.3em;
+    color: $color-mercury;
+    border-bottom: 1px dotted $color-grey-dim-gray;
+    &#hide {
+      float: left;
+      border: 0;
+      font-size: 150%;
+    }
+    &:hover {
+      border-bottom-color: $color-white;
+      color: $color-white;
+    }
+  }
+
+  @include at-bp(med-large) {
+    padding: 0.5em 1em;
+    text-align: right;
+  }
+  @include at-bp(xlarge) {
+    padding: 0.5em 3.5em;
+  }
+}
+
+// Override site specific colours with black and white.
+body.palette__highcontrast {
+  // Set default body colour to black.
+  color: $color-black;
+
+  .ds-icon-teaser,
+  .ds-icon-teaser .icon,
+  .framework-icon__icon,
+  .search-header-block__actions:before,
+  .search-header-block .form-actions:before,
+  .key-finding-headline__content *,
+  #theme-landing p,
+  #theme-landing a,
+  .framework-icon__question,
+  .frameworks-teaser__content *,
+  .homepage-search-block *,
+  .category-with-icon .icon,
+  .category-with-icon a,
+  .category-with-icon__year .icon,
+  .theme-icon__icon .icon,
+  .key-finding-teaser__content * {
+    color: $color-black;
+  }
+
+  // Form elements.
+  textarea,
+  input,
+  select {
+    color: $color-black;
+  }
+
+  // Links.
+  .main-menu-header-block li a,
+  .ds-icon-teaser a,
+  .pager a,
+  .image-list-item__links a,
+  .image-list-item__title a {
+    color: $color-black;
+  }
+
+  // Assessment summary.
+  .ass-sum__item *,
+  .ass-sum__component *,
+  .ass-sum-key__icon,
+  .ass-sum-key * {
+    color: $color-black;
+  }
+  .ass-sum-key__icon {
+    border-color: $color-black;
+  }
+
+  .sidebar__first ul.menu a,
+  .footer__content,
+  .bean--acknowledgment-of-country,
+  .bean--copyright,
+  .image-list-item__media .icon,
+  .slider__secondary-link a,
+  .homepage-info-block .pane-content,
+  .frameworks-teaser__icon .icon,
+  input[type=submit] {
+    color: $color-white;
+  }
+
+  // Backgrounds.
+  .pager-current,
+  .image-list-item__media,
+  .homepage-info-block,
+  .views-row-tab.tab-active,
+  .views-row-tab.tab-active:after {
+    background-color: $color-black;
+  }
+
+  .SumoSelect {
+    .CaptionCont,
+    .optWrapper .options li.opt {
+      background: none;
+      color: $color-black;
+    }
+  }
+
+  .button--primary a:hover {
+    background-color: $color-black;
+  }
+}
+

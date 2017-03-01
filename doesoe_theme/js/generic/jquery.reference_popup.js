@@ -1,18 +1,18 @@
+/**
+ * @file
+ * Reference popup.
+ *
+ * This plugin shows the reference popup when the user clicks a links that has a
+ * hash tag that points to a reference content.
+ * The popup is only created once and it's content is replaced every time a user
+ * clicks another reference link.
+ *
+ * Author: lemuel@doghouse.agency
+ */
+
 (function ($, Clipboard) {
 
   "use strict";
-
-  /*
-   * Reference popup
-   * --------------
-   *
-   * This plugin shows the reference popup when the user clicks a links that has a
-   * hash tag that points to a reference content.
-   * The popup is only created once and it's content is replaced every time a user
-   * clicks another reference link.
-   *
-   * Author: lemuel@doghouse.agency
-   */
 
   var referencePopups = [];
 
@@ -55,7 +55,7 @@
 
       // Opens the popup when clicking on the reference.
       self.$dom.click(function (e) {
-        switch(self.settings.type) {
+        switch (self.settings.type) {
           case 'inline':
             self.$content = $(self.settings.src);
             e.preventDefault();
@@ -150,9 +150,8 @@
     self.updatePaletteClass = function() {
       var palettePrefix = self.settings.wrapperClass + '__palette__';
       self.$popup.removeClass(function(index, css) {
-          return (css.match(new RegExp('\\b(' + palettePrefix + '\\S*)\\b', 'g')) || []).join(' ');
-        })
-        .addClass(palettePrefix + self.settings.palette);
+        return (css.match(new RegExp('\\b(' + palettePrefix + '\\S*)\\b', 'g')) || []).join(' ');
+      }).addClass(palettePrefix + self.settings.palette);
     };
 
     /*

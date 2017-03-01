@@ -1,3 +1,9 @@
+<?php
+/**
+ * @file
+ * Template for framework term icons.
+ */
+?>
 <div class="framework-icon">
   <div class="framework-icon__link">
     <a href="<?php print $term_url; ?>" title="<?php print check_plain($safe_description); ?>">

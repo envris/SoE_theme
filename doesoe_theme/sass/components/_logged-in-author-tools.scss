@@ -26,6 +26,7 @@ body.logged-in {
     &.ref-inline,
     &.ref-cross,
     &.ref-figure,
+    > .CrossRef,
     > .Reference-InText {
       background: $color-author-tools-highlight-2;
     }

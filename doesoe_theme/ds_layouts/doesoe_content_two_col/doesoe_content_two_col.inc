@@ -7,6 +7,9 @@
  * Eg. Author page.
  */
 
+/**
+ * DS Implementation for two col layout.
+ */
 function ds_doesoe_content_two_col() {
   return array(
     'label' => t('DOESOE: Content Two Col'),

@@ -6,7 +6,7 @@
 
   &__list {
     @include container($content-max-width-large);
-    margin: $one-n-half-spacing-unit auto 0;
+    margin: $one-n-half-spacing-unit auto -1px;
     padding: 0;
   }
 
@@ -78,7 +78,7 @@
 
     &.active {
       background: $color-alabaster;
-      border-top: 4px solid $color-red-copper-rust;
+      border-top: 4px solid $color-brand-primary;
       border-left: 1px solid $color-border-light;
       border-right: 1px solid $color-border-light;
       color: $color-grey-charcoal;

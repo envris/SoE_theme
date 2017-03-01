@@ -32,8 +32,9 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
 %sbs-row {
   @extend %sbs-row-padding;
   min-height: $sbs-heading-min-height;
+  font-family: $base-font-family;
   vertical-align: middle;
-  font-size: $font-size-base;
+  font-size: $font-size-small;
   margin: 0;
   display: block;
   position: relative;
@@ -47,7 +48,6 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
   z-index: 10;
   &, a {
     color: $color-brand-primary;
-    text-decoration: underline;
   }
   &:before {
     content: icon-get-code(collapse) !important;
@@ -72,6 +72,7 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
   cursor: pointer;
   font-weight: $font-weight-medium;
 
+  .icon-person,
   .icon-ribbon,
   img {
     @include border-radius(50%);
@@ -92,6 +93,7 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
       vertical-align: middle;
     }
     &.icon-ct-assessment-summary,
+    &.icon-person,
     &.icon-ribbon {
       text-align: center;
       font-size: 25px;
@@ -100,9 +102,6 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
   }
   &, a {
     color: $color-sbs-text-level-1;
-  }
-  &:focus {
-    outline: none;
   }
   &:after {
     content: "";
@@ -296,6 +295,9 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
       &:last-child {
         .block__content {
           background: none;
+          .historic-content & {
+            background: $color-white;
+          }
         }
       }
     }
@@ -319,11 +321,32 @@ $sbs-historic-sticky-top: $sbs-historic-banner-height + $sbs-heading-min-height;
     #theme-toc,
     #topic-toc {
       @extend %list-reset;
-      li a {
-        @extend %sidebar-second__list-item;
+      li {
+        a {
+          @extend %sbs-content-row;
+          &:before {
+            @extend %sbs-toggle-action;
+            @extend %icon;
+            content: icon-get-code(expand)!important;
+          }
+          &.open:before {
+            content: icon-get-code('collapse')!important;
+          }
+          &.sidebar-toggle__no-content:before {
+            // If a header has no content show a down arrow rather than an expand.
+            content: icon-get-code(angle-down)!important;
+          }
+        }
       }
-      > li > ul > li > a {
-        @extend %sidebar-second__sub-list-item;
+      > li > ul {
+        display: none;
+        & > li > a {
+          @extend %sidebar-second__sub-list-item;
+          &:before {
+            @include icon();
+            content: icon-get-code(angle-down)!important;
+          }
+        }
       }
     }
 

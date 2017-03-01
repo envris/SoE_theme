@@ -64,7 +64,7 @@ body.palette {
         border-color: rgba(palette-get-color($palette-key, dark), 0.4);
       }
       th {
-        background: palette-get-color($palette-key, dark);
+        background-color: palette-get-color($palette-key, dark);
       }
 
       // Islands.
@@ -91,6 +91,9 @@ body.palette {
           background-color: palette-get-color($palette-key, primary);
         }
       }
+      .key-finding-teaser__content, .key-finding-headline__content {
+        a:hover { color: palette-get-color($palette-key, primary); }
+      }
 
       // Framework
       .frameworks-teaser {
@@ -101,7 +104,7 @@ body.palette {
 
       // Reference popup
       .reference-popup {
-        background: palette-get-color($palette-key, primary);
+        background: darken(palette-get-color($palette-key, primary), 5%);
         &__title,
         &__close-button {
           color: palette-get-color($palette-key, secondary);
@@ -120,35 +123,53 @@ body.palette {
         }
       }
 
-      .layout__content {
-        .report-topic__full__components {
-          h1, h2, h3, h4, h5, h6 {
-            &, a {
-              color: palette-get-color($palette-key, dark);
-            }
-          }
-        }
-        .paragraphs-item-basic-content {
-          a {
-            color: palette-get-color($palette-key, primary);
+      .ds-icon-teaser.current-year {
+        &.node-assessment-summary {
+          .ds-icon-teaser__side {
+            background: palette-get-color($palette-key, primary);
           }
         }
       }
 
+      // General content links.
+      .layout__content {
+        p,
+        .paragraphs-item-basic-content {
+          a {
+            @include text-body__link(palette-get-color($palette-key, primary));
+          }
+        }
+      }
+
+      // Hovers for title links and buttons.
+      #theme-landing h4 a,
+      #theme-landing h5 a,
+      .button--arrow--wrapper a,
+      .button--arrow {
+        &:hover {
+          color: palette-get-color($palette-key, primary);
+        }
+      }
+
+      // Readmore hover.
+      #theme-landing .readmore-toggle:hover,
+      .readmore-toggle:hover {
+        background: palette-get-color($palette-key, primary);
+      }
+
       // Topic teaser.
       .ds-icon-teaser.current-year {
-        a, .ds-icon-teaser__side {
-          color: palette-get-color($palette-key, dark);
-        }
         a:hover {
           color: palette-get-color($palette-key, primary);
+        }
+        .ds-icon-teaser__side .theme-icon__icon {
+          background: palette-get-color($palette-key, primary);
         }
       }
 
       // Box content
       .highlight {
         background: rgba(palette-get-color($palette-key, primary), .2);
-        color: palette-get-color($palette-key, dark);
         h4 {
           color: palette-get-color($palette-key, dark);
         }
@@ -157,10 +178,6 @@ body.palette {
       // Framework at a glance
       .framework-at-a-glance__glance {
         background: rgba(palette-get-color($palette-key, primary), .2);
-        color: palette-get-color($palette-key, dark);
-        h3 {
-          color: palette-get-color($palette-key, dark);
-        }
       }
 
       // Table of contents.
@@ -170,13 +187,21 @@ body.palette {
         }
       }
 
-      // Logo+Footer
+      // Logo+Header+Footer
       .header__branding,
       .footer {
         background-color: palette-get-color($palette-key, primary);
       }
+      .main-menu-header-block a:hover,
       .bean--subscribe-box-form .form-actions:before {
         color: palette-get-color($palette-key, primary);
+      }
+
+      // Loader
+      .ajax-progress {
+        .throbber {
+          background-color: palette-get-color($palette-key, dark);
+        }
       }
     }
   }

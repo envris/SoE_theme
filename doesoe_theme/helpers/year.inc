@@ -118,7 +118,8 @@ function _doesoe_theme_is_valid_year_tid($tid) {
  * Get active year from a page.
  */
 function _doesoe_theme_get_active_year($load = FALSE) {
-  $year_tid = _doesoe_theme_get_current_year_tid();
+  $years = _doesoe_theme_get_years_from_page();
+  $year_tid = !empty($years['tids']) ? reset($years['tids']) : _doesoe_theme_get_current_year_tid();
   $year_tid = (!empty($_GET['year']) && _doesoe_theme_is_valid_year_tid($_GET['year'])) ? $_GET['year'] : $year_tid;
   return $load === TRUE ? taxonomy_term_load($year_tid) : $year_tid;
 }

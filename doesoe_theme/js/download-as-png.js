@@ -2,6 +2,7 @@
  * @file
  * A JavaScript file for the theme.
  */
+
 (function ($, Drupal, window, document, undefined) {
 
   /*
@@ -38,7 +39,7 @@
         context = canvas.getContext('2d');
         context.drawImage(image, 0, 0, dimensions.width, dimensions.height);
         canvas.toBlob(function (blob) {
-          //filesaver.js
+          // filesaver.js.
           saveAs(blob, filename);
         });
       };

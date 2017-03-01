@@ -61,6 +61,12 @@ p {
   &.small {
     font-size: $font-size-small;
   }
+  a {
+    @extend %text-body__link;
+    sup {
+      text-decoration: none;
+    }
+  }
 }
 
 ul {

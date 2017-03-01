@@ -18,7 +18,8 @@ $fw-content-margin-left:      55px;
   }
 
   &__title {
-      margin: 0;
+    @extend %text-heading__beta;
+    margin-bottom: $qtr-spacing-unit;
   }
 
 }

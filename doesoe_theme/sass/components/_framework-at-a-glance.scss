@@ -1,3 +1,7 @@
+#theme-framework-landing {
+  padding-bottom: $double-spacing-unit;
+}
+
 .framework-at-a-glance {
   &__icon {
     &:before {
@@ -7,8 +11,11 @@
       vertical-align: middle;
     }
     h4, h3 {
+      @extend %text-body__dark;
       display: inline-block;
       vertical-align: middle;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xlarge;
     }
   }
   &__glance {
@@ -19,5 +26,12 @@
       margin-bottom: $half-spacing-unit;
       line-height: 1.7em;
     }
+  }
+}
+
+.view-framework-intro-by-theme-framework {
+  padding-bottom: $base-spacing-unit;
+  .content {
+    padding: 0;
   }
 }

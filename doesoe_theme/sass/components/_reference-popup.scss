@@ -13,6 +13,7 @@ $ref-default-col-alt:       lighten($color-brand-primary, 30%);
 
 .reference-popup {
   @include transition(bottom 0.5s ease);
+  @include box-shadow(0 -1px 10px 0 rgba($color-black, 0.4));
   position: fixed;
   left: 0;
   bottom: $ref-bottom;
@@ -60,6 +61,10 @@ $ref-default-col-alt:       lighten($color-brand-primary, 30%);
     }
   }
   &__content {
+    a {
+      color: $color-white !important;
+      text-decoration: underline;
+    }
     @include at-bp(medium) {
       margin: $ref-header-height 0;
     }

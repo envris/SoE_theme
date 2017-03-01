@@ -24,7 +24,7 @@ function _doesoe_theme_map_add_region_geojson() {
 
   $cache = cache_get($cache_key);
   if (!empty($cache->data) && $cache->expire > time()) {
-    $features = $cache->data;
+    $settings = $cache->data;
   }
   else {
     // Load the library that converts WKT to geoJSON.
@@ -68,10 +68,28 @@ function _doesoe_theme_map_add_region_geojson() {
       }
     }
 
+    // Load extents.
+    $extents = array();
+    $vocab = taxonomy_vocabulary_machine_name_load('territories');
+    $extent_terms = taxonomy_get_tree($vocab->vid, 0, NULL, TRUE);
+    foreach ($extent_terms as $extent) {
+      $extents[$extent->tid] = array(
+        'tid' => $extent->tid,
+        'zoom' => _doesoe_theme_entity_get_value('taxonomy_term', $extent, 'field_zoom'),
+        'coords' => _doesoe_theme_entity_get_value('taxonomy_term', $extent, 'field_geometry_collection'),
+      );
+    }
+
+    // Assign settings.
+    $settings = array(
+      'mapRegionFeatures' => $features,
+      'mapRegionExtents' => $extents,
+    );
+
     // Save to cache.
-    cache_set($cache_key, $features, 'cache', time() + $cache_expiry);
+    cache_set($cache_key, $settings, 'cache', time() + $cache_expiry);
   }
 
   // Add JS to the page.
-  drupal_add_js(array('doesoe_theme' => array('mapRegionFeatures' => $features)), 'setting');
+  drupal_add_js(array('doesoe_theme' => $settings), 'setting');
 }

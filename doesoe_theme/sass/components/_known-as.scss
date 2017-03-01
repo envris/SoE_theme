@@ -5,19 +5,19 @@
   }
 
   &__prev-as &__title::before {
-    content: 'View the original assessment summary: ';
+    content: 'View previous ';
   }
 
   &__now-as &__title::before {
-    content: 'View the current assessment summary: ';
+    content: 'View current ';
   }
 
   &__prev-asc &__title::before {
-    content: 'View the original assessment summary component: ';
+    content: 'View previous ';
   }
 
   &__now-asc &__title::before {
-    content: 'View the current assessment summary component: ';
+    content: 'View current ';
   }
 
   &__popup-link {

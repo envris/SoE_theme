@@ -211,14 +211,9 @@ $exposed-form-bg: $color-alabaster;
       }
     }
 
-    // Submit gets hidden at desktop (autosubmit used).
-    .form-submit {
-      display: block;
-      width: 100%;
-      margin: $qtr-spacing-unit 0 0 !important;
-      @include gutter-vertical($qtr-spacing-unit);
-
-      @include at-bp($small-exposed-form-bp) {
+    // Ansure all auto submit buttons are hidden.
+    .form-submit.ctools-auto-submit-click {
+      html.js & {
         display: none;
       }
     }

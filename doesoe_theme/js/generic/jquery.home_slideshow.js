@@ -1,20 +1,19 @@
+/**
+ * @file
+ * Homepage Slideshow.
+ *
+ * Functionality for the homepage slideshow.
+ * - Change img to bg image
+ * - Add next teaser and pause button
+ * - Add a scroll down to content button
+ * - Start slick with provided options.
+ *
+ * Author: jeremy@doghouse.agency
+ */
 
 (function ($) {
 
   "use strict";
-
-  /*
-   * Homepage Slideshow
-   * ------------------
-   *
-   * Functionality for the homepage slideshow.
-   * - Change img to bg image
-   * - Add next teaser and pause button
-   * - Add a scroll down to content button
-   * - Start slick with provided options
-   *
-   * Author: jeremy@doghouse.agency
-   */
 
   var homeSlideshow = function(dom, settings) {
     var self = this,
@@ -73,7 +72,7 @@
      * Add a pause button.
      */
     self.addPauseButton = function() {
-      $('<span>')
+      $('<button>')
         .addClass('slider__toggle-slideshow')
         .attr('title', 'Pause slideshow')
         .append('<span>')
@@ -106,7 +105,7 @@
         $nextTeaserTitle = $('<div>')
           .addClass(component + '__title')
           .html('<span>Next</span><h4>' + nextTitle + '</h4>');
-        $nextTeaser = $('<div>')
+        $nextTeaser = $('<button>')
           .addClass(component)
           .prepend($nextTeaserImg)
           .append($nextTeaserTitle)
@@ -123,7 +122,7 @@
      */
     self.scrollDownButton = function() {
       // NOTE: If this is used elsewhere, abstract it.
-      $('<div>')
+      $('<button>')
         .addClass('slider__scroll-next')
         .html('<span>Scroll down</span>')
         .attr('title', 'Scroll down')

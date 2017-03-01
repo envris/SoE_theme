@@ -1,5 +1,9 @@
 .section-region-search {
 
+  .main {
+    overflow: initial;
+  }
+
   #search-map {
     height: 100vh;
   }
@@ -17,23 +21,6 @@
     .views-exposed-form {
       position: relative;
     }
-
-    .views-exposed-widget__elements {
-      .views-widget-filter-field_region {
-        position: absolute;
-        left: 0;
-        margin: 0;
-        top: 100%;
-        z-index: 500;
-        padding: $base-spacing-unit;
-        width: 100%;
-        max-width: 400px;
-      }
-    }
-
-    .views-widget-filter-search_api_views_fulltext {
-      display: none;
-    }
   }
 
   @include at-bp(med-large) {
@@ -47,19 +34,12 @@
       float: right;
       height: 100vh;
       overflow: scroll;
-
-      &:after {
-        content: '';
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        display: block;
-        position: absolute;
-        @include background-image(linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(255,255,255,1) 100%));
-      }
     }
   }
 }
 
-
+.page-region-search {
+  .main {
+    overflow: hidden;
+  }
+}

@@ -4,12 +4,14 @@
  * Returns the HTML for a single Drupal page.
  *
  * Complete documentation for this file is available online.
+ *
  * @see https://drupal.org/node/1728148
  */
 ?>
 
 <div class="header__wrapper">
   <header class="header <?php print $header_class;?>" role="banner">
+    <h1 id="site-name"><?php print $site_name; ?></h1>
     <div class="header__branding">
       <?php if ($logo): ?>
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="header__logo" ><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" class="header__logo-image" /></a>
@@ -91,7 +93,7 @@
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>
         <?php print render($page['content']); ?>
-        <div id="citation">
+        <div id="citation" class="element-invisible">
           <?php if (!empty($citation)): ?>
             <?php print $citation; ?>
           <?php endif; ?>
@@ -150,5 +152,15 @@
     </div>
   <?php endif; ?>
 </div>
+
+<div id="offscreen">
+  <?php $popup = render($page['popup']); ?>
+  <?php if ($popup): ?>
+    <div id="popup-content">
+      <?php print render($popup); ?>
+    </div>
+  <?php endif; ?>
+</div>
+
 
 <div id="outdated"></div>

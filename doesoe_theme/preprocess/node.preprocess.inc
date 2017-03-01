@@ -16,6 +16,11 @@ function doesoe_theme_preprocess_node(&$variables, $hook) {
     $variables['classes_array'][] = 'current-year';
   }
 
+  // Add an ID based on title for search linking to full view.
+  if ($variables['view_mode'] == 'default') {
+    $variables['attributes_array']['id'] = _doesoe_theme_url_node_anchor_id($entity);
+  }
+
   // Assessment summary component.
   // Adds the grade scale and labels to the wrapper and used later is JS.
   if ($variables['type'] == 'assessment_summary_component') {
@@ -86,9 +91,8 @@ function doesoe_theme_preprocess_node(&$variables, $hook) {
     }
 
     // Get the theme term.
-    if (isset($entity_w->field_theme)) {
-      $theme = $entity_w->field_theme->value();
-    }
+    $theme = _doesoe_theme_get_theme_from_node($entity);
+
     // We change the title link to point to the key finding listing page.
     // We also pass the year value to the key findings listing page.
     // link eg: /theme/theme-name/key-findings?year=year-value#key-finding-1234.
@@ -140,50 +144,71 @@ function doesoe_theme_preprocess_node(&$variables, $hook) {
   // Standard Report and Report topic content.
   if (in_array($variables['type'], array('report_topic_content', 'standard_report_content'))) {
     // Update the links to include a link to assessment summaries.
-    if ($variables['view_mode'] == 'teaser' && isset($variables['content']['links'])) {
-      $ass_sum_link = FALSE;
-      $ass_sum_link_query = array();
+    if ($variables['view_mode'] == 'teaser') {
 
-      // Get any referenced Ass Sums.
-      $referenced_ass_sums = _doesoe_theme_entity_ref_reverse_lookup('node', 'assessment_summary', 'field_topic', $entity->nid);
+      // Modify links to include Ass sum link.
+      if (isset($variables['content']['links'])) {
+        $ass_sum_link = FALSE;
+        $ass_sum_link_query = array();
 
-      // If we have a single ass sum, link to that.
-      if (count($referenced_ass_sums) == 1) {
-        $ass_sum_row = reset($referenced_ass_sums);
-        $ass_sum_link = 'node/' . $ass_sum_row->nid;
+        // Get any referenced Ass Sums.
+        $referenced_ass_sums = _doesoe_theme_entity_ref_reverse_lookup('node', 'assessment_summary', 'field_topic', $entity->nid);
+
+        // If we have a single ass sum, link to that.
+        if (count($referenced_ass_sums) == 1) {
+          $ass_sum_row = reset($referenced_ass_sums);
+          $ass_sum_link = 'node/' . $ass_sum_row->nid;
+        }
+        elseif (count($referenced_ass_sums) > 1) {
+          // Have more than one summary, link to all ass sums for the theme.
+          $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+          if ($theme) {
+            $ass_sum_link = url('taxonomy/term/' . $theme->tid) . '/assessment-summaries';
+          }
+          // If framework and year, populate the query to get more specific.
+          $framework = _doesoe_theme_entity_get_value('node', $entity, 'field_framework');
+          if ($framework) {
+            $ass_sum_link_query['framework'] = $framework->tid;
+          }
+          $year = _doesoe_theme_entity_get_value('node', $entity, 'field_year');
+          if ($year) {
+            $ass_sum_link_query['year'] = $year->tid;
+          }
+        }
+
+        // If link exists we have summaries for this theme.
+        if ($ass_sum_link !== FALSE) {
+          // DS weight seems to get ignored?
+          $variables['content']['links']['#weight'] = 50;
+          // Update the links to include AS link.
+          $variables['content']['links']['node']['#links']['ass_sum'] = array(
+            'title' => t('See Assessment Summaries'),
+            'href' => $ass_sum_link,
+            'html' => FALSE,
+            'query' => $ass_sum_link_query,
+          );
+        }
+
+        // Just in case comments got in there somehow.
+        unset($variables['content']['links']['comment']);
       }
-      elseif (count($referenced_ass_sums) > 1) {
-        // Have more than one summary, link to all ass sums for the theme.
-        $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
-        if ($theme) {
-          $ass_sum_link = url('taxonomy/term/' . $theme->tid) . '/assessment-summaries';
-        }
-        // If framework and year, populate the query to get more specific.
-        $framework = _doesoe_theme_entity_get_value('node', $entity, 'field_framework');
-        if ($framework) {
-          $ass_sum_link_query['framework'] = $framework->tid;
-        }
-        $year = _doesoe_theme_entity_get_value('node', $entity, 'field_year');
-        if ($year) {
-          $ass_sum_link_query['year'] = $year->tid;
-        }
+
+      // Remove tags from summary in teasers.
+      if (!empty($variables['content']['field_summary'])) {
+        $variables['content']['field_summary'][0]['#markup'] = strip_tags($variables['content']['field_summary'][0]['#markup']);
       }
 
-      // If link exists we have summaries for this theme.
-      if ($ass_sum_link !== FALSE) {
-        // DS weight seems to get ignored?
-        $variables['content']['links']['#weight'] = 50;
-        // Update the links to include AS link.
-        $variables['content']['links']['node']['#links']['ass_sum'] = array(
-          'title' => t('See Assessment Summaries'),
-          'href' => $ass_sum_link,
-          'html' => FALSE,
-          'query' => $ass_sum_link_query,
+      // If NATT theme, show NATT icon.
+      $natt_themes = _doesoe_theme_entity_get_value('node', $entity, 'field_natt_reference');
+      if (!empty($natt_themes)) {
+        $node_theme = _doesoe_theme_get_theme_from_node($entity);
+        $variables['content']['field_theme'] = array(
+          '#type' => 'container',
+          '#attributes' => array('class' => array('report-topic__teaser__theme')),
+          'icon' => taxonomy_term_view($node_theme, 'icon'),
         );
       }
 
-      // Just in case comments got in there somehow.
-      unset($variables['content']['links']['comment']);
     }
   }
 
@@ -205,9 +230,18 @@ function doesoe_theme_preprocess_node(&$variables, $hook) {
 
   // Graph.
   if ($variables['type'] == 'ckan_graph') {
+    // Fallback rules only apply if we have both graph and fallback.
     if (!empty($variables['content']['field_ckan_dataset']) && !empty($variables['content']['field_fallback_image'])) {
-      // We have a ckan graph and a fallback image, let's hide the fallback.
-      $variables['content']['field_fallback_image']['#access'] = FALSE;
+      // If the ckan table is empty, there was a problem, so fallback.
+      $ckan_table_exists = !empty($variables['content']['field_ckan_dataset'][0]['ckan_visualisation'][0]['#tables']);
+      if (!$ckan_table_exists) {
+        // No ckan graph table, hide the el and let the fallback display.
+        $variables['content']['field_ckan_dataset']['#access'] = FALSE;
+      }
+      else {
+        // Graph is ok, so we don't need to show the fallback.
+        $variables['content']['field_fallback_image']['#access'] = FALSE;
+      }
     }
   }
 }

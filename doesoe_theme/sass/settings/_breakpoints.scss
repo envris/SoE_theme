@@ -6,6 +6,7 @@ $bp-medium : 49em;
 $bp-med-large : 53em;
 $bp-large : 62em;
 $bp-xl : 80em;
+$bp-xl-med: 84em;
 $bp-xxl : 103em;
 
 $breakpoints: (
@@ -15,6 +16,7 @@ $breakpoints: (
   med-large: $bp-med-large,
   large: $bp-large,
   xlarge: $bp-xl,
+  med-xlarge: $bp-xl-med,
   xxlarge: $bp-xxl,
 );
 
@@ -22,4 +24,4 @@ $breakpoints: (
 $bp-side-nav-visible: medium;
 $bp-top-nav-visible: med-large;
 $bp-advanced-filters-visible: medium;
-$bp-right-sidebar-visible: large;
+$bp-right-sidebar-visible: med-xlarge;

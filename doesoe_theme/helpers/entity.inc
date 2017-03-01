@@ -48,6 +48,9 @@ function _doesoe_theme_entity_ref_reverse_lookup($lookup_type, $lookup_bundle, $
  *   The value from the field or NULL if no value.
  */
 function _doesoe_theme_entity_get_value($entity_type, $entity, $field) {
+  if (empty($entity)) {
+    return NULL;
+  }
   $entity_w = entity_metadata_wrapper($entity_type, $entity);
   if (isset($entity_w->{$field}) && !empty($entity_w->{$field}->value())) {
     $term = $entity_w->{$field}->value();

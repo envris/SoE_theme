@@ -5,10 +5,17 @@
   padding: $double-spacing-unit $base-spacing-unit;
   background-attachment: fixed;
 
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   .pane-content {
     color: transparentize($color-white, 0.6);
     max-width: 690px;
-    margin: 0 auto;
     -webkit-font-smoothing: antialiased;
 
     p {
@@ -25,13 +32,5 @@
 
   @include at-bp(medium) {
     height: 50vh;
-
-    .pane-content {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      @include transform(translateY(-50%));
-    }
   }
 }

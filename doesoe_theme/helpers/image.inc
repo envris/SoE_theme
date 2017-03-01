@@ -25,6 +25,8 @@ function _doesoe_theme_image_parse_map($string) {
     $attrs[$attr] = $val;
   }
   // Default to a poly.
-  $attrs['shape'] = !empty($attrs['shape']) ? $attrs['shape'] : 'poly';
+  if (!empty($attrs)) {
+    $attrs['shape'] = !empty($attrs['shape']) ? $attrs['shape'] : 'poly';
+  }
   return $attrs;
 }

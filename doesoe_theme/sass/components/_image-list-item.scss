@@ -34,7 +34,7 @@ $icon-size: 2em;
       font-size: $icon-size;
       display: block;
       text-align: center;
-      color: rgba($color-white, 0.7);
+      color: $color-white;
     }
   }
 
@@ -42,33 +42,31 @@ $icon-size: 2em;
     display: none;
     @include at-bp(large) {
       display: block;
-      float: right;
     }
   }
 
   &__title {
-    font-size: $font-size-medium;
-    font-weight: $font-weight-regular;
-    margin-top: $qtr-spacing-unit;
-    margin-bottom: $qtr-spacing-unit;
+    @extend %text-heading__beta;
+    padding: 10px 0;
+    margin: 0;
+    font-weight: $font-weight-medium;
     a {
-      color: $color-red-copper-rust;
+      @include link-color($color-white);
     }
-    @include position-absolute(top 0 left 2.5em);
+    @include position-absolute(top 0 left 3em);
     @include at-bp(large) {
       position: relative;
       left: 0;
-      padding: 0;
+      padding-top: $qtr-spacing-unit;
+      font-weight: $font-weight-bold;
+      a {
+        @include link-color($color-mine-shaft);
+      }
     }
   }
 
   &__links a {
-    color: $color-body;
-    text-decoration: none;
-
-    &:before {
-      content: "> ";
-    }
+    @extend %btn-arrow;
   }
 
   &__side {
@@ -78,15 +76,10 @@ $icon-size: 2em;
   }
 
   &__content {
+    @extend %text-body__dark;
     @include at-bp(large) {
       @include span(13 last);
     }
   }
 
-  .taxonomy-term-description {
-    p {
-      margin-bottom: $region-gutter-small;
-      font-size: $font-size-small;
-    }
-  }
 }

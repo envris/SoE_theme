@@ -1,14 +1,14 @@
+/**
+ * @file
+ * Search Form Values.
+ *
+ * This plugin returns markup for displaying search form values when printing
+ * the results of the search page.
+ */
+
 (function ($) {
 
   "use strict";
-
-  /*
-   * Search Form Values
-   * --------------
-   *
-   * This plugin returns markup for displaying search form values when printing
-   * the results of the search page.
-   */
 
   var searchFormValues = function (el, settings) {
     var self = this;
@@ -45,10 +45,7 @@
       var list = this.getFilterValueList();
       var markup = '';
       for (var key in list) {
-        var item = '<div>' +
-        '<span>' + key + ': </span> ' +
-        '<span>' + list[key] + '</span>' +
-        '</div>';
+        var item = '<div><span>' + key + ': </span><span>' + list[key] + '</span></div>';
         markup = markup + item;
       }
       return markup;
@@ -104,18 +101,22 @@
           if (filterValue) {
             var humanValue = this.selectListHumanValues(filterValue, $input);
           }
-        break;
+          break;
+
         case 'INPUT':
           var inputType = $input.attr('type');
           switch (inputType) {
             case 'radio':
               humanValue = this.radioHumanValue($input);
-            break;
+              break;
+
             case 'text':
               humanValue = $input.val();
-            break;
+              break;
+
           }
-        break;
+          break;
+
       }
       return humanValue;
     };

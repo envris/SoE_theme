@@ -10,10 +10,13 @@
 function doesoe_theme_preprocess_html(&$variables) {
 
   // Theme font.
-  drupal_add_css('//fonts.googleapis.com/css?family=Ubuntu:400,500,300,700', array(
+  drupal_add_css('//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Signika:600,700', array(
     'type'  => 'external',
     'group' => CSS_THEME,
   ));
+
+  // Load jQuery cookie library.
+  drupal_add_library('system', 'jquery.cookie');
 
   // D3 JS.
   // GovCMS CKAN includes this when required but assessment summaries also req
@@ -32,21 +35,40 @@ function doesoe_theme_preprocess_html(&$variables) {
   }
 
   // If the current page is not in the main menu tree, or it is top level then
-  // we add a class to show the sidebar (desktop only).
-  if (_doesoe_theme_menu_show_nav_side()) {
+  // we add a class to show the sidebar (desktop only). Can be trumped by adding
+  // the class 'no-nav-side' using context.
+  if (_doesoe_theme_menu_show_nav_side() && !in_array('no-nav-side', $variables['classes_array'])) {
     $variables['classes_array'][] = 'with-nav-side';
   }
+
+  // Add high contrast mode link to the top of the page.
+  $variables['page']['page_top']['contrast-link'] = array(
+    '#weight' => -1000,
+    '#markup' => theme('html_tag', array(
+      'element' => array(
+        '#tag' => 'div',
+        '#attributes' => array(
+          'id' => 'high-contrast',
+          'aria-hidden' => 'true',
+        ),
+        '#prefix' => '<span>',
+        '#suffix' => '</span>',
+        '#value' => t('Having difficulty reading?') . l(t('View site in high contrast'), '#', array('external' => TRUE, 'attributes' => array('id' => 'toggle'))) . l(html_entity_decode('&#215;'), '#', array('attributes' => array('title' => 'Hide the high contrast', 'id' => 'hide'), 'external' => TRUE)),
+      ),
+    )),
+  );
 
   // Addthis sharing widget JS. This not using drupal_add_js as we want to
   // include the async attribute. More: https://www.drupal.org/node/2299773.
   // Configure widget here: http://addthis.com/dashboard
   // @see bean delta social-sharing-block for embeding.
+  $addthis_pubid = variable_get('doesoe_theme_addthis_id', 'ra-58af6da41268f385');
   $variables['page']['page_bottom']['addthis'] = array(
     '#theme' => 'html_tag',
     '#tag' => 'script',
     '#value' => ' ',
     '#attributes' => array(
-      'src' => '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5758afeff41f0404',
+      'src' => '//s7.addthis.com/js/300/addthis_widget.js#pubid=' . $addthis_pubid,
       'type' => 'text/javascript',
       'async' => 'async',
     ),
@@ -84,5 +106,11 @@ function doesoe_theme_preprocess_html(&$variables) {
   if (_doesoe_theme_is_current_node_historic()) {
     $variables['classes_array'][] = 'historic-content';
     $variables['classes_array'][] = 'force-historic';
+  }
+
+  // Add current theme body class.
+  $current_theme = _doesoe_theme_get_current_theme_term();
+  if (!empty($current_theme->tid)) {
+    $variables['classes_array'][] = 'current-theme__' . drupal_html_class($current_theme->name);
   }
 }

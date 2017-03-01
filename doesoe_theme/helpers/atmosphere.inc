@@ -44,7 +44,9 @@ function _doesoe_theme_atmosphere_sub_theme_intro_text($section_title, $section_
       '@section_title' => $section_title,
     ));
     $link_url = str_replace('!term', drupal_html_class($other_theme->name), $section_path);
-    $link = l(t('> @section for @term', array('@section' => $section_title, '@term' => $other_theme->name)), $link_url);
+    $link = l(t('@section for @term', array('@section' => $section_title, '@term' => $other_theme->name)), $link_url, array(
+      'attributes' => array('class' => array('button--arrow')),
+    ));
     // Wrap in paragraphs and return.
     return '<div class="theme-intro__sub-theme theme-palette-inherit-links"><p>' . $text . '</p><p>' . $link . '</p></div>';
   }

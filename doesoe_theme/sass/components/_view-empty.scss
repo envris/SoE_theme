@@ -1,0 +1,6 @@
+.view-empty {
+  @extend %text-body__light;
+  h3 {
+    @extend %text-heading__beta;
+  }
+}

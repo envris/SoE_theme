@@ -1,4 +1,18 @@
-(function ($) {
+/**
+ * @file
+ * Search Map.
+ *
+ * This plugin handles the rendering and control over the leaflet map on the search page.
+ * The map is used as a filter to filter content by region.
+ *
+ * Dependencies:
+ * http://leafletjs.com
+ * https://github.com/heigeo/leaflet.wms
+ *
+ * Author: carl@doghouse.agency
+ */
+
+(function ($, window) {
 
   /*
    * Search Map
@@ -21,11 +35,13 @@
 
     self.selectedRegions = [];
 
+    self.autoSubmitTimeout = {};
+
     // Get settings.
     self.defaults = {
       mapSelector: 'search-map',
       mapCenter: [-25, 133],
-      mapZoom: 4,
+      mapZoom: 3,
       regionFeatures: [],
       scrollWheelZoom: false,
       mapTileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
@@ -104,7 +120,7 @@
     };
 
     // Build polygon style based on state.
-    self.buildRegionStyle = function (properties, hover = false) {
+    self.buildRegionStyle = function (properties, hover) {
       var isActive = self.isRegionActive(properties.tid) > -1;
       var style = {
             color:  "#9a953a",
@@ -147,7 +163,8 @@
           if (idx === -1) {
             self.selectedRegions.push(properties.tid);
             layer.setStyle(self.buildRegionStyle(properties));
-          } else {
+          }
+          else {
             self.selectedRegions.splice(idx, 1);
             layer.setStyle(self.buildRegionStyle(properties));
           }
@@ -155,10 +172,20 @@
           var $filter = $(el);
           $filter.val(self.selectedRegions);
           $filter[0].sumo.reload();
+          self.submitSearch($filter);
         });
 
       })(layer, feature.properties);
 
+    };
+
+    // Trigger form submit on slection (with timeout).
+    self.submitSearch = function ($filter) {
+      clearTimeout(self.autoSubmitTimeout);
+      self.autoSubmitTimeout = setTimeout(function(){
+        $('body').append('<div class="ajax-progress"><div class="throbber"></div></div>');
+        $filter.closest('form').trigger('submit');
+      }, 1500);
     };
 
     // Wrapper for determining if a region tid is active.
@@ -166,27 +193,38 @@
       return self.selectedRegions.indexOf(tid);
     };
 
+    // Get an extent from via tid.
+    self.extentViaTid = function(tid) {
+      if (self.settings.regionExtents && self.settings.regionExtents[tid]) {
+        return self.settings.regionExtents[parseInt(tid)];
+      }
+      return false;
+    };
+
     // Go to coords on map extent filter change.
     self.extentChange = function () {
       var $filter = self.settings.extentFilter;
       $filter.change(function () {
-        var coords = $(this).val();
-        self.extentGoTo(coords);
+        var extent = self.extentViaTid($(this).val());
+        if (extent) {
+          self.extentGoTo(extent);
+        }
       });
     };
 
     // Get map extent from url query.
     self.getExtentFromUrl = function () {
       var search = new URLSearchParams(window.location.search);
-      return search.get('extent');
+      return self.extentViaTid(search.get('extent'));
     };
 
     // Check if extent is an array of coords.
     self.extentIsArray = function (extent) {
       try {
-        JSON.parse(extent);
-      } catch (e) {
-          return false;
+        JSON.parse(extent.coords);
+      }
+      catch (e) {
+        return false;
       }
       return true
     };
@@ -201,16 +239,17 @@
 
     // Go to coords on map.
     self.extentGoTo = function (extent) {
-      var zoom = 7;
-      if (!self.extentIsArray(extent)) {
-        extent = self.settings.mapCenter;
-        extent.reverse();
+      var coords, zoom;
+      if (!extent || !self.extentIsArray(extent)) {
+        coords = self.settings.mapCenter;
+        coords.reverse();
         zoom = self.settings.mapZoom;
       }
       else {
-        extent = JSON.parse(extent);
+        coords = JSON.parse(extent.coords);
+        zoom = parseInt(extent.zoom);
       }
-      self.map.setView([extent[1], extent[0]], zoom);
+      self.map.setView([coords[1], coords[0]], zoom);
     };
 
     self.init();
@@ -228,4 +267,4 @@
     });
   };
 
-})(jQuery);
+})(jQuery, this);

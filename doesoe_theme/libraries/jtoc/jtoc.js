@@ -79,6 +79,11 @@
       $(self.opts.content).find(self.opts.headings).each(function () {
         var $el = $(this), anchorName, $a, level, parentItem;
 
+        // Only act on visible elements.
+        if (!$el.is(':visible')) {
+          return;
+        }
+
         // What level is the current heading?
         level = $.map(self.headingSelectors, function (selector, index) {
           return $el.is(selector) ? index : undefined;

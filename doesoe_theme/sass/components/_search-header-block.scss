@@ -11,6 +11,9 @@
   width: $header-mobile-height;
   overflow: hidden;
   @include transition(width 250ms ease);
+  z-index: 5;
+  margin-top: -1px;
+  padding-bottom: 2px;
 
   &.is-active {
     width: 100%;
@@ -23,6 +26,7 @@
 
     &:focus {
       box-shadow: none;
+      outline: none;
     }
   }
 
@@ -71,7 +75,8 @@
     left: 0;
     border-radius: 0;
     background: transparent;
-    border-left: 1px solid $color-white-gainsboro
+    border-left: 1px solid $color-white-gainsboro;
+    outline: none;
   }
 
   @include at-bp($bp-top-nav-visible) {

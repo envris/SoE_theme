@@ -1,3 +1,9 @@
+<?php
+/**
+ * @file
+ * Template for region term icons.
+ */
+?>
 <div class="region-icon">
   <div class="region-icon__link">
     <a href="<?php print $term_url; ?>" title="<?php print check_plain($safe_description); ?>">

@@ -13,7 +13,7 @@ $slider-large-bp: xlarge;
 %slider-control {
   opacity: 0.5;
   cursor: pointer;
-  &:hover {
+  &:hover, &:focus {
     opacity: 0.8;
   }
 }
@@ -105,6 +105,8 @@ $slider-large-bp: xlarge;
     overflow: hidden;
     background: $color-white;
     display: none;
+    padding: 0;
+    text-align: left;
     &:hover {
       background: darken($color-white, 5%);
       box-shadow: 0 2px 5px 0 rgba($color-black, 0.1);
@@ -174,6 +176,7 @@ $slider-large-bp: xlarge;
     height: 30px;
     padding: 6px;
     z-index: 50;
+    background: none;
     span {
       display: block;
       width: 18px;
@@ -201,10 +204,10 @@ $slider-large-bp: xlarge;
       margin-bottom: $base-spacing-unit;
       font-size: 1.1;
 
-      &, &:visited, &:focus, &:active {
+      &, &:visited, &:active {
         color: $color-body;
       }
-      &:hover {
+      &:hover, &:focus {
         background: $color-brand-primary;
         color: $color-white;
       }

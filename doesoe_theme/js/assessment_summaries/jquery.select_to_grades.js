@@ -1,14 +1,14 @@
+/**
+ * @file
+ * Turn a multiple select into a grade selector.
+ *
+ * This is used on the assessment summary search page for turning a
+ * multi select element into a grade selector.
+ */
 
 (function ($) {
 
   "use strict";
-
-  /*
-   * Turn a multiple select into a grade selector.
-   *
-   * This is used on the assessment summary search page for turning a
-   * multi select element into a grade selector.
-   */
 
   var SelectToGrade = function (dom, settings) {
     var self = this;
@@ -94,7 +94,6 @@
 
     self.init();
   };
-
 
   /*
    * jQuery plugin/function.

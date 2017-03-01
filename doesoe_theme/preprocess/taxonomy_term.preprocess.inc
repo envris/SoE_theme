@@ -21,18 +21,25 @@ function doesoe_theme_preprocess_taxonomy_term(&$variables, $hook) {
       $variables['classes_array'][] = 'row-palette__' . drupal_html_class($entity_w->field_palette_key->value());
     }
 
-    // DS doesn't support truncating the description so we do it here.
-    if ($variables['view_mode'] == 'teaser' && isset($variables['content']['description']['#markup'])) {
-      $summary = _doesoe_theme_text_trim($variables['content']['description']['#markup'], 200);
-      $variables['content']['description']['#markup'] = $summary;
+    // Add icon class to icon row.
+    if ($variables['view_mode'] == 'icon') {
+      $variables['classes_array'][] = 'theme-icon';
     }
 
     if ($variables['view_mode'] == "framework_theme_item") {
       if (arg(2) && is_numeric(arg(2))) {
         $term = taxonomy_term_load(arg(2));
         if ($term && $term->vocabulary_machine_name == 'frameworks') {
+          // Build the title.
+          $theme_title = $variables['content']['title'][0]['#markup'] . ' ' . strtolower($term->name);
+          $header_title = $theme_title;
+          $parents = taxonomy_get_parents($entity->tid);
+          if (!empty($parents)) {
+            $parent = reset($parents);
+            $header_title = $parent->name . ' - ' . $header_title;
+          }
           // Add framework to theme title.
-          $variables['content']['title'][0]['#markup'] .= ' ' . strtolower($term->name);
+          $variables['content']['title'][0]['#markup'] = $header_title;
           // Display at a glance content.
           $view = views_get_view('at_a_glance_by_theme_framework');
           $view->set_display('block');
@@ -47,20 +54,25 @@ function doesoe_theme_preprocess_taxonomy_term(&$variables, $hook) {
 
           // Display Assessment Summaries search link.
           $variables['assessment_summaries_link'] = l(
-            t('> Assessment summaries for @title', array('@title' => $variables['content']['title'][0]['#markup'])),
+            t('Assessment summaries for @title', array('@title' => $theme_title)),
             'theme/' . drupal_html_class($variables['name']) . '/assessment-summaries',
-            array('query' => array('framework' => $term->tid))
+            array(
+              'query' => array('framework' => $term->tid),
+            )
           );
 
           // Display Topics search link.
           $variables['topics_link'] = l(
-            t('> List all topics for @title', array('@title' => $variables['content']['title'][0]['#markup'])),
+            t('List all topics for @title', array('@title' => $theme_title)),
             'theme/' . drupal_html_class($variables['name']) . '/topics',
             array(
-              'query' => array(
-                'framework' => $term->tid,
-              ),
+              'query' => array('framework' => $term->tid),
             )
+          );
+          // Rewrite the title to link to the framework landing per theme.
+          $variables['content']['title'][0]['#markup'] = l(
+            $variables['content']['title'][0]['#markup'],
+            $variables['term_url'] . '/framework/' . drupal_html_class($term->name)
           );
         }
       }
@@ -87,16 +99,11 @@ function doesoe_theme_preprocess_taxonomy_term(&$variables, $hook) {
         $variables['content']['more_link'][0]['#markup'] = l(t('Find out more'), $path);
       }
     }
-    if ($variables['view_mode'] == 'full_teaser') {
-      $link_url = $variables['term_url'];
-      $link_text = t('Compare summary information for @title across entire report', array('@title' => $variables['name']));
-      $variables['content']['more_link'][0]['#markup'] = l($link_text, $link_url);
-    }
   }
 
   // Rewrite region term_url to link to pre-populated search page.
   if ($entity->vocabulary_machine_name == 'regions') {
-    $variables['term_url'] = url('search', array(
+    $variables['term_url'] = url('region-search', array(
       'query' => array('region[]' => $variables['tid']),
     ));
   }

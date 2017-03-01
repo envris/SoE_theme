@@ -1,5 +1,4 @@
-//// Key finding teaser
-$fw-content-margin-left:      55px;
+// Key finding teaser
 
 %key-finding-teaser,
 .key-finding-teaser {
@@ -9,7 +8,7 @@ $fw-content-margin-left:      55px;
   }
 
   &__content {
-    margin-left: $fw-content-margin-left;
+    margin-left: $icon-teaser-side-width;
     a {
       color: $color-grey-dim-gray;
       &:hover {
@@ -17,10 +16,10 @@ $fw-content-margin-left:      55px;
       }
     }
     h4 {
-      @extend %landing-heading__gamma;
+      @extend %text-heading__gamma;
     }
     p {
-      @extend %landing-text;
+      @extend %text-body__light;
       &:last-child {
         padding-bottom: $qtr-spacing-unit;
       }
@@ -52,14 +51,7 @@ $fw-content-margin-left:      55px;
   }
 
   &__relates-to {
-    > strong {
-      @extend %btn-uppercase;
-      display: inline-block;
-      padding-right: $three-qtr-spacing-unit;
-    }
-    > div {
-      display: inline-block;
-    }
+    @extend %group__relates-to;
   }
 
 }

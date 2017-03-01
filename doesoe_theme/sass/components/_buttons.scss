@@ -5,7 +5,7 @@
 }
 
 .button--secondary {
-  @include button-style($color-red-copper-rust, $color-white, $color-red-charm);
+  @include button-style($color-brand-primary, $color-white, $color-red-charm);
 }
 
 .button--pill {

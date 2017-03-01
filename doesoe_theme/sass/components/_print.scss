@@ -23,6 +23,7 @@
   .footer,
   .reference-popup,
   .layout__sidebar-first,
+  .header__branding,
   body.two-sidebars .layout__sidebar-second,
   body.sidebar-second .layout__sidebar-second,
   body.with-nav-side .sidebar__first {
@@ -31,12 +32,20 @@
 
   .header {
     top: 0;
-    margin-bottom: 1cm;
+    margin-bottom: 0;
     padding: 0;
+    height: auto;
 
     .header__branding {
       padding-left: 0;
     }
+  }
+
+  #site-name {
+    display: block;
+    margin: 0;
+    padding: 0.2em;
+    font-size: 2.2em;
   }
 
   body.two-sidebars .layout__content,
@@ -47,6 +56,11 @@
 
   .hero {
     height: auto !important;
+    background: none !important;
+    min-height: auto;
+    padding: 0.2em 0.2em 1em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid $color-grey-silver;
 
     &__body {
       padding: 0;
@@ -139,6 +153,18 @@
   }
 
   #search-map {
+    display: none;
+  }
+
+  .ass-sum__table {
+    zoom: 0.8;
+    .ass-sum__item__topics-link,
+    .ass-sum__item__metadata-link {
+      display: none;
+    }
+  }
+
+  .ass-sum__full__title {
     display: none;
   }
 

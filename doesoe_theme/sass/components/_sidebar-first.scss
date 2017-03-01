@@ -14,7 +14,7 @@ $sidebar-first-border-right-width: 10px;
   @include transition(left 0.5s ease);
 
   @include at-bp(large) {
-    border-right: $sidebar-first-border-right-width solid $color-red-copper-rust;
+    border-right: $sidebar-first-border-right-width solid $color-brand-primary;
   }
 
   // Default text color.

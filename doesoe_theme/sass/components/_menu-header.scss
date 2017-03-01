@@ -39,8 +39,9 @@ $main-menu-medium-right:          13em;
       line-height: $header-height;
       display: inline-block;
       -webkit-font-smoothing: antialiased;
+      &:hover,
       &.active {
-        color: $color-red-copper-rust;
+        color: $color-brand-primary;
       }
 
       @include at-bp(large) {

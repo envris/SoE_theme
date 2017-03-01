@@ -27,6 +27,7 @@
     font-size: $font-size-medium;
     color: $color-brand-primary;
 
+
     a {
       color: inherit;
       text-decoration: underline;
@@ -63,6 +64,12 @@
     }
   }
 
+  &__theme {
+    .theme-icon {
+      display: inline-block;
+    }
+  }
+
   &__body {
     margin: 0 0 $region-gutter-small 0;
     color: $color-grey-dim-gray;
@@ -70,9 +77,10 @@
   }
 
   &__link {
+    padding-top: $half-spacing-unit;
 
     a {
-      color: $color-brand-primary;
+      @extend %btn-arrow;
     }
   }
 

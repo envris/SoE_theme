@@ -23,6 +23,9 @@
           .appendTo($container);
       });
 
+      $('.views-csv-export')
+        .find('.view-content .views-table:first').attr('id', 'views-table-first').end()
+        .prepend('<a href="#" download="' + $(document).find('title').text() + '.csv" onclick="return ExcellentExport.csv(this, \'views-table-first\')">Download CSV</a>')
     }
   };
 

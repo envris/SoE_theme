@@ -1,6 +1,9 @@
 // An assessment summary report teaser.
 
+%ass-sum__teaser,
 .ass-sum__teaser {
+  position: relative;
+  padding-bottom: $base-spacing-unit;
 
   &__years,
   &__framework {
@@ -19,10 +22,39 @@
     display: block;
 
     a {
-      &:before {
-        content: "> ";
-      }
+      @extend %btn-arrow;
     }
   }
 
+  &__icon {
+    @include position-absolute(left 0 top 0);
+    @extend %icon-circle;
+    i {
+      font-size: 1.8em;
+      color: $color-white;
+    }
+  }
+
+  &__content {
+    margin-left: $icon-teaser-side-width;
+    width: auto;
+    float: none;
+    h4 {
+      @extend %text-heading__beta;
+      padding-top: $qtr-spacing-unit;
+    }
+  }
+
+
+
+}
+
+.node-assessment-summary.node-teaser {
+  @extend %ass-sum__teaser;
+  .ds-icon-teaser__side {
+    @extend %ass-sum__teaser__icon;
+  }
+  .ds-icon-teaser__content {
+    @extend %ass-sum__teaser__content;
+  }
 }

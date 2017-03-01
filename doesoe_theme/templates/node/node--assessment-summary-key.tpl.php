@@ -49,23 +49,23 @@
     <ul class="ass-sum-key__confidence">
       <li>
         <span class="ass-sum-key__icon icon-confidence-5"></span>
-        <p><?php print t('Adequate high-quality evidence and high level of consensus'); ?></p>
+        <p><?php print t('<strong>Adequate:</strong> Adequate high-quality evidence <strong>and</strong> high level of consensus'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-confidence-4"></span>
-        <p><?php print t('Adequate high-quality evidence or high level of consensus'); ?></p>
+        <p><?php print t('<strong>Somewhat adequate:</strong> Adequate high-quality evidence <strong>or</strong> high level of consensus'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-confidence-3"></span>
-        <p><?php print t('Limited evidence or limited consensus'); ?></p>
+        <p><?php print t('<strong>Limited:</strong> Limited evidence <strong>or</strong> limited consensus'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-confidence-2"></span>
-        <p><?php print t('Limited evidence and limited consensus'); ?></p>
+        <p><?php print t('<strong>Very limited:</strong> Limited evidence <strong>and</strong> limited consensus'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-confidence-1"></span>
-        <p><?php print t('Evidence and consensus too low to make an assessment'); ?></p>
+        <p><?php print t('<strong>Low:</strong> Evidence and consensus too low to make an assessment'); ?></p>
       </li>
     </ul>
 
@@ -74,15 +74,15 @@
     <ul class="ass-sum-key__comparability">
       <li>
         <span class="ass-sum-key__icon icon-compare-4"></span>
-        <p><?php print t('Grade and trend are comparable to the previous assessment'); ?></p>
+        <p><?php print t('<strong>Comparable:</strong> Grade and trend are comparable to the previous assessment'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-compare-3"></span>
-        <p><?php print t('Grade and trend are somewhat comparable to the previous assessment'); ?></p>
+        <p><?php print t('<strong>Somewhat comparable:</strong> Grade and trend are somewhat comparable to the previous assessment'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-compare-2"></span>
-        <p><?php print t('Grade and trend are not comparable to the previous assessment'); ?></p>
+        <p><?php print t('<strong>Not comparable:</strong> Grade and trend are not comparable to the previous assessment'); ?></p>
       </li>
       <li>
         <span class="ass-sum-key__icon icon-compare-1"></span>

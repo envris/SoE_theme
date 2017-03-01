@@ -1,8 +1,8 @@
 
 .report-topic__full {
 
-  &__title {
-    font-weight: $font-weight-medium;
+  &__title, h2 {
+    @extend %text-heading__alpha;
   }
 
   &__year,
@@ -43,6 +43,13 @@
 
       .ass-sum__title h2 {
         margin-top: 1em;
+      }
+    }
+
+    h4 {
+      @extend %text-heading__beta;
+      &, a {
+        color: $color-grey-mortar;
       }
     }
 

@@ -1,11 +1,5 @@
-%radio-to-select {
-  .form-radio,
-  .form-item:first-of-type {
-    display: none;
-  }
-
-  .form-radio:checked + label,
-  .form-radio:checked {
+%select-to-checkbox {
+  .form-select {
     display: none;
   }
 
@@ -13,6 +7,7 @@
     font-weight: $font-weight-light;
     font-size: $font-size-small;
     cursor: pointer;
+    margin-top: $half-spacing-unit;
   }
 
   label:before {
@@ -27,14 +22,12 @@
     margin-right: 12px;
   }
 
-  .form-item:last-of-type {
-    label:before {
-      @extend %icon;
-      content: icon-get-code(check2);
-      text-align: center;
-      height: auto;
-      line-height: 20px;
-    }
+  label.checked:before {
+    @extend %icon;
+    content: icon-get-code(check2);
+    text-align: center;
+    height: auto;
+    line-height: 20px;
   }
 }
 
@@ -50,6 +43,8 @@
     height: 50px;
     color: $color-grey-charcoal;
     font-weight: $font-weight-light;
+    width: 100%;
+    max-width: 41em;
   }
 
   &__input--text {
@@ -112,13 +107,14 @@
   }
 
   &__widgets__actions__widget--submit__button {
-    background: $color-red-copper-rust;
+    background: $color-brand-primary;
     text-transform: uppercase;
     font-size: $font-size-small;
     font-weight: $font-weight-bold;
     padding: ($base-spacing-unit * .7) $double-spacing-unit;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.20);
     border-radius: 3px;
+    margin-top: -3em;
   }
 
   &__widgets__actions__widget--reset__button {
@@ -149,18 +145,25 @@
     vertical-align: middle;
   }
 
+  &__widget--overview {
+    padding-top: 19px + $half-spacing-unit;
+  }
+
   &__filter--region__label {
     float: left;
   }
 
   @include at-bp(small) {
     &__widgets__elements__widget {
-      box-sizing: border-box;
-      width: 46%;
-      float: left;
+      @include span(50%);
 
-      &:nth-of-type(odd) {
-        margin-right: 8%;
+      &:nth-child(odd) {
+        padding-right: 4%;
+        clear: left;
+      }
+
+      &:nth-child(even) {
+        padding-left: 4%;
       }
     }
   }
@@ -174,8 +177,10 @@
     @extend %site-search__form;
   }
 
-  label {
-    @extend %site-search__label;
+  .views-exposed-widget {
+    > label {
+      @extend %site-search__label;
+    }
   }
 
   .views-exposed-widgets {
@@ -187,6 +192,11 @@
 
     .views-exposed-widget {
       @extend %site-search__widgets__elements__widget;
+    }
+
+    .views-widget-filter-field_natt_reference {
+      @extend %site-search__widget--overview;
+      @extend %select-to-checkbox;
     }
   }
 
@@ -224,17 +234,13 @@
     @extend %site-search__input--sumo;
   }
 
-  .form-text,
+  .form-text, .form-select,
   .SumoSelect .CaptionCont {
     @extend %site-search__input;
   }
 
   .SumoSelect .CaptionCont {
     @extend %site-search__input--sumo__cont;
-  }
-
-  .views-widget-filter-field_natt_reference {
-    @extend %radio-to-select;
   }
 
   .views-widget-filter-field_region_tid,

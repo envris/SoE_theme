@@ -107,3 +107,21 @@ function doesoe_admin_field_widget_form_alter(&$element, &$form_state, $context)
     }
   }
 }
+
+/**
+ * Implements hook_form_taxonomy_form_term_alter().
+ *
+ * Add a submit handler to term edit form to redirect to view afterwards.
+ */
+function doesoe_admin_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = '_doesoe_admin_form_taxonomy_form_term_submit';
+}
+
+/**
+ * Redirect to a term view page after creation/update.
+ */
+function _doesoe_admin_form_taxonomy_form_term_submit($form, &$form_state) {
+  if (!empty($form_state['term']->vocabulary_machine_name)) {
+    $form_state['redirect'] = 'admin/structure/taxonomy/' . $form_state['term']->vocabulary_machine_name;
+  }
+}

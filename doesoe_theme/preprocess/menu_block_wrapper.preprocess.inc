@@ -19,7 +19,6 @@ function doesoe_theme_preprocess_menu_block_wrapper(&$variables) {
     'govcms_menu_block-main-menu',
     PSEUDO_THEME_MENU_BLOCK_DELTA,
     TOPICS_MENU_BLOCK_DELTA,
-    FRAMEWORKS_MENU_BLOCK_DETLA,
   );
 
   /*
@@ -53,22 +52,19 @@ function doesoe_theme_preprocess_menu_block_wrapper(&$variables) {
     $depth = 1;
 
     // Check level one for active state with children.
-    if ($sub_tree = _doesoe_theme_menu_is_tree_active($variables['content'])) {
+    if ($sub_tree = _doesoe_theme_menu_is_tree_active($variables['content'], $current_theme)) {
       // If matched add overrides.
       $back_link = _doesoe_theme_menu_get_back_link('Home', '<front>');
       $tree_override = $sub_tree;
+      // If sub level, back to parent.
+      if (!empty($tree_override['#href'])) {
+        $back_link = _doesoe_theme_menu_get_back_link($tree_override['#title'], $tree_override['#href']);
+      }
     }
 
     // Check level two for active state with children.
     foreach (element_children($variables['content']) as $mlid) {
       $link = $variables['content'][$mlid];
-
-      // If this is a NATT theme it should be in the top level.
-      if ($sub_tree = _doesoe_theme_menu_is_tree_active($variables['content'], $current_theme)) {
-        // If matched add overrides.
-        $back_link = _doesoe_theme_menu_get_back_link('Home', '<front>');
-        $tree_override = $sub_tree;
-      }
 
       // We also pass the current theme if we need to dynamically activate.
       if ($sub_tree = _doesoe_theme_menu_is_tree_active($link['#below'], $current_theme)) {
@@ -80,15 +76,28 @@ function doesoe_theme_preprocess_menu_block_wrapper(&$variables) {
 
       // Check level three for active state with children.
       if (!empty($link['#below'])) {
-        foreach (element_children($link['#below']) as $st_mlid) {
-          $st_link = $link['#below'][$st_mlid];
-          // We also pass the current theme if we need to dynamically activate.
-          if ($st_sub_tree = _doesoe_theme_menu_is_tree_active($st_link['#below'], $current_theme)) {
-            // If matched add overrides.
-            $back_link = _doesoe_theme_menu_get_back_link($st_link['#title'], $st_link['#href']);
-            $tree_override = $st_sub_tree;
-            $tree_override['#title'] = $st_link['#title'] . ' - ' . $tree_override['#title'];
-            $depth = 3;
+
+        if (!empty($current_theme)) {
+          foreach (element_children($link['#below']) as $st_mlid) {
+            $st_link = $link['#below'][$st_mlid];
+            if ($st_sub_tree = _doesoe_theme_menu_is_tree_active($st_link['#below'], $current_theme)) {
+              $tree_override = $st_link;
+              $back_link = _doesoe_theme_menu_get_back_link($link['#title'], $link['#href']);
+            }
+          }
+        }
+
+        else {
+          foreach (element_children($link['#below']) as $st_mlid) {
+            $st_link = $link['#below'][$st_mlid];
+            // We pass the current theme if we need to dynamically activate.
+            if ($st_sub_tree = _doesoe_theme_menu_is_tree_active($st_link['#below'], $current_theme)) {
+              // If matched add overrides.
+              $back_link = _doesoe_theme_menu_get_back_link($st_link['#title'], $st_link['#href']);
+              $tree_override = $st_sub_tree;
+              $tree_override['#title'] = $st_link['#title'] . ' - ' . $tree_override['#title'];
+              $depth = 3;
+            }
           }
         }
       }
@@ -131,6 +140,13 @@ function doesoe_theme_preprocess_menu_block_wrapper(&$variables) {
       $variables['suffix'] = $back_link;
     }
   }
+
+  // Add back button to frameworks but don't filter items.
+  if ($variables['delta'] == FRAMEWORKS_MENU_BLOCK_DETLA) {
+    $back_link = _doesoe_theme_menu_get_back_link('Home', '<front>');
+    $variables['suffix'] = $back_link;
+  }
+
 }
 
 /**

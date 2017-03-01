@@ -1,7 +1,7 @@
 // Footer
 
 .footer {
-  background-color: $color-red-copper-rust;
+  background-color: $color-brand-primary;
   position: relative;
 }
 
@@ -39,6 +39,11 @@
   }
 
   .footer-freetext {
+
+    a:focus {
+      outline-color: $color-white;
+    }
+
     img {
       display: inline;
     }

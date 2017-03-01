@@ -16,30 +16,14 @@ function doesoe_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_
   if (empty($form_state['input'])) {
     $broken_filters = array('year');
     foreach ($broken_filters as $broken_filter) {
-      if (isset($form_state['input'][$broken_filter])) {
-        $form_state['input'][$broken_filter] = $form[$broken_filter]['#default_value'];
-      }
+      $form_state['input'][$broken_filter] = $form[$broken_filter]['#default_value'];
     }
   }
 
   // Create map extent filter.
   if ($view->name == 'site_search' && $view->current_display == 'region') {
-    $vocab = taxonomy_vocabulary_machine_name_load('territories');
-    $vid = $vocab->vid;
-    $tree = taxonomy_get_tree($vid, 0, NULL, TRUE);
-    $options = array();
-    foreach ($tree as $term) {
-      if ($coords_field = field_get_items('taxonomy_term', $term, 'field_geometry_collection')) {
-        $coords = reset($coords_field);
-        $options[$coords['value']] = $term->name;
-      }
-    }
-    $form['extent'] = array(
-      '#type' => 'select',
-      '#options' => $options,
-      '#empty_option' => 'Australia',
-      '#empty_value' => 'All',
-    );
+    // Anchor to map on submit.
+    $form['#action'] = $form['#action'] . '#search-map';
   }
 
   // Modify site ass sum exposed form.
@@ -70,5 +54,22 @@ function doesoe_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_
         'class' => array('show-on-map'),
       ),
     ));
+  }
+
+  // For the authors page, We use a combine filter to search both natt and theme
+  // but need to manually turn it into a select.
+  if ($view->name == 'authors') {
+    $vocab = taxonomy_vocabulary_machine_name_load('themes');
+    $tree = taxonomy_get_tree($vocab->vid, 0, NULL, TRUE);
+    $form['theme'] = array_merge($form['theme'], array(
+      '#type' => 'select',
+      '#size' => NULL,
+      '#empty_option' => '- Any -',
+      '#empty_value' => '',
+      '#options' => array(),
+    ));
+    foreach ($tree as $term) {
+      $form['theme']['#options'][$term->tid] = check_plain($term->name);
+    }
   }
 }

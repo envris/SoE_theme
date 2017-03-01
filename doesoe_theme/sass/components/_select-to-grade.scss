@@ -1,6 +1,6 @@
 $stg-grade-count: 5;
 $stg-grade-width: 100% / $stg-grade-count;
-$stg-height: 33px;
+$stg-height: 47px;
 $stg-checkbox-size: 11px;
 
 .select-to-grade {
@@ -17,6 +17,7 @@ $stg-checkbox-size: 11px;
     @extend %clearfix;
     background: $color-alabaster;
     padding: 0 1px;
+    max-width: 50em;
 
     // Colour the options with grade colours.
     @include color-elements(array-reverse($colors-ass-sum-grade-4), 'select-to-grade__option', 'background');

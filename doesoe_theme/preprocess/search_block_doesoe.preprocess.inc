@@ -34,7 +34,6 @@ function doesoe_theme_search_block_doesoe_form($form, &$form_state) {
 
   $form['container']['text'] = array(
     '#type' => 'textfield',
-    '#required' => TRUE,
     '#default_value' => isset($_GET['text']) ? check_plain($_GET['text']) : '',
     '#title' => t('Enter your search keywords.'),
     '#title_display' => 'invisible',
@@ -75,19 +74,24 @@ function doesoe_theme_search_block_doesoe_form($form, &$form_state) {
  */
 function doesoe_theme_search_block_doesoe_form_submit($form, &$form_state) {
   $query = $form_state['values']['text'];
+  $options = array();
+
+  if (!empty($query)) {
+    $options = array('query' => array('text' => $query));
+  }
 
   // Change search dest based on type.
   switch ($form_state['values']['search_type']) {
     case 'site':
-      drupal_goto('search', array('query' => array('text' => $query)));
+      drupal_goto('search', $options);
       break;
 
     case 'map':
-      drupal_goto('region-search', array('query' => array('text' => $query)));
+      drupal_goto('region-search', $options);
       break;
 
     case 'assessment':
-      drupal_goto('assessment-summary-components', array('query' => array('text' => $query)));
+      drupal_goto('assessment-summary-components', $options);
       break;
   }
 }

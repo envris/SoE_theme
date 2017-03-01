@@ -14,7 +14,7 @@
  *   TRUE if item is active, FALSE if not.
  */
 function _doesoe_theme_menu_is_link_active($link) {
-  return isset($link['#attributes']['class']) && in_array('active', $link['#attributes']['class']);
+  return isset($link['#attributes']['class']) && (in_array('active', $link['#attributes']['class']) || in_array('active-trail', $link['#attributes']['class']));
 }
 
 /**
@@ -22,20 +22,20 @@ function _doesoe_theme_menu_is_link_active($link) {
  *
  * @param array $items
  *   The items in the current tree.
- * @param mixed $current_theme
- *   Either a term object for the current theme or FALSE if no theme applies.
+ * @param mixed $current_term
+ *   Either a term object for the current term or FALSE if no theme applies.
  *
  * @return mixed
  *   If an active sub menu exists, return it. Otherwise return FALSE.
  */
-function _doesoe_theme_menu_is_tree_active($items, $current_theme = FALSE) {
+function _doesoe_theme_menu_is_tree_active($items, $current_term = FALSE) {
   if (empty($items)) {
     return FALSE;
   }
 
   foreach (element_children($items) as $mlid) {
     $link = $items[$mlid];
-    $theme_match = $current_theme ? ($link['#href'] == 'taxonomy/term/' . $current_theme->tid) : FALSE;
+    $theme_match = $current_term ? ($link['#href'] == 'taxonomy/term/' . $current_term->tid) : FALSE;
     if (!empty($link['#below']) && (_doesoe_theme_menu_is_link_active($link) || $theme_match)) {
       return $link;
     }
@@ -50,10 +50,24 @@ function _doesoe_theme_menu_show_nav_side() {
   $menu_name = 'main-menu';
 
   // Force sidebar on these content types.
-  $types_with_sidebar = array('author', 'page');
+  $types_with_sidebar = array('page');
 
-  // Force sidebaron these paths.
-  $paths_with_sidebar = array('authors');
+  // Disable sidebar on these types.
+  $types_without_sidebar = array('author');
+
+  // Force sidebar on these paths.
+  $paths_with_sidebar = array();
+
+  // Force sidebar on $types_with_sidebar.
+  $node = menu_get_object();
+  if (!empty($node->type) && in_array($node->type, $types_with_sidebar)) {
+    return TRUE;
+  }
+
+  // Disable sidebar on $types_without_sidebar.
+  if (!empty($node->type) && in_array($node->type, $types_without_sidebar)) {
+    return FALSE;
+  }
 
   // All items tagged with a theme get side nav.
   $theme = _doesoe_theme_get_current_theme_term();
@@ -83,12 +97,6 @@ function _doesoe_theme_menu_show_nav_side() {
     return !empty($children);
   }
 
-  // Force sidebar on $types_with_sidebar.
-  $node = menu_get_object();
-  if (!empty($node->type) && in_array($node->type, $types_with_sidebar)) {
-    return TRUE;
-  }
-
   // Force sidebar on these paths.
   if (in_array(current_path(), $paths_with_sidebar)) {
     return TRUE;
@@ -96,4 +104,31 @@ function _doesoe_theme_menu_show_nav_side() {
 
   // None of above matched.
   return FALSE;
+}
+
+/**
+ * Add icon to menu link.
+ *
+ * @param array $variables
+ *   A variables array from theme_preprocess_menu_link().
+ */
+function _doesoe_theme_add_icon_to_menu_link(&$variables) {
+  $el = $variables['element'];
+  $tid = str_replace('taxonomy/term/', '', $el['#href']);
+  if ($term = taxonomy_term_load($tid)) {
+    $entity_w = entity_metadata_wrapper('taxonomy_term', $term);
+    if (isset($entity_w->field_icon_code)) {
+      $icon = theme('icon', array(
+        'icon' => $entity_w->field_icon_code->value(),
+      ));
+      $variables['element']['#title'] = $icon . $variables['element']['#title'];
+      $variables['element']['#localized_options']['html'] = TRUE;
+      $variables['element']['#localized_options']['attributes']['class'][] = 'with-icon';
+      // Add a class to pseudo-theme menu link so that we can distinguish
+      // it from the others.
+      if (!empty($entity_w->field_natt) && $entity_w->field_natt->value()) {
+        $variables['element']['#localized_options']['attributes']['class'][] = 'pseudo';
+      }
+    }
+  }
 }

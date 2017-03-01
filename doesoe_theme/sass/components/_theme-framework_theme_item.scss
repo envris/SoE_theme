@@ -3,58 +3,70 @@
   // Apply colour based on palette.
   @each $palette-key, $palette-colors in $theme-palette {
     &.row-palette__#{$palette-key} {
-      &, a {
-        color: palette-get-color($palette-key, dark);
-      }
       .theme-framework_theme_item__icon {
-        background: palette-get-color($palette-key, dark);
-      }
-      .at-a-glance__content {
-        background: rgba(palette-get-color($palette-key, primary), .2);
+        background: palette-get-color($palette-key, primary);
       }
     }
   }
   &__title {
-    padding-bottom: $qtr-spacing-unit;
-    @include font-adjust-size-to($font-size-medium, $font-weight-medium);
+    @extend %text-heading__gamma;
+    margin-bottom: $three-qtr-spacing-unit;
+    padding-top: $qtr-spacing-unit;
   }
   &__icon {
-    @extend %icon-box;
+    @extend %icon-circle;
   }
   &__content {
     margin-left: 70px;
   }
   &__link, .at-a-glance__label {
-    line-height: $base-line-height * 1.1;
-    font-size: $font-size-regular * 1.02;
+    margin-bottom: $half-spacing-unit;
+    font-weight: $font-weight-medium;
+    position: relative;
+    &, a {
+      display: block;
+      color: $color-grey-dim-gray;
+      &:hover,
+      &:focus {
+        outline: none;
+        color: $color-brand-primary;
+      }
+
+    }
+    a:after {
+      @extend %icon;
+      content: icon-get-code(ic_arrow);
+      margin-left: $half-spacing-unit;
+      color: $color-grey-dim-gray;
+      vertical-align: middle;
+    }
   }
   &__at-a-glance {
-    .at-a-glance-toggle-processed {
-      .at-a-glance__label {
-        cursor: pointer;
-        &:before {
-          content: '+';
-          display: inline-block;
-          width: 10px;
-        }
-      }
-      .at-a-glance__content {
-        display: none;
-      }
-      .open {
-        .at-a-glance__label:before {
-          content: '-';
-        }
-        .at-a-glance__content {
-          display: block;
-        }
+    .at-a-glance__label {
+      cursor: pointer;
+      a:after {
+        content: icon-get-code(ct-external-link);
       }
     }
-    .at-a-glance__content {
-      @include border-radius($qtr-spacing-unit);
-      padding: $qtr-spacing-unit $base-spacing-unit;
-      margin-top: $half-spacing-unit;
-      margin-bottom: $half-spacing-unit;
+    .at-a-glance--content {
+      display: none;
     }
+  }
+  .views-row,
+  .views-field {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+}
+
+// Modal popup for at a glance content from this teaser.
+.at-a-glance__modal .mfp-content {
+  padding: $base-spacing-unit;
+  @extend %text-body__light;
+  h2, h3 {
+    @extend %text-heading__beta;
+    font-size: 1.8em;
+    margin-top: 0;
   }
 }

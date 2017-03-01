@@ -25,7 +25,6 @@ $nav-side-icon-size:                  1.7em;
   &:focus,
   &:hover {
     background-color: rgba($nav-side-active-bg-color, 0.6);
-    outline: none;
   }
 
   // No icon for mobile.
@@ -40,6 +39,8 @@ $nav-side-icon-size:                  1.7em;
     color: $color-alabaster;
     border: none;
     padding-left: #{$base-spacing-unit + 5};
+    padding-right: $double-spacing-unit;
+    margin-bottom: 0.2em;
 
     .icon {
       display: block;
@@ -57,6 +58,7 @@ $nav-side-icon-size:                  1.7em;
   background: $nav-side-active-bg-color;
   border-left-color: $color-brand-primary;
   color: $color-white;
+  font-family: $base-font-family;
 
   @include at-bp($bp-side-nav-visible) {
     @include gutter-vertical(16px);
@@ -82,6 +84,24 @@ $nav-side-icon-size:                  1.7em;
     display: none;
   }
 
+  li {
+    list-style: none;
+    margin: 0;
+  }
+
+  // Expand sub themes if available.
+  .section-theme & {
+    .menu-level-1 {
+      > .menu .menu {
+        .expanded {
+            > a {
+              font-size: $font-size-medium;
+            }
+          }
+      }
+    }
+  }
+
   .block__content {
 
     ul.menu {
@@ -102,6 +122,15 @@ $nav-side-icon-size:                  1.7em;
         // Suppress sub levels (3+).
         ul ul {
           display: none;
+
+          // Sub theme styling.
+          .section-theme & {
+            display: block;
+
+            a {
+              padding-left: #{($base-spacing-unit + 5) * 2};
+            }
+          }
         }
 
         // Second level.
@@ -110,7 +139,7 @@ $nav-side-icon-size:                  1.7em;
 
           // Right arrow.
           &:after {
-            @include position-absolute(top 35% right $base-spacing-unit);
+            @include position-absolute(top 18px right $base-spacing-unit);
             @extend %icon;
             content: icon-get-code(arrow-next);
             z-index: 5;
@@ -123,7 +152,7 @@ $nav-side-icon-size:                  1.7em;
 
           a.active {
             border-left-color: transparent !important;
-            background: rgba($nav-side-active-bg-color, 0.5);
+            background: $color-brand-primary;
             color: $color-white;
           }
 
@@ -179,6 +208,13 @@ $nav-side-icon-size:                  1.7em;
         .icon {
           display: none;
         }
+      }
+    }
+    // Hide the icon if the page is a pseudo-theme.
+    ul.menu ul.menu .menu__link.pseudo {
+      padding-left: #{$base-spacing-unit + 5};
+      .icon {
+        display: none;
       }
     }
 

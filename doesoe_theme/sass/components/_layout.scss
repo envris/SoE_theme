@@ -33,16 +33,6 @@ body.sidebar-second {
       }
     }
 
-    // Desktop.
-    @include at-bp(xlarge) {
-      &__sidebar-second {
-        @include span(5 last);
-      }
-      &__content {
-        @include span(13);
-      }
-    }
-
     // Desktop Large.
     @include at-bp(xxlarge) {
       &__sidebar-second {

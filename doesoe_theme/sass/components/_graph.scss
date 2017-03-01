@@ -9,6 +9,10 @@
     margin-bottom: $base-spacing-unit;
   }
 
+  &__split-title {
+    @extend %text-heading__gamma;
+  }
+
   &__fallback-image {
     margin-bottom: $base-spacing-unit;
   }
@@ -57,6 +61,11 @@
     }
   }
 
+  &__disable-table {
+    button.table-chart--toggle {
+      display: none;
+    }
+  }
 }
 
 // Graph entity.
@@ -76,15 +85,10 @@
   }
 }
 
-
-/*
- * Set a fixed size/AR for the graphs for logged in users.
- *
- * This is a temporary style that breaks responsive but is required
- * while biotext are exporting graphs to retain a 16:9 ratio. Once
- * exports are complete this must be removed.
- */
-.logged-in .table-chart--chart {
-  width: 1200px;
-  height: 675px;
+// Prevent the flash of a yet-to-be-converted table while loading.
+html.js table.doe-graph-table {
+  display: none;
+  &.table-charts-processed {
+    display: block;
+  }
 }

@@ -26,7 +26,7 @@
   }
 
   &__row--tab--active {
-    background: $color-red-copper-rust;
+    background: $color-brand-primary;
     color: $color-white;
     -webkit-font-smoothing: antialiased;
   }
@@ -35,7 +35,7 @@
     content: '';
     width: $half-spacing-unit;
     height: $half-spacing-unit;
-    background: $color-red-copper-rust;
+    background: $color-brand-primary;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -60,7 +60,7 @@
   }
 
   &__row--content__icon {
-    color: $color-red-copper-rust;
+    color: $color-brand-primary;
     opacity: 1;
     font-size: $font-size-base * 6;
   }
@@ -84,7 +84,7 @@
     &:after {
       @extend %icon;
       content: " " + icon-get-code(ic_arrow);
-      color: $color-red-copper-rust;
+      color: $color-brand-primary;
       font-size: 1.75em;
       vertical-align: middle;
     }

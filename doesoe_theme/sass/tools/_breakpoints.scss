@@ -31,3 +31,13 @@
     @content;
   }
 }
+
+@mixin at-bp-and-print($size) {
+  $query: get-bp($size);
+  @include breakpoint($query) {
+    @content;
+  }
+  @include breakpoint(print) {
+    @content;
+  }
+}

@@ -57,6 +57,7 @@ $author-large-bp: large;
 .node-author.view-mode-full {
   @extend %clearfix;
   @extend %author-full;
+  @extend %text-body__page;
 
   .ds-content__two-col {
     &__col-1 {

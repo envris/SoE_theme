@@ -71,27 +71,27 @@ function doesoe_theme_preprocess_views_exposed_form(&$vars) {
     return;
   }
 
-  if($vars['form']['#id'] === 'views-exposed-form-site-search-region') {
-    if (!empty($vars['form']['extent'])) {
-      $widget = new stdClass;
-      $widget->id = $vars['form']['extent']['#id'];
-      $widget->label = 'Map extent';
-      $widget->widget = render($vars['form']['extent']);
-      $widget->operator = NULL;
-      $widget->description = NULL;
-      $offset = array_search('filter-field_theme', array_keys($vars['widgets'])) + 1;
-      $vars['widgets'] = array_slice($vars['widgets'], 0, $offset, true) +
-      array("extent" => $widget) +
-      array_slice($vars['widgets'], $offset, count($vars['widgets']) - 1, true);
-      unset($vars['form']['extent']);
-      $vars['button'] = render($vars['form']['submit']);
+  // Make the word "change" italics in widget labels.
+  if ($vars['form']['#id'] === 'views-exposed-form-assessment-summary-components-page') {
+    $widgets = array(
+      'filter-field_grade_change_value',
+      'filter-field_trend_change_value',
+      'filter-field_confidence_in_grade_change_value',
+      'filter-field_confidence_in_trend_change_value',
+    );
+    foreach ($widgets as $widget) {
+      if (isset($vars['widgets'][$widget])) {
+        $label = $vars['widgets'][$widget]->label;
+        $new_label = str_replace('change', '<em>change</em>', $label);
+        $vars['widgets'][$widget]->label = $new_label;
+      }
     }
   }
 
   $search_pages = array(
     'views-exposed-form-site-search-region',
     'views-exposed-form-site-search-page',
-    'views-exposed-form-assessment-summary-components-page'
+    'views-exposed-form-assessment-summary-components-page',
   );
 
   if (in_array($vars['form']['#id'], $search_pages)) {
@@ -154,7 +154,6 @@ function doesoe_theme_preprocess_views_exposed_form(&$vars) {
     $suffix = isset($vars['form_suffix']) ? $vars['form_suffix'] : '';
     $vars['form_suffix'] = $map_container . $suffix;
   }
-
 }
 
 /**
@@ -189,15 +188,55 @@ function doesoe_theme_preprocess_views_view(&$vars) {
     }
   }
 
+  // Add a more link to the key findings view.
+  if ($view->name == 'key_findings_by_theme_and_year') {
+    $vars['footer'] = _doesoe_theme_get_contextual_link('key-findings', 'For more information see the key findings section', 'button--arrow');
+  }
+
   // We change the footer link to point to theme/theme-name/by-framework.
   if ($view->name == 'frameworks_by_theme') {
-    // We build the link.
-    $vars['footer'] = _doesoe_theme_get_contextual_link('by-framework', 'Visit by framework for more information', 'button--arrow');
+    $term = _doesoe_theme_get_current_theme_term();
+    if (!empty($term->tid)) {
+      $url = url('taxonomy/term/' . $term->tid) . '/by-framework';
+      // Check if are not on the actual page that we are trying to link to.
+      $current_path = request_uri();
+      if ($current_path !== $url) {
+        // We build the link.
+        $vars['footer'] = l(t('Visit by framework for more information'), $url, array('attributes' => array('class' => array('button--arrow'))));
+      }
+    }
   }
 
   // Add atmosphere into text.
   if ($view->name == 'report_topic' && $view->current_display == 'panel_pane_1') {
     $vars['exposed'] .= _doesoe_theme_atmosphere_sub_theme_intro_text('Topics', 'theme/!term/topics');
+  }
+
+  // Framework overview link.
+  if ($view->name == 'framework_overview' && $view->current_display == 'panel_pane_1') {
+    $framework = menu_get_object('taxonomy_term', 2);
+    $theme = _doesoe_theme_get_natt_theme_by_name('overview');
+    $url = _doesoe_theme_get_theme_framework_link($theme, $framework);
+    $title = t('For more information read the overview section for @name', array('@name' => $framework->name));
+    $vars['footer'] .= l($title, $url, array('attributes' => array('class' => array('button--arrow'))));
+  }
+
+  if (_doesoe_theme_view_is_search_page($view)) {
+    // Add pager to top of page for search views.
+    $vars['pager_top'] = TRUE;
+    $vars['classes_array'][] = 'has-pager-top';
+    // Bug in views, need to filter out empty filters.
+    $exposed_input = array_filter($view->exposed_raw_input);
+    $vars['pager'] = $view->query->render_pager($exposed_input);
+  }
+
+  // Append link for framework page to empty results text on topic view.
+  if ($view->name == 'report_topic' && $view->current_display == 'panel_pane_1' && !empty($vars['empty'])) {
+    if (is_numeric($view->exposed_raw_input['framework'])) {
+      $fw = taxonomy_term_load($view->exposed_raw_input['framework']);
+      $url = url('taxonomy/term/' . $view->args[0]) . 'framework/' . drupal_html_class($fw->name);
+      $vars['empty'] .= '<p>' . l(t('View the framework introduction for @name', array('@name' => $fw->name)), $url) . '</p>';
+    }
   }
 }
 
@@ -207,29 +246,31 @@ function doesoe_theme_preprocess_views_view(&$vars) {
 function doesoe_theme_preprocess_views_view_fields(&$vars) {
   $view = $vars['view'];
 
+  // Preproces views_view_fields_view_name.
+  $hook = __FUNCTION__ . "__{$view->name}";
+  if (is_callable($hook)) {
+    $hook($vars);
+  }
+
   // Site search row tweaks.
   if ($view->name == 'site_search') {
-    $entity = $vars['row']->entity;
+    $entity = is_object($vars['row']->entity)
+      ? $vars['row']->entity
+      : isset($vars['row']->_entity_properties['entity object']) ? $vars['row']->_entity_properties['entity object'] : FALSE;
 
     // Only dealing with nodes.
     if (isset($entity->type)) {
-
-      // Graphs should take you to the parent topic not the graph itself.
-      if ($entity->type == 'ckan_graph' && !empty($entity->field_topic)) {
-        // Not using metadata wrapper here as it will load the topic and we
-        // don't want that extra overhead when all we need is the nid.
-        $topic_nid = $entity->field_topic[LANGUAGE_NONE][0]['target_id'];
-
-        // Replacement patterns for links.
-        $regx = '/<a(.*?)href="(.*?)"(.*?)>/';
-        $subst = '<a$1href="' . url('node/' . $topic_nid) . '"$3>';
-
-        // Replace the href in the title and view_node with the topic url.
-        $link_fields = array('title', 'view_node');
-        foreach ($link_fields as $field) {
-          $vars['fields'][$field]->content = preg_replace($regx, $subst, $vars['fields'][$field]->content);
-        }
+      // Entity type search preprocess fields.
+      $hook .= "__{$entity->type}";
+      if (is_callable($hook)) {
+        $hook($vars, $entity);
       }
+    }
+
+    // This will ensure that the content returned from the search server does
+    // not render with any markup in the body.
+    if (!empty($vars['fields']['search_api_excerpt'])) {
+      $vars['fields']['search_api_excerpt']->content = _doesoe_theme_strip_tags($vars['fields']['search_api_excerpt']->content, '<strong><div>');
     }
 
     // Replace content type with more human friendly versions.
@@ -241,13 +282,44 @@ function doesoe_theme_preprocess_views_view_fields(&$vars) {
 
   // Add an a tag with a title so that the "At a glance" label is accessible.
   if ($view->name == "at_a_glance_by_theme_framework") {
+    // Unfortunately we can't render as a different view mode so do it manually.
+    if (!empty($vars['row']->field_field_theme) && !empty($vars['row']->field_field_framework)) {
+      $theme_term = taxonomy_term_view($vars['row']->field_field_theme[0]['raw']['taxonomy_term'], 'icon');
+      $framework_term = taxonomy_term_view($vars['row']->field_field_framework[0]['raw']['taxonomy_term'], 'icon');
+      $vars['fields']['field_framework']->content = render($framework_term);
+      $vars['fields']['field_theme']->content = render($theme_term);
+    }
+  }
 
-    // Apply logic only if a label is provided.
-    if (!empty($vars['fields']['field_body']->label)) {
-      $raw_label = $vars['fields']['field_body']->label;
-      $label_with_link = '<a href="#" title="View theme framework summary">' . $raw_label . '</a>';
-      $new_label_html = str_replace($raw_label, $label_with_link, $vars['fields']['field_body']->label_html);
-      $vars['fields']['field_body']->label_html = $new_label_html;
+  // Add framework by theme and year link to search results.
+  if ($view->name == 'site_search' && !empty($view->result)) {
+    if (!empty($vars['row']->_entity_properties['field_years'])) {
+      $theme = FALSE;
+      $framework = FALSE;
+
+      // Get the theme & framework to be used to get the url.
+      if (!empty($vars['row']->_entity_properties['field_theme'][0])) {
+        $theme = taxonomy_term_load($vars['row']->_entity_properties['field_theme'][0]);
+      }
+
+      if (!empty($vars['row']->_entity_properties['field_framework'][0])) {
+        $framework = taxonomy_term_load($vars['row']->_entity_properties['field_framework'][0]);
+      }
+
+      if ($theme && $framework) {
+        // Get the year. If there is more than 1, get the current year.
+        $years = $vars['row']->_entity_properties['field_years'];
+        $year = count($years) > 1 ? _doesoe_theme_get_current_year_tid() : $years[0];
+
+        // Get the url with year appended.
+        $url = _doesoe_theme_get_theme_framework_link($theme, $framework) . '?year=' . $year;
+
+        // Replace the url with the new one.
+        $regx = '/<a(.*?)href="(.*?)"(.*?)>/';
+        $replacement = '<a$1href="' . $url . '"$3>';
+        $new_content = preg_replace($regx, $replacement, $vars['fields']['field_framework']->content);
+        $vars['fields']['field_framework']->content = $new_content;
+      }
     }
   }
 }
@@ -328,5 +400,159 @@ function views_preprocess_views_view_unformatted(&$variables) {
       }
     }
     $variables['known_as'] = $known_as;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Create excerpts for search results if they aren't present.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search(&$vars) {
+  if (!empty($vars['fields']['search_api_excerpt'])) {
+    // If Search API was able to build an excerpt skip this and just display
+    // what was return by search api.
+    return;
+  }
+
+  // Try and find the entity.
+  $entity = FALSE;
+  if (isset($vars['row']->entity) && is_object($vars['row']->entity)) {
+    $entity = $vars['row']->entity;
+  }
+  if (!$entity && isset($vars['row']->_entity_properties['entity object'])) {
+    $entity = $vars['row']->_entity_properties['entity object'];
+  }
+
+  if (!$entity) {
+    // If the entity couldn't be found... we're out of luck.
+    return;
+  }
+
+  // Render the default view mode.
+  $entity_view = entity_view('node', array($entity));
+  if (empty($entity->nid) || empty($entity_view['node'][$entity->nid])) {
+    return;
+  }
+
+  // Clean up the view mode.
+  $entity_view = $entity_view['node'][$entity->nid];
+
+  // Remove the unecessary items from the render array.
+  unset($entity_view['links']);
+  unset($entity_view['title']);
+  unset($entity_view['#contextual_links']);
+
+  $entity_view = drupal_render($entity_view);
+  $entity_view = _doesoe_theme_strip_tags($entity_view);
+  $entity_view = _doesoe_theme_text_trim($entity_view);
+
+  $render_array = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('field-content', 'search-result__body')
+    ),
+    'content' => array(
+      '#theme' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $entity_view,
+    ),
+  );
+
+  $vars['fields']['view_node']->content = drupal_render($render_array) . $vars['fields']['view_node']->content;
+}
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the case study url to anchor to correct place on topic page.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__case_study(&$vars, $entity) {
+  _doesoe_theme_url_search_result_link_via_topic_and_anchor($vars, $entity, 'field_topics');
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the graph url to anchor to correct place on topic page.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__ckan_graph(&$vars, $entity) {
+  _doesoe_theme_url_search_result_link_via_topic_and_anchor($vars, $entity, 'field_topic');
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the map url to anchor to correct place on topic page.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__map(&$vars, $entity) {
+  _doesoe_theme_url_search_result_link_via_topic_and_anchor($vars, $entity, 'field_topic');
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the framework at a glance url to take you to the landing page.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__framework_at_a_glance(&$vars, $entity) {
+  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+  $framework = _doesoe_theme_entity_get_value('node', $entity, 'field_framework');
+
+  if (empty($theme->tid) || empty($framework->tid)) {
+    return;
+  }
+
+  // Build a url for framework landing page.
+  $url = url('taxonomy/term/' . $theme->tid) . '/framework/' . drupal_html_class($framework->name);
+
+  $link_fields = array('title', 'view_node');
+  foreach ($link_fields as $field) {
+    $vars['fields'][$field]->content = _doesoe_theme_replace_href($vars['fields'][$field]->content, $url);
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the exec summary url to take you to the theme landing page.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__executive_summary(&$vars, $entity) {
+  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+
+  if (empty($theme->tid)) {
+    return;
+  }
+
+  $link_fields = array('title', 'view_node');
+  foreach ($link_fields as $field) {
+    $vars['fields'][$field]->content = _doesoe_theme_replace_href($vars['fields'][$field]->content, url('taxonomy/term/' . $theme->tid));
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Update the Key finding url to go to KF page with year and anchor.
+ */
+function doesoe_theme_preprocess_views_view_fields__site_search__key_finding(&$vars, $entity) {
+  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+  $years = _doesoe_theme_entity_get_value('node', $entity, 'field_years');
+
+  if (empty($theme->tid)) {
+    return;
+  }
+
+  // Build URL with optional year and anchor.
+  $url = url('taxonomy/term/' . $theme->tid) . '/key-findings';
+  if (!empty($years)) {
+    $year = reset($years);
+    $url .= '?year=' . $year->tid;
+  }
+  $url .= '#key-finding-' . $entity->nid;
+
+  $link_fields = array('title', 'view_node');
+  foreach ($link_fields as $field) {
+    $vars['fields'][$field]->content = _doesoe_theme_replace_href($vars['fields'][$field]->content, $url);
   }
 }

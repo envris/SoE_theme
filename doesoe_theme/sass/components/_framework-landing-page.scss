@@ -8,6 +8,6 @@
     }
   }
   .pane-title {
-    margin-bottom: $double-spacing-unit;
+    @extend %text-heading__beta;
   }
 }

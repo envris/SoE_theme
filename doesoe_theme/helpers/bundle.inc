@@ -21,6 +21,7 @@ function _doesoe_theme_bundle_name_replacements_map() {
   return array(
     'Standard Report Content' => t('Report Content'),
     'Report Topic Content' => t('Report Content'),
+    'Framework landing page content' => t('At a glance'),
   );
 }
 

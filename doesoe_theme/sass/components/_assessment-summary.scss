@@ -58,6 +58,7 @@ $ass-sum-max-bar-height: 25px;
 
   max-width: $ass-sum-max-bar-width;
   padding: 0.5em 0;
+  vertical-align: middle;
 
   // Each bar > .grade forms a section of the grade.
   &__bar {
@@ -109,7 +110,7 @@ $ass-sum-max-bar-height: 25px;
       color: $ass-sum-icon-color-current;
     }
 
-    @include at-bp($ass-sum-desktop-breakpoint) {
+    @include at-bp-and-print($ass-sum-desktop-breakpoint) {
       margin: 0.15em auto;
       float: none;
       font-size: 2.5em;
@@ -295,7 +296,7 @@ $ass-sum-max-bar-height: 25px;
 
 
   // Desktop.
-  @include at-bp($ass-sum-desktop-breakpoint) {
+  @include at-bp-and-print($ass-sum-desktop-breakpoint) {
 
     &__title {
       @include span(3);
@@ -366,6 +367,10 @@ $ass-sum-max-bar-height: 25px;
     @include span(3);
     padding: 1.1em 0.5em 0 0;
     font-size: 1.1em;
+    // Always hide year label.
+    .label-above {
+      display: none;
+    }
   }
 
   &__grade {
@@ -392,7 +397,7 @@ $ass-sum-max-bar-height: 25px;
   }
 
   // Large screen (desktop).
-  @include at-bp($ass-sum-desktop-breakpoint) {
+  @include at-bp-and-print($ass-sum-desktop-breakpoint) {
 
     // Hide labels (shown in header).
     .label, .label-above {
@@ -442,7 +447,7 @@ $ass-sum-max-bar-height: 25px;
 
   // Only display the header at desktop.
   display: none;
-  @include at-bp($ass-sum-desktop-breakpoint) {
+  @include at-bp-and-print($ass-sum-desktop-breakpoint) {
     display: block;
   }
 
@@ -508,6 +513,21 @@ $ass-sum-max-bar-height: 25px;
       span {
         @include span(20%);
       }
+    }
+  }
+}
+
+.ass-sum__item {
+  &__year {
+    line-height: 3.5em;
+    padding: 0 0.5em 0 0;
+  }
+
+  &__grade {
+    line-height: 3.5em;
+
+    .ass-sum-vis {
+      vertical-align: middle;
     }
   }
 }

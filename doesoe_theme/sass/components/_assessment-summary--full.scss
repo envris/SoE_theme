@@ -1,6 +1,12 @@
 // Styles for a full ass sum page.
 
+%ass-sum__full,
 .ass-sum__full {
+  padding-bottom: $double-spacing-unit;
+
+  &__title {
+    @extend %text-heading__gamma;
+  }
 
   &__year,
   &__theme,
@@ -19,3 +25,6 @@
   }
 }
 
+.node-assessment-summary.view-mode-full {
+  @extend %ass-sum__full;
+}

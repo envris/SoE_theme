@@ -1,23 +1,25 @@
 // Font weights.
 
-$base-font-family: "Ubuntu", "sans-serif";
+$base-font-family: 'Open Sans', sans-serif;
+$heading-font-family: 'Signika', sans-serif;
 
 $font-weight-light:     300;
 $font-weight-regular:   400;
-$font-weight-medium:    500;
+$font-weight-medium:    600;
 $font-weight-bold:      700;
 
 // Base font size.
 $font-size-base:        14px;
 
 // Font size varients.
-$font-size-xxlarge:     2.7em;
-$font-size-xlarge:      1.8em;
-$font-size-large:       1.4em;
-$font-size-medium:      1.2em;
-$font-size-regular:     1em;
-$font-size-small:       0.95em;
-$font-size-xsmall:      0.86em;
+$font-size-xxlarge:      2.7em;
+$font-size-xlarge:       1.8em;
+$font-size-large:        1.4em;
+$font-size-medium:       1.3em;
+$font-size-medium-small: 1.1em;
+$font-size-regular:      1em;
+$font-size-small:        0.95em;
+$font-size-xsmall:       0.86em;
 
 // Line heights;
 $base-line-height: 1.4em;

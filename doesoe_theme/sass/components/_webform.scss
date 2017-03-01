@@ -5,6 +5,7 @@
 .webform {
 
   &__body {
+    @extend %text-body__page;
     h2, h3 {
       color: $color-brand-primary;
     }

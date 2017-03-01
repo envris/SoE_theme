@@ -35,5 +35,27 @@
       display: none;
     }
   }
+  // Only show the all link on overview/drivers.
+  .all-authors-link {
+    display: none;
+    .current-theme__overview & {
+      display: block;
+    }
+  }
 }
 
+// Remove this to show the author icon.
+#block-views-authors-author-themes-block {
+  .theme-icon__link i {
+    display: none;
+  }
+}
+
+.block__as-key-link .sbs-content-row {
+  background: $color-white;
+}
+
+// Hide sticky placeholder.
+.sidebar__second .sticky-placeholder {
+  display: none !important;
+}

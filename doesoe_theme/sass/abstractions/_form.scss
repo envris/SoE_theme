@@ -12,7 +12,6 @@
   max-width: 30em;
 
   &:focus {
-    outline: none;
     @include box-shadow(0 0 5px rgba($color-brand-primary, 0.7));
     border-color: rgba($color-brand-primary, 0.8);
   }

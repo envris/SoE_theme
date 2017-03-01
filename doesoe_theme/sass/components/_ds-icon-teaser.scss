@@ -2,8 +2,9 @@
   @extend %clearfix;
 
   // Default to historic text palette.
-  &, a, h2 a, h3 a {
+  &, h2 a, h3 a {
     @include link-color($color-historic-text);
+
   }
 
   &__side {

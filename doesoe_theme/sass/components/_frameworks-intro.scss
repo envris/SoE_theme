@@ -3,4 +3,8 @@
 .frameworks-intro {
   @extend %basic-content-typography;
   margin-bottom: $region-gutter-xlarge;
+
+  .pane-title {
+    @extend %text-heading__beta;
+  }
 }

@@ -4,7 +4,9 @@
  * Link teaser wraps everything in a link to the content.
  */
 
-
+/**
+ * DS Implementation for link teaser.
+ */
 function ds_doesoe_link_teaser() {
   return array(
     'label' => t('DOESOE: Link Teaser'),

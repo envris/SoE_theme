@@ -7,6 +7,51 @@
   .breadcrumb__wrapper {
     display: none;
   }
+
+  .pager {
+    font-size: $font-size-medium;
+
+    .pager-current {
+      background: transparent;
+      color: $color-grey-charcoal;
+    }
+
+    a {
+      font-weight: $font-weight-light;
+    }
+  }
+
+  .has-pager-top {
+    .view-header {
+      text-align: center;
+    }
+
+    .pager-top {
+      .pager {
+        margin-bottom: $one-n-half-spacing-unit;
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    .view-content {
+      clear: both;
+    }
+  }
+
+  @include at-bp(small) {
+    .has-pager-top {
+      .view-header {
+        float: left;
+        text-align: left;
+      }
+
+      .pager-top {
+        float: right;
+      }
+    }
+  }
+
 }
 
 .section-assessment-summary-components,

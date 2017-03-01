@@ -4,6 +4,11 @@
     .theme-teaser__media {
       background-color: palette-get-color($palette-key, primary);
     }
+    .taxonomy-term-description {
+      a {
+        @include text-body__link(palette-get-color($palette-key, primary));
+      }
+    }
 
     @include at-bp(large) {
       .theme-teaser__title a {

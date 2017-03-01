@@ -10,7 +10,7 @@
     position: absolute;
     width: 300px;
     height: 300px;
-    background: tint($color-red-copper-rust, 85);
+    background: tint($color-brand-primary, 85);
     border-bottom-left-radius: 50%;
     top: 0;
     left: 1em;
@@ -60,7 +60,7 @@
       }
 
       &:before {
-        color: $color-red-copper-rust;
+        color: $color-brand-primary;
       }
     }
   }
@@ -83,7 +83,7 @@
     top: 50%;
     right: 0;
     width: $double-spacing-unit * 2;
-    color: $color-red-copper-rust;
+    color: $color-brand-primary;
     font-size: 2em;
     text-align: center;
     content: icon-get-code(ic_arrow);

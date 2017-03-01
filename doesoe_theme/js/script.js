@@ -2,6 +2,7 @@
  * @file
  * A JavaScript file for the theme.
  */
+
 (function ($, Drupal, window, document, undefined) {
 
   /*
@@ -14,7 +15,8 @@
       outdatedBrowser({
         bgColor: '#f25648',
         color: '#ffffff',
-        lowerThan: 'boxShadow', // Less than IE9, change to 'transform' for less than IE10.
+        // Less than IE9, change to 'transform' for less than IE10.
+        lowerThan: 'boxShadow',
         languagePath: '/sites/default/themes/doesoe_theme/libraries/outdatedbrowser/outdatedbrowser.html'
       })
     }
@@ -33,8 +35,16 @@
         .DataTable({
           responsive: true,
           order: [],
-          "language": {
-            "search": "Table search:",
+          language: {
+            "search": "Table search:"
+          },
+          // Only enable tab index on thead th and pagination.
+          tabIndex: -1,
+          headerCallback: function(thead, data, start, end, display) {
+            $('th', thead).attr('tabindex', 0);
+          },
+          drawCallback: function(settings) {
+            $('.paginate_button', settings.nTableWrapper).attr('tabindex', 0);
           }
         });
     }
@@ -223,12 +233,18 @@
 
     // Toggle historic content class on body.
     historicContent: function($yearSelects, currentYear) {
-      var $body = $('body'), val = $yearSelects.val();
+      var $body = $('body'),
+          val = $yearSelects.val();
+
+      // If multi select and current year isn't in array,
+      val = $.isArray(val) && $.inArray(currentYear, val) === -1 ? val[0] : val;
+      // Check if historic should be applied.
       if (!$.isArray(val) && val !== null && val !== 'All' && val !== currentYear) {
         $body.addClass('historic-content');
       } else {
         $body.removeClass('historic-content');
       }
+
     }
   };
 
@@ -373,26 +389,30 @@
     attach: function (context, settings) {
 
       // Default options overridable with data attributes.
-      var key, dataKey, options = {
+      var self = this, key, dataKey, options = {
         collapsedHeight: 200,
         speed: 100,
-        moreLink: '<a href="#" class="readmore-toggle readmore-toggle--more">more</a>',
-        lessLink: '<a href="#" class="readmore-toggle readmore-toggle--less">less</a>',
+        moreLink: self.btnHtml('more', 'more'),
+        lessLink: self.btnHtml('less', 'less'),
         beforeToggle: function(trigger, element, expanded) {
           if (expanded) {
             element.addClass('collapsed');
-          } else {
-            element.removeClass('collapsed');
+            element.attr('aria-expanded', 'false');
           }
+          else {
+            element.removeClass('collapsed');
+            element.attr('aria-expanded', 'true');
+          }
+
         },
         blockProcessed: function(element, collapsable) {
           if (collapsable) {
-            $(element).addClass('collapsed')
+            $(element).addClass('collapsed');
           }
         }
       };
 
-      // Generic selector for adding readmore, allowing options to be overriden.
+      // Generic selector for adding readmore, allowing options to be overridden.
       $('.readmore-truncate', context)
         .each(function (i, d) {
           for (key in options) {
@@ -401,8 +421,16 @@
               options[key] = $(d).data(dataKey);
             }
           }
+          if ($(d).data('moretitle') !== undefined) {
+            options.moreLink = self.btnHtml('more', $(d).data('moretitle'));
+          }
           $(d).once('readmore-truncate').readmore(options);
         });
+    },
+
+    // Make the more/less button html.
+    btnHtml: function(op, text) {
+      return '<a href="#" class="readmore-toggle readmore-toggle--' + op + '">' + text + '</a>';
     }
   };
 
@@ -414,7 +442,9 @@
 
       var $btn = $('.search-mobile-button'),
         $txtSearch = $('.search-header-block .form-text'),
-        $header = $('.search-header-block');
+        $header = $('.search-header-block'),
+        // The max-width of $header when hidden.
+        headerInactiveWidth = 60;
 
       // We add/remove the is-active class when the button is clicked.
       $btn.click(function () {
@@ -443,6 +473,14 @@
 
       $txtSearch.focus(function () {
         $header.addClass('is-active');
+      });
+
+      // Prevent submit (and open search box) when search box hidden.
+      $header.find('.form-submit').click(function (e) {
+        if ($header.width() <= headerInactiveWidth) {
+          e.preventDefault();
+          $header.addClass('is-active');
+        }
       });
 
       // We add a class to the search button so we can target it later in css.
@@ -569,7 +607,6 @@
         '.alt-action',
         '#views-exposed-form-assessment-summary-components-page .form-submit',
         '#views-exposed-form-site-search-page .form-submit',
-        '.loader-links a'
       ];
 
       $(selectors.join(','), context)
@@ -624,7 +661,7 @@
   $(window).on('tableCharts:init:dom', function(e) {
     var $parent = e.el.$actions.closest('.file-ckan'),
       $fileLink = $parent.find('span.file a'),
-      $btn =  $('<button>');
+      $btn = $('<button>');
 
     // Build the button and add to DOM.
     $btn
@@ -652,7 +689,7 @@
    */
   Drupal.behaviors.doeTableOfContents = {
     attach: function(context, settings) {
-      $('#topic-toc', context)
+      $('#topic-toc, #theme-toc', context)
         .once('toc')
 
         // Once TOC has been built event.
@@ -666,10 +703,11 @@
             $self
               .addClass('sbs-list')
               .sideBarToggle({
-                headerSelector: '> li',
-                contentSelector: '> li > ul'
+                headerSelector: '> li > a',
+                contentSelector: '> ul'
               });
-          } else {
+          }
+          else {
             // No items exist.
             $self.closest('.block').remove();
           }
@@ -702,7 +740,8 @@
           if ($self.find('li').length > 0) {
             // Show block (hidden by default.
             $self.closest('.block').show();
-          } else {
+          }
+          else {
             // No items exist.
             $self.closest('.block').remove();
           }
@@ -730,6 +769,7 @@
       // Search page selects.
       $(selectors.join(','), context)
         .not('#edit-assessment-grade')
+        .not('#edit-field-natt-reference')
         .once('sumoselect')
         .SumoSelect({
           placeholder: '- Any -',
@@ -746,14 +786,25 @@
   Drupal.behaviors.atAGlanceToggle = {
     attach: function (context, settings) {
 
-      $('.view-at-a-glance-by-theme-framework', context).once('at-a-glance-toggle', function() {
-        $('.at-a-glance__label', $(this)).on('click', function(e) {
-          $(this).parent().toggleClass('open');
-          // Prevent adding '#' at the end of the url.
-          e.preventDefault();
-        });
-      });
+      // Open a modal window with the at a glance text from the theme framework teaser.
+      $('.theme-framework_theme_item', context).once('theme-framework-item', function() {
+        var $trigger = $('<span><a>At a glance</a></span>'),
+          $content = $('.at-a-glance--content', this);
 
+        // Clicking trigger opens the popup.
+        $trigger
+          .addClass('at-a-glance__label')
+          .magnificPopup({
+            mainClass: 'at-a-glance__modal',
+            items: {
+              src: '<div>' + $content.html() + '</div>',
+              type: 'inline'
+            },
+            callbacks: {}
+          });
+
+        $content.before($trigger);
+      });
 
     }
   };
@@ -767,16 +818,20 @@
 
       // View blocks have the title/toggle in the header due to dynamic content.
       $('.toggle-group', context)
-        .once('toggle-group')
-        .sideBarToggle({
-          headerSelector: '.view-header',
-          contentSelector: '.view-content',
-          defaultOpen: false,
-          subSelector: '.sbs-list',
-          subHeaderSelector: 'h3',
-          subContentSelector: 'ul'
+        .once('toggle-group', function() {
+          // Related topics default to open, all others default closed.
+          var $el = $(this),
+            defaultOpen = $el.hasClass('view-display-id-related_topics_current');
+          $el.sideBarToggle({
+            headerSelector: '.view-header',
+            contentSelector: '.view-content',
+            defaultOpen: defaultOpen,
+            subSelector: '.sbs-list',
+            subHeaderSelector: 'h3',
+            subContentSelector: 'ul'
+          });
+
         })
-        .find('.view-content').hide();
 
       // Generic toggle blocks (Use for custom content/beans).
       $('.block-bean .sidebar-toggle', context)
@@ -787,10 +842,9 @@
         });
 
       // When a sidebar is toggled, trigger the sticky sidebar resize/scroll.
-      $window
-        .on('sideBarToggle:toggle', function() {
-          $window.trigger('stickyHeader:scroll');
-        });
+      $window.on('sideBarToggle:toggle', function() {
+        $window.trigger('stickyHeader:scroll');
+      });
     }
   };
 
@@ -800,7 +854,7 @@
   Drupal.behaviors.doeViewGroupToggles = {
     attach: function(context, settings) {
 
-      // Use view group headings to toggle content visibility
+      // Use view group headings to toggle content visibility.
       $('.view-group-toggle .view-group', context)
         .once('toggle-group', function() {
           $(this).find('> .view-group__title').click(function(e) {
@@ -809,7 +863,6 @@
         });
     }
   };
-
 
   /*
    * Make picture elements popup in modal when clicked.
@@ -835,14 +888,58 @@
   };
 
   /*
+   * Show description under an image with a pill button toggle.
+   */
+  Drupal.behaviors.imageDesciptionToggle = {
+    attach: function(context, settings) {
+      $('.image__description', context).once('image-desc', function(e){
+        var $desc = $(this);
+        $('<a>')
+          .addClass('button--pill')
+          .html('Text alternative')
+          .attr('title', 'Click to view the textual representation of this image')
+          .click(function(e){
+            e.preventDefault();
+            $desc.removeClass('element-invisible');
+            $(this).remove();
+          })
+          .insertBefore($desc);
+      });
+    }
+  };
+
+  /*
+   * NATT toggle checkbox.
+   */
+  Drupal.behaviors.searchNattCheckbox = {
+    attach: function(context, settings) {
+      // Turns NATT selectbox into a single checkbox.
+      var $ctx = $('#views-exposed-form-site-search-page', context),
+        $natt = $('.views-widget-filter-field_natt_reference', $ctx),
+        $select = $('select', $natt),
+        off = 'All', on = '1', toggle,
+        selectClass = $select.val() === on ? 'checked' : '';
+      // Bind to label, on click toggle between 2 select options.
+      $natt.find('> label').once('natt-select', function(){
+        $(this).addClass(selectClass).click(function(e) {
+          $(this).toggleClass('checked');
+          toggle = ($select.val() === off) ? on : off;
+          $select.val(toggle);
+        });
+      });
+    }
+  };
+
+  /*
    * Create the search page region map.
    */
   Drupal.behaviors.regionSearchFilter = {
     attach: function(context, settings) {
       var mapSettings = {};
-      // Get the region features passed via drupal_add_js().
+      // Get the region features and extents passed via drupal_add_js().
       if (settings.doesoe_theme !== undefined && settings.doesoe_theme.mapRegionFeatures !== undefined) {
         mapSettings.regionFeatures = settings.doesoe_theme.mapRegionFeatures;
+        mapSettings.regionExtents = settings.doesoe_theme.mapRegionExtents;
       }
 
       mapSettings.extentFilter = $('#edit-extent', context);
@@ -981,10 +1078,10 @@
         '#views-exposed-form-framework-intro-by-theme-framework-panel-pane-1',
       ];
       $(selectors.join(','), context)
-      .once('print-search-filters')
-      .searchFormValues({
-        widgets: ['.views-exposed-widget', '.views-exposed-widget-top'],
-      });
+        .once('print-search-filters')
+        .searchFormValues({
+          widgets: ['.views-exposed-widget', '.views-exposed-widget-top'],
+        });
     }
   };
 
@@ -1011,13 +1108,15 @@
     }
   };
 
-
   /*
    * Make image maps responsive.
    */
   Drupal.behaviors.responsiveImageMap = {
     attach: function(context, settings) {
-      $('img[usemap]').once('responsive-image-map').rwdImageMaps();
+      var $imgMaps = $('img[usemap]', context);
+      if ($imgMaps.length > 0) {
+        $imgMaps.once('responsive-image-map').rwdImageMaps();
+      }
     }
   };
 
@@ -1026,32 +1125,108 @@
    */
   Drupal.behaviors.showRegionSearchOnMap = {
     attach: function(context, settings) {
-
-      var selectors = [
-        '.views-widget-filter-field_region_tid',
-        '.views-widget-filter-field_region'
+      var exposedForms = [
+        '#views-exposed-form-site-search-page',
+        '#views-exposed-form-assessment-summary-components-page'
       ];
-
-      $(selectors.join(), context).once('show-region-search-on-map', function () {
-        var $button = $('.show-on-map', $(this));
-        var $filter = $('select', $(this));
-
-        $button.click(function (e) {
+      $(exposedForms.join(), context).once('show-region-search-on-map', function () {
+        var $form = $(this);
+        $form.find('.show-on-map').click(function (e) {
           e.preventDefault();
-          var path = $(this).attr('href');
-          if ($filter.val() !== null) {
-            var values = $filter.val();
-            for (var i in values) {
-              values[i] = "region[]=" + values[i];
-            }
-            var query = values.join('&');
-            path = path + "?" + query;
-          }
-
-          window.location = path;
+          $form.attr('action', $(this).attr('href')).submit();
         });
-
       });
+    }
+  };
+
+  /*
+   * High contrast mode.
+   */
+  Drupal.behaviors.highContrast = {
+    attach: function (context, settings) {
+      var $contrast_link = $('#high-contrast a#toggle', context),
+          $contrast_hide = $('#high-contrast a#hide', context);
+
+      if (localStorage.highcontrast == 'true') {
+        $('body').addClass('palette__highcontrast');
+        $('*[class*="row-palette__"]').addClass('row-palette__highcontrast');
+        $('*[class*="row-palette--"]').addClass('row-palette--highcontrast');
+        $contrast_link.html('Disable high contrast mode');
+      }
+
+      if ((new Date().getTime() - parseInt(localStorage.getItem('highcontrast.hide'))) < (7 * 24 * 60 * 60 * 1000)) {
+        var top = $('.navbar-tray-open').length > 0 ? 67 : 0;
+        $('#high-contrast').hide();
+        $('.header__wrapper').css('top', top);
+      }
+
+      $contrast_link.once('highcontrast', function () {
+        $(this).click(function (e) {
+          e.preventDefault();
+          if (localStorage.highcontrast == 'true') {
+            localStorage.removeItem('highcontrast');
+            $(this).html('View site in high contrast');
+          }
+          else {
+            localStorage.setItem('highcontrast', 'true');
+            $(this).html('Disable high contrast mode');
+          }
+          $('body').toggleClass('palette__highcontrast');
+          $('*[class*="row-palette__"]').toggleClass('row-palette__highcontrast');
+          $('*[class*="row-palette--"]').toggleClass('row-palette--highcontrast');
+        });
+      });
+
+      $contrast_hide.once('highcontrast_hide').bind('click', function(e) {
+        e.preventDefault();
+        var top = $('.navbar-tray-open').length > 0 ? 67 : 0;
+        $(this).parent().hide();
+        $('.header__wrapper').css('top', top);
+        localStorage.setItem('highcontrast.hide', new Date().getTime());
+      });
+    }
+  };
+
+  /*
+   * Functionality for popup window. See popupSettings for configuration.
+   */
+  Drupal.behaviors.popupModal = {
+    attach: function (context, settings) {
+      // Define popup settings.
+      var popupSettings = {
+        // Days before showing again.
+        cookieExpiry:   30,
+        // Delay in seconds before showing popup.
+        delay:          30,
+        // Where the popup content is found on the page.
+        popUpSelector:  '#popup-content',
+        // Key for the cookie storage.
+        cookieKey:      'popupCookie'
+      };
+
+      // Must have content, to disable survey/popup remove block from popup region.
+      var $popupContent = $(popupSettings.popUpSelector, context);
+      if ($popupContent.length === 0) {
+        return;
+      }
+      // Don't show again if cookie present and within expiry.
+      if ($.cookie(popupSettings.cookieKey) !== undefined && Date.now() < $.cookie(popupSettings.cookieKey)) {
+        return;
+      }
+
+      // Tests passed. Popup WILL be displayed!
+      setTimeout(function(){
+        // Open popup.
+        $.magnificPopup.open({
+          items: {
+            src: $popupContent.html(),
+            type: 'inline'
+          }
+        });
+        // Set the cookie to mark as shown so we don't see it again for 'cookieExpiry' days.
+        popupSettings.cookieExpiry = Date.now() + (popupSettings.cookieExpiry * 86400000);
+        $.cookie(popupSettings.cookieKey, popupSettings.cookieExpiry);
+      }, (popupSettings.delay * 1000));
     }
   };
 

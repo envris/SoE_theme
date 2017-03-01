@@ -21,21 +21,20 @@ function doesoe_theme_preprocess_page(&$variables) {
   // Add the search form to be used as a variable.
   $variables['search_block'] = theme('search_block_doesoe', array(
     'classes_array' => array('search-header-block'),
-    )
-  );
+  ));
 
   // Set active menu item for content types.
   if (isset($variables['node'])) {
     switch ($variables['node']->type) {
       case "report_topic_content":
-        $theme = _doesoe_theme_entity_get_value('node', $variables['node'], 'field_theme');
+        $theme = _doesoe_theme_get_theme_from_node($variables['node']);
         if ($theme) {
           menu_set_active_item('theme/' . drupal_html_class($theme->name) . '/topics');
         }
         break;
 
       case "assessment_summary":
-        $theme = _doesoe_theme_entity_get_value('node', $variables['node'], 'field_theme');
+        $theme = _doesoe_theme_get_theme_from_node($variables['node']);
         if ($theme) {
           menu_set_active_item('theme/' . drupal_html_class($theme->name) . '/assessment-summaries');
         }

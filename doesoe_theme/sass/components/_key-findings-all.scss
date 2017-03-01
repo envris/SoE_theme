@@ -18,19 +18,19 @@
   }
 
   .pane-title {
-    @extend %landing-heading__alpha;
+    @extend %text-heading__alpha;
     margin-bottom: $half-spacing-unit;
   }
 
   .pane-content {
-    @extend %landing-text;
+    @extend %text-body__light;
   }
 
   .view-group {
     @extend %clearfix;
 
     &__title {
-      @extend %landing-heading__gamma;
+      @extend %text-heading__gamma;
       padding: $three-qtr-spacing-unit $double-spacing-unit $three-qtr-spacing-unit 0;
       margin: 0;
       border-top: 1px solid $color-border-extra-light;

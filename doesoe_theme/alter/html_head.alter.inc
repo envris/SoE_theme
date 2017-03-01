@@ -19,6 +19,18 @@ function doesoe_theme_html_head_alter(&$head_elements) {
     _doesoe_theme_build_metatag($head_elements, 'og:image', $og_image);
   }
 
+  // Get description for dynamic framework page description.
+  $page = page_manager_get_current_page();
+  if (!empty($page['name']) && $page['name'] == 'page-framework_landing_page_per_theme') {
+    $ctx = $page['contexts'];
+    $node = _doesoe_theme_get_framework_landing_node($ctx['argument_term_1']->argument, $ctx['argument_term_2']->argument);
+    $at_a_glance = _doesoe_theme_entity_get_value('node', $node, 'field_body');
+    if (!empty($at_a_glance['safe_value'])) {
+      $desc = truncate_utf8(strip_tags($at_a_glance['safe_value']), 147, FALSE, TRUE);
+      _doesoe_theme_build_metatag($head_elements, 'description', $desc, array('#weight' => 2));
+    }
+  }
+
   // Provide a fallback description for theme content if not exists.
   if (empty($head_elements['metatag_description_0'])) {
     $theme = _doesoe_theme_get_current_theme_term();

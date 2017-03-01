@@ -45,7 +45,7 @@
 
   a,
   a:visited {
-    color: $color-blue-seagull;
+    color: $color-mine-shaft;
   }
 
   a:hover {
@@ -57,7 +57,7 @@
     @include link-color($color-mine-shaft);
   }
 
-  .icon {
+  i, .icon {
     @extend %icon;
     @include position-absolute(top 0 left 0);
     font-size: 1.4em;
@@ -95,10 +95,11 @@
 // Year has a standard icon that doesn't change based on category.
 %icon-category-year {
   @extend %icon-category;
-  color: $color-grey-dim-gray;
 
-  .icon:before {
-    content: icon-get-code(ct-year);
+  i, .icon {
+    &:before {
+      content: icon-get-code(ct-year);
+    }
   }
   .item {
     &:after {

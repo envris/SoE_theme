@@ -4,6 +4,7 @@
  * Contains the theme's functions to manipulate Drupal's default markup.
  *
  * Complete documentation for this file is available online.
+ *
  * @see https://drupal.org/node/1728096
  */
 
@@ -67,7 +68,11 @@ function doesoe_theme_theme($existing, $type, $theme, $path) {
     // Search accordion toggle element.
     'search_accordion_toggle_element' => array(
       'template' => $custom_template_folder . 'search-accordion-toggle-element',
-      'variables' => array('title' => NULL, 'icon' => NULL, 'alt_action' => NULL),
+      'variables' => array(
+        'title' => NULL,
+        'icon' => NULL,
+        'alt_action' => NULL,
+      ),
     ),
     // Icomoon icon element.
     'icon' => array(

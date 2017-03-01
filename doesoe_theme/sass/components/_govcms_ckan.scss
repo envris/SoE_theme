@@ -21,14 +21,6 @@ svg.chart-export {
     stroke-width: 2px;
   }
 
-  .c3-axis-x .tick text {
-    transform: translateY(5px);
-  }
-
-  .c3-axis-y .tick text {
-    transform: translateX(-5px);
-  }
-
   .c3-title {
     transform: translateY(-3px);
   }
@@ -49,4 +41,9 @@ svg.chart-export {
 // Make legend swatch for dashed lines, dashed.
 .c3-legend-item.c3-style-dashed {
   stroke-dasharray: 2, 2;
+}
+
+// Define a default min height for graphs.
+.table-chart--chart {
+  min-height: 500px;
 }

@@ -1,0 +1,12 @@
+
+// Relates to group in teasers.
+%group__relates-to {
+  > strong {
+    @extend %btn-uppercase;
+    display: inline-block;
+    padding-right: $three-qtr-spacing-unit;
+  }
+  > div {
+    display: inline-block;
+  }
+}

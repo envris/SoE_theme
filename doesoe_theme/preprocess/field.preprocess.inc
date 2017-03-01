@@ -127,12 +127,19 @@ function doesoe_theme_preprocess_field(&$variables, $hook) {
     $variables['classes_array'] = array('image-map-area');
     // Rewrite each field as a area tag.
     foreach ($variables['items'] as $key => $item) {
-      $variables['items'][$key]['#markup'] = theme('html_tag', array(
-        'element' => array(
-          '#tag' => 'area',
-          '#attributes' => _doesoe_theme_image_parse_map($item['#markup']),
-        ),
-      ));
+      // Only output area if markup.
+      if (empty($item['#markup'])) {
+        $markup = '';
+      }
+      else {
+        $markup = theme('html_tag', array(
+          'element' => array(
+            '#tag' => 'area',
+            '#attributes' => _doesoe_theme_image_parse_map($item['#markup']),
+          ),
+        ));
+      }
+      $variables['items'][$key]['#markup'] = $markup;
     }
   }
 
@@ -142,6 +149,12 @@ function doesoe_theme_preprocess_field(&$variables, $hook) {
       if (!empty($item['#item']) && empty($item['#item']['alt'])) {
         // Limit to 100 chars to comply with Accessibility guidelines.
         $item['#item']['alt'] = truncate_utf8($item['#item']['filename'], 100);
+      }
+      // Suffix the image description when using picture formatter as it does
+      // not include the file fields when rendering.
+      if ($item['#theme'] == 'picture_formatter' && !empty($item['#item']) && !empty($item['#item']['field_description'])) {
+        $desc = $item['#item']['field_description'][LANGUAGE_NONE][0]['value'];
+        $item['#suffix'] = '<div class="image__description element-invisible"><p>' . filter_xss($desc) . '</p></div>';
       }
     }
   }
