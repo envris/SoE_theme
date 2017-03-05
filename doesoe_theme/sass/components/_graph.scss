@@ -89,6 +89,6 @@
 html.js table.doe-graph-table {
   display: none;
   &.table-charts-processed {
-    display: block;
+    display: table;
   }
 }
