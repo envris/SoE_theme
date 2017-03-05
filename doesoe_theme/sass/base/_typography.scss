@@ -35,6 +35,9 @@ body {
 h1, h2, h3, h4, h5 {
   @extend %heading;
 }
+h5, h6 {
+  margin: 1.5em 0 1em;
+}
 
 h1 {
   @include font-adjust-size-to($font-size-xxlarge, $font-weight-regular);
@@ -46,15 +49,16 @@ h3 {
   @include font-adjust-size-to($font-size-large, $font-weight-medium);
 }
 h4 {
-  @include font-adjust-size-to($font-size-medium, $font-weight-medium);
+  @include font-adjust-size-to($font-size-large, $font-weight-medium);
 }
 h5 {
-  @include font-adjust-size-to($font-size-regular, $font-weight-medium);
+  @include font-adjust-size-to($font-size-medium, $font-weight-medium);
   color: $color-grey-charcoal;
 }
 h6 {
-  @include font-adjust-size-to($font-size-regular, $font-weight-regular);
+  @include font-adjust-size-to($font-size-medium-small, $font-weight-regular);
 }
+
 
 p {
   line-height: $base-line-height * 1.1;

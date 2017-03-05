@@ -697,7 +697,7 @@
    */
   Drupal.behaviors.doeTableOfContents = {
     attach: function(context, settings) {
-      $('#topic-toc, #theme-toc', context)
+      $('#topic-toc', context)
         .once('toc')
 
         // Once TOC has been built event.
@@ -748,6 +748,8 @@
           if ($self.find('li').length > 0) {
             // Show block (hidden by default.
             $self.closest('.block').show();
+            // Add down arrow.
+            $self.find('> li > a').addClass('sidebar-toggle__no-content');
           }
           else {
             // No items exist.
@@ -1218,7 +1220,7 @@
         return;
       }
       // Don't show again if cookie present and within expiry.
-      if ($.cookie(popupSettings.cookieKey) !== undefined && Date.now() < $.cookie(popupSettings.cookieKey)) {
+      if ($.cookie(popupSettings.cookieKey) !== undefined && Date.now() < parseInt($.cookie(popupSettings.cookieKey))) {
         return;
       }
 
