@@ -20,12 +20,6 @@ function doesoe_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_
     }
   }
 
-  // Create map extent filter.
-  if ($view->name == 'site_search' && $view->current_display == 'region') {
-    // Anchor to map on submit.
-    $form['#action'] = $form['#action'] . '#search-map';
-  }
-
   // Modify site ass sum exposed form.
   if ($view->name == 'assessment_summary_components' && $view->current_display == 'page') {
     // Modify grad labels to indicate what is good vs bad.

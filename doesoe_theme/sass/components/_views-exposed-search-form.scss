@@ -245,7 +245,7 @@
 
   .views-widget-filter-field_region_tid,
   .views-widget-filter-field_region {
-    label {
+    > label {
       @extend %site-search__filter--region__label
     }
   }
