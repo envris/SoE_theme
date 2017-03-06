@@ -26,3 +26,11 @@
     @extend %icon-category-map-marker;
   }
 }
+
+.circle-icon {
+  @extend %icon-circle;
+  background: $color-brand-primary;
+  font-size: 24px;
+  color: $color-white;
+  margin-right: $half-spacing-unit;
+}

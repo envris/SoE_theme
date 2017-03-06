@@ -206,3 +206,14 @@ body.palette {
     }
   }
 }
+
+// Apply colour to el.
+@each $palette-key, $palette-colors in $theme-palette {
+  .theme-palette__#{$palette-key} {
+    color: palette-get-color($palette-key, primary) !important;
+    .circle-icon {
+      background-color: palette-get-color($palette-key, primary);
+      color: $color-white !important;
+    }
+  }
+}
