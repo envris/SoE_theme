@@ -10,6 +10,8 @@
 function doesoe_theme_preprocess_page(&$variables) {
   $variables['logo'] = base_path() . path_to_theme() . '/images/logo-white.png';
 
+  $variables['theme_path'] = base_path(). path_to_theme();
+
   $variables['header_class'] = '';
   if ($variables['is_front']) {
     $variables['header_class'] = 'is-transparent';
@@ -58,4 +60,12 @@ function doesoe_theme_preprocess_page(&$variables) {
       ));
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_maintenance_page().
+ */
+function doesoe_theme_preprocess_maintenance_page(&$variables) {
+  // Add the theme_path variable so we can use the path in the template.
+  $variables['theme_path'] = base_path(). path_to_theme();
 }

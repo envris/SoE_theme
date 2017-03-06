@@ -60,11 +60,17 @@ $main-menu-medium-right:          13em;
     }
 
     @include at-bp(xlarge) {
-      &.last {
+      &:nth-last-child(2) {
         a {
           border-right: 0;
         }
       }
+    }
+
+    // The about menu item gets hidden. For *reasons it needs to exist
+    // in the dom so we hide with CSS targeting the mlid.
+    &.menu-mlid-21066 {
+      display: none;
     }
   }
 

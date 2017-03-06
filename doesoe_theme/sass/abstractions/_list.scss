@@ -1,17 +1,18 @@
 // List styles
 
 // Default list styles are reset, this returns back to browser default.
-@mixin list-default($style: disc) {
+@mixin list-default($style: disc, $style2: circle) {
   margin: 0.2em 0 1em;
   padding-left: 1.3em;
+  list-style-type: $style;
 
   li {
-    list-style: $style;
     margin-bottom: 0.2em;
   }
 
   ul {
     margin-bottom: 0.2em;
+    list-style-type: $style2;
   }
 }
 
