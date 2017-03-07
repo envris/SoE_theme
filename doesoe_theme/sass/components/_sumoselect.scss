@@ -72,7 +72,10 @@
 
   }
 
-  select {
+  // .SelectClass is added by SumoSelect when the nativeOnDevice setting returns the user agent (this happens on mobile
+  // browsers). On mobile browser the default sumo styles will position the select list in a way that allows the user
+  // to interact with it displaying the device default select list.
+  select:not(.SelectClass) {
     opacity: 1;
     @include element-invisible();
   }
