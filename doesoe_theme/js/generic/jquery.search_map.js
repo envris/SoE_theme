@@ -44,7 +44,7 @@
       mapZoom: 3,
       regionFeatures: [],
       scrollWheelZoom: false,
-      mapTileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      mapTileLayer: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
       mapTileLayerAttr: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
     };
     self.settings = $.extend(self.defaults, settings);
