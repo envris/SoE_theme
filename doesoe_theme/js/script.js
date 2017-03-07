@@ -1207,20 +1207,21 @@
         // Days before showing again.
         cookieExpiry:   30,
         // Delay in seconds before showing popup.
-        delay:          30,
+        delay:          60,
         // Where the popup content is found on the page.
         popUpSelector:  '#popup-content',
         // Key for the cookie storage.
         cookieKey:      'popupCookie'
       };
-
       // Must have content, to disable survey/popup remove block from popup region.
       var $popupContent = $(popupSettings.popUpSelector, context);
       if ($popupContent.length === 0) {
         return;
       }
-      // Don't show again if cookie present and within expiry.
-      if ($.cookie(popupSettings.cookieKey) !== undefined && Date.now() < parseInt($.cookie(popupSettings.cookieKey))) {
+
+      // If the cookie is present we skip. We rely on the browser expiring the cookie
+      // by setting the cookies expires.
+      if (!!$.cookie(popupSettings.cookieKey)) {
         return;
       }
 
@@ -1234,8 +1235,9 @@
           }
         });
         // Set the cookie to mark as shown so we don't see it again for 'cookieExpiry' days.
-        popupSettings.cookieExpiry = Date.now() + (popupSettings.cookieExpiry * 86400000);
-        $.cookie(popupSettings.cookieKey, popupSettings.cookieExpiry);
+        var cookieExpires = new Date();
+        cookieExpires.setTime(cookieExpires.getTime() + (popupSettings.cookieExpiry * 86400000));
+        $.cookie(popupSettings.cookieKey, 1, { path: '/', expires: cookieExpires });
       }, (popupSettings.delay * 1000));
     }
   };
