@@ -217,9 +217,13 @@ function _doesoe_theme_get_framework_landing_node($theme_tid, $framework_tid) {
 }
 
 /**
- * Get a nat theme by name.
+ * Get a nat theme by name, use drupal_static as gets called regularly.
  */
 function _doesoe_theme_get_natt_theme_by_name($name) {
-  $terms = taxonomy_get_term_by_name($name, 'themes');
-  return reset($terms);
+  $themes = &drupal_static(__FUNCTION__, array());
+  if (empty($terms[$name])) {
+    $terms = taxonomy_get_term_by_name($name, 'themes');
+    $themes[$name] = reset($terms);
+  }
+  return isset($themes[$name]) ? $themes[$name] : NULL;
 }
