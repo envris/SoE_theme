@@ -221,7 +221,7 @@ function _doesoe_theme_get_framework_landing_node($theme_tid, $framework_tid) {
  */
 function _doesoe_theme_get_natt_theme_by_name($name) {
   $themes = &drupal_static(__FUNCTION__, array());
-  if (empty($terms[$name])) {
+  if (empty($themes[$name])) {
     $terms = taxonomy_get_term_by_name($name, 'themes');
     $themes[$name] = reset($terms);
   }
