@@ -494,7 +494,7 @@ function doesoe_theme_preprocess_views_view_fields__site_search__map(&$vars, $en
  * Update the framework at a glance url to take you to the landing page.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__framework_at_a_glance(&$vars, $entity) {
-  $theme = _doesoe_theme_preprocess_views_view_fields_get_entity_theme($vars['view'], $entity);
+  $theme = _doesoe_theme_get_theme_from_node($entity);
   $framework = _doesoe_theme_entity_get_value('node', $entity, 'field_framework');
   
   if (empty($theme->tid) || empty($framework->tid)) {
@@ -517,7 +517,7 @@ function doesoe_theme_preprocess_views_view_fields__site_search__framework_at_a_
  * Update the exec summary url to take you to the theme landing page.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__executive_summary(&$vars, $entity) {
-  $theme = _doesoe_theme_preprocess_views_view_fields_get_entity_theme($vars['view'], $entity);
+  $theme = _doesoe_theme_get_theme_from_node($entity);
 
   if (empty($theme->tid)) {
     return;
@@ -536,7 +536,7 @@ function doesoe_theme_preprocess_views_view_fields__site_search__executive_summa
  * Update the Key finding url to go to KF page with year and anchor.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__key_finding(&$vars, $entity) {
-  $theme = _doesoe_theme_preprocess_views_view_fields_get_entity_theme($vars['view'], $entity);
+  $theme = _doesoe_theme_get_theme_from_node($entity);
   $years = _doesoe_theme_entity_get_value('node', $entity, 'field_years');
 
   if (empty($theme->tid)) {
@@ -555,27 +555,4 @@ function doesoe_theme_preprocess_views_view_fields__site_search__key_finding(&$v
   foreach ($link_fields as $field) {
     $vars['fields'][$field]->content = _doesoe_theme_replace_href($vars['fields'][$field]->content, $url);
   }
-}
-
-/**
- * A helper that converts the theme to the overview theme if selected.
- *
- * @param object $view
- *   The view object.
- * @param object $entity
- *   Then entity being processed.
- *
- * @return object
- *   Theme term object.
- */
-function _doesoe_theme_preprocess_views_view_fields_get_entity_theme($view, $entity) {
-  // Get the theme from the entity.
-  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
-
-  // Update the theme if the natt field is checked.
-  if (!empty($view->exposed_raw_input['field_natt_reference']) && $view->exposed_raw_input['field_natt_reference'] == 1){
-    $theme = _doesoe_theme_get_natt_theme_by_name('Overview');
-  }
-
-  return $theme;
 }
