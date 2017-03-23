@@ -59,7 +59,13 @@
 
       var $header = $('header'),
         $searchBlock = $('.search-header-block', $header),
-        $txtSearch = $('.form-text', $searchBlock);
+        $txtSearch = $('.form-text', $searchBlock),
+        desktopBp = 848;
+
+      // Only apply the transparent/sticky header on large screen.
+      if ($('body').width() < desktopBp) {
+        return;
+      }
 
       // Determines if we are in the home page or not.
       function isFront() {
