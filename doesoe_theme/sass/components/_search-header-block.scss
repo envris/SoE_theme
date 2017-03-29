@@ -32,7 +32,9 @@
 
   &__select {
     padding-right: $region-gutter-small;
-    font-size: $font-size-xsmall;
+    select {
+      font-size: $font-size-xsmall;
+    }
   }
 
   &__container {
