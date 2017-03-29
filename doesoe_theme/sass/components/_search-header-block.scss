@@ -22,7 +22,7 @@
   &__inputs {
     border: none;
     background-color: transparent;
-    font-size: $font-size-xsmall;
+    font-size: 16px;
 
     &:focus {
       box-shadow: none;
@@ -32,6 +32,9 @@
 
   &__select {
     padding-right: $region-gutter-small;
+    select {
+      font-size: $font-size-xsmall;
+    }
   }
 
   &__container {

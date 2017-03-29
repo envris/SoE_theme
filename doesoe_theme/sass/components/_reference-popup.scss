@@ -28,14 +28,8 @@ $ref-default-col-alt:       lighten($color-brand-primary, 30%);
   }
 
   &__header {
-    height: $ref-header-height;
-    overflow: hidden;
     position: relative;
-    margin: $ref-header-height 0;
-
-    @include at-bp(medium) {
-      margin: $ref-header-height 0;
-    }
+    margin: $base-spacing-unit 0;
   }
 
   &__title {
@@ -61,12 +55,10 @@ $ref-default-col-alt:       lighten($color-brand-primary, 30%);
     }
   }
   &__content {
+    margin: $base-spacing-unit 0;
     a {
       color: $color-white !important;
       text-decoration: underline;
-    }
-    @include at-bp(medium) {
-      margin: $ref-header-height 0;
     }
   }
 
@@ -90,10 +82,12 @@ $ref-default-col-alt:       lighten($color-brand-primary, 30%);
     }
   }
   &__copy-button {
+    height: auto;
     outline: none;
     background-color: transparent;
     color: $color-white;
-    padding-left: 0;
+    padding: 0;
+    overflow: visible;
     &:before {
       font-family: $icon-font-family;
       font-size: $ref-header-height;

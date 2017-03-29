@@ -494,14 +494,8 @@ function doesoe_theme_preprocess_views_view_fields__site_search__map(&$vars, $en
  * Update the framework at a glance url to take you to the landing page.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__framework_at_a_glance(&$vars, $entity) {
-  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+  $theme = _doesoe_theme_get_theme_from_node($entity);
   $framework = _doesoe_theme_entity_get_value('node', $entity, 'field_framework');
-
-  // Update the theme if the natt field is checked.
-  if (!empty($vars['view']->exposed_raw_input['field_natt_reference'])){
-    $theme = taxonomy_get_term_by_name('Overview', 'themes');
-    $theme = reset($theme);
-  }
   
   if (empty($theme->tid) || empty($framework->tid)) {
     return;
@@ -523,13 +517,7 @@ function doesoe_theme_preprocess_views_view_fields__site_search__framework_at_a_
  * Update the exec summary url to take you to the theme landing page.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__executive_summary(&$vars, $entity) {
-  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
-
-  // Update the theme if the natt field is checked.
-  if (!empty($vars['view']->exposed_raw_input['field_natt_reference'])){
-    $theme = taxonomy_get_term_by_name('Overview', 'themes');
-    $theme = reset($theme);
-  }
+  $theme = _doesoe_theme_get_theme_from_node($entity);
 
   if (empty($theme->tid)) {
     return;
@@ -548,14 +536,8 @@ function doesoe_theme_preprocess_views_view_fields__site_search__executive_summa
  * Update the Key finding url to go to KF page with year and anchor.
  */
 function doesoe_theme_preprocess_views_view_fields__site_search__key_finding(&$vars, $entity) {
-  $theme = _doesoe_theme_entity_get_value('node', $entity, 'field_theme');
+  $theme = _doesoe_theme_get_theme_from_node($entity);
   $years = _doesoe_theme_entity_get_value('node', $entity, 'field_years');
-
-  // Update the theme if the natt field is checked.
-  if (!empty($vars['view']->exposed_raw_input['field_natt_reference'])){
-    $theme = taxonomy_get_term_by_name('Overview', 'themes');
-    $theme = reset($theme);
-  }
 
   if (empty($theme->tid)) {
     return;

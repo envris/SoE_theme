@@ -59,7 +59,13 @@
 
       var $header = $('header'),
         $searchBlock = $('.search-header-block', $header),
-        $txtSearch = $('.form-text', $searchBlock);
+        $txtSearch = $('.form-text', $searchBlock),
+        desktopBp = 848;
+
+      // Only apply the transparent/sticky header on large screen.
+      if ($('body').width() < desktopBp) {
+        return;
+      }
 
       // Determines if we are in the home page or not.
       function isFront() {
@@ -455,10 +461,13 @@
         headerInactiveWidth = 60;
 
       // We add/remove the is-active class when the button is clicked.
-      $btn.click(function () {
+      $btn.once('mobile-search').click(function () {
         if (!$header.hasClass('is-active')) {
           $header.addClass('is-active');
-          $txtSearch.focus();
+          // Wait half a second before focus as it confuses iOS otherwise.
+          setTimeout(function(e){
+            $txtSearch.focus();
+          }, 500);
         }
         else {
           // If there is no search text, close search, if there is submit search.
