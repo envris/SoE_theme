@@ -82,6 +82,7 @@ function doesoe_theme_preprocess_field(&$variables, $hook) {
         $variables['items'][$key]['#markup'] = l($item['#markup'], '', array(
           'fragment' => 'reference-' . $nid,
           'external' => TRUE,
+          'html' => TRUE,
         ));
       }
     }
