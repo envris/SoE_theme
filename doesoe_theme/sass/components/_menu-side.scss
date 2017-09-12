@@ -231,7 +231,8 @@ $nav-side-icon-size:                  1.7em;
     #block-menu-block-govcms-menu-block-main-menu {
       display: none;
     }
-    #block-menu-block-4 .block__header {
+    #block-menu-block-4 .block__header,
+    #block-menu-block-6 .block__header {
       display: block;
       .block__title {
         font-size: $font-size-base;
@@ -239,6 +240,11 @@ $nav-side-icon-size:                  1.7em;
           @extend %link-header;
           @extend %menu-side__link;
         }
+      }
+    }
+    #block-menu-block-6 .block__header {
+      .block__title a {
+        font-size: $font-size-large;
       }
     }
   }

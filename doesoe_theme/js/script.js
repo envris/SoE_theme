@@ -782,7 +782,8 @@
         '#views-exposed-form-site-search-page select',
         '#views-exposed-form-assessment-summary-components-page select',
         '#views-exposed-form-site-search-region select',
-        '#views-exposed-form-topics-page select'
+        '#views-exposed-form-topics-page select',
+        '#views-exposed-form-topics-page-b select'
       ];
 
       // Search page selects.
@@ -1087,6 +1088,7 @@
     attach: function(context, settings) {
       var selectors = [
         '#views-exposed-form-topics-page',
+        '#views-exposed-form-topics-page-b',
         '#views-exposed-form-site-search-page',
         '#views-exposed-form-report-topic-panel-pane-1',
         '#views-exposed-form-key-findings-by-theme-page',

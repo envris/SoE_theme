@@ -6,6 +6,7 @@
 
 define('PSEUDO_THEME_MENU_BLOCK_DELTA', '5');
 define('TOPICS_MENU_BLOCK_DELTA', 4);
+define('EXPLORE_TOPICS_MENU_BLOCK_DELTA', 6);
 define('FRAMEWORKS_MENU_BLOCK_DETLA', 3);
 
 /**
@@ -19,6 +20,7 @@ function doesoe_theme_preprocess_menu_block_wrapper(&$variables) {
     'govcms_menu_block-main-menu',
     PSEUDO_THEME_MENU_BLOCK_DELTA,
     TOPICS_MENU_BLOCK_DELTA,
+    EXPLORE_TOPICS_MENU_BLOCK_DELTA,
   );
 
   /*
