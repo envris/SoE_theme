@@ -1258,8 +1258,8 @@
    */
   Drupal.behaviors.showTopic = {
     attach: function (context, settings) {
-      $('.js-select-all').click(function() {
-        $(".view-display-id-page_b .view-content, .item-list").show();
+      $('.js-select-all', context).click(function() {
+        $(".view-display-id-page_b .view-content, .view-display-id-page_b .item-list").show();
       });
     }
   };
@@ -1270,8 +1270,8 @@
   Drupal.behaviors.showTopicOnSubmit = {
     attach: function (context, settings) {
       $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
-        if (ajaxOptions.extraData.view_name == 'topics') {
-          $(".view-display-id-page_b .view-content, .item-list").show();
+        if (ajaxOptions.extraData.view_name == 'topics' && ajaxOptions.extraData.view_display_id == 'page_b') {
+          $(".view-display-id-page_b .view-content, .view-display-id-page_b .item-list").show();
         }
       });
     }
