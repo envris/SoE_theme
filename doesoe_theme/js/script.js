@@ -1253,4 +1253,28 @@
     }
   };
 
+  /*
+   * Show topic results on click.
+   */
+  Drupal.behaviors.showTopic = {
+    attach: function (context, settings) {
+      $('.js-select-all').click(function() {
+        $(".view-display-id-page_b .view-content, .item-list").show();
+      });
+    }
+  };
+
+  /*
+   * Show topic results on form submission.
+   */
+  Drupal.behaviors.showTopicOnSubmit = {
+    attach: function (context, settings) {
+      $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
+        if (ajaxOptions.extraData.view_name == 'topics') {
+          $(".view-display-id-page_b .view-content, .item-list").show();
+        }
+      });
+    }
+  };
+
 })(jQuery, Drupal, this, this.document);
