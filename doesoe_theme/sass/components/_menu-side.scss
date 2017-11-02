@@ -262,15 +262,11 @@ $nav-side-icon-size:                  1.7em;
 
       ul li:nth-child(2) a,
       ul li:nth-child(3) a {
-        margin-left: 10px;
+        left: 34px !important;
 
-        span {
-          top: 8px !important;
-          left: 40px !important;
-
-          &:before {
-            content: '-';
-          }
+        &:before {
+          content: '-';
+          margin-right: 10px;
         }
       }
     }
