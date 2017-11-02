@@ -247,5 +247,32 @@ $nav-side-icon-size:                  1.7em;
         font-size: $font-size-large;
       }
     }
+    #block-menu-block-6 {
+      ul li:nth-child(1) {
+        margin: 15px 30px;
+        font-weight: 100;
+      }
+
+      .icon-atmosphere {
+        position: relative;
+        top: 3px;
+        font-size: 20px;
+        margin-right: $half-spacing-unit;
+      }
+
+      ul li:nth-child(2) a,
+      ul li:nth-child(3) a {
+        margin-left: 10px;
+
+        span {
+          top: 8px !important;
+          left: 40px !important;
+
+          &:before {
+            content: '-';
+          }
+        }
+      }
+    }
   }
 }
