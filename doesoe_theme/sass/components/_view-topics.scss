@@ -14,3 +14,45 @@
     }
   }
 }
+
+.view-explore-topics {
+  .view-header {
+    h2 {
+      padding-bottom: $base-spacing-unit;
+    }
+
+    p {
+      line-height: $base-spacing-unit;
+    }
+  }
+}
+
+#views-exposed-form-topics-page-b {
+  .views-exposed-widget {
+    padding-top: $half-spacing-unit;
+    @include at-bp(large) {
+      @include span(25%);
+    }
+  }
+
+  .views-exposed-widget__submit {
+    margin-top: $half-spacing-unit;
+
+    input {
+      @include border-radius(0);
+      font-size: $font-size-regular;
+      color: $color-black;
+      background: $color-grey-alto;
+      border: 1px solid $color-grey-silver;
+      padding: $qtr-spacing-unit $one-n-half-spacing-unit;
+    }
+  }
+}
+
+.view-display-id-page_b {
+
+  .view-content,
+  .item-list {
+    display: none;
+  }
+}

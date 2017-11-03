@@ -231,13 +231,42 @@ $nav-side-icon-size:                  1.7em;
     #block-menu-block-govcms-menu-block-main-menu {
       display: none;
     }
-    #block-menu-block-4 .block__header {
+    #block-menu-block-4 .block__header,
+    #block-menu-block-6 .block__header {
       display: block;
       .block__title {
         font-size: $font-size-base;
         a {
           @extend %link-header;
           @extend %menu-side__link;
+        }
+      }
+    }
+    #block-menu-block-6 .block__header {
+      .block__title a {
+        font-size: $font-size-large;
+      }
+    }
+    #block-menu-block-6 {
+      ul li:nth-child(1) {
+        margin: 15px 30px;
+        font-weight: 100;
+      }
+
+      .icon-atmosphere {
+        position: relative;
+        top: 3px;
+        font-size: 20px;
+        margin-right: $half-spacing-unit;
+      }
+
+      ul li:nth-child(2) a,
+      ul li:nth-child(3) a {
+        left: 34px !important;
+
+        &:before {
+          content: '-';
+          margin-right: 10px;
         }
       }
     }

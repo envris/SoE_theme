@@ -782,7 +782,8 @@
         '#views-exposed-form-site-search-page select',
         '#views-exposed-form-assessment-summary-components-page select',
         '#views-exposed-form-site-search-region select',
-        '#views-exposed-form-topics-page select'
+        '#views-exposed-form-topics-page select',
+        '#views-exposed-form-topics-page-b select'
       ];
 
       // Search page selects.
@@ -1087,6 +1088,7 @@
     attach: function(context, settings) {
       var selectors = [
         '#views-exposed-form-topics-page',
+        '#views-exposed-form-topics-page-b',
         '#views-exposed-form-site-search-page',
         '#views-exposed-form-report-topic-panel-pane-1',
         '#views-exposed-form-key-findings-by-theme-page',
@@ -1248,6 +1250,30 @@
         cookieExpires.setTime(cookieExpires.getTime() + (popupSettings.cookieExpiry * 86400000));
         $.cookie(popupSettings.cookieKey, 1, { path: '/', expires: cookieExpires });
       }, (popupSettings.delay * 1000));
+    }
+  };
+
+  /*
+   * Show topic results on click.
+   */
+  Drupal.behaviors.showTopic = {
+    attach: function (context, settings) {
+      $('.js-select-all', context).click(function() {
+        $(".view-display-id-page_b .view-content, .view-display-id-page_b .item-list").show();
+      });
+    }
+  };
+
+  /*
+   * Show topic results on form submission.
+   */
+  Drupal.behaviors.showTopicOnSubmit = {
+    attach: function (context, settings) {
+      $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
+        if (ajaxOptions.extraData.view_name == 'topics' && ajaxOptions.extraData.view_display_id == 'page_b') {
+          $(".view-display-id-page_b .view-content, .view-display-id-page_b .item-list").show();
+        }
+      });
     }
   };
 
