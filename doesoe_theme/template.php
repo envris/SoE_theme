@@ -89,3 +89,32 @@ function doesoe_theme_theme($existing, $type, $theme, $path) {
     ),
   );
 }
+
+/**
+ * Implements theme_menu_link().
+ *
+ * @param array $variables
+ * @return string
+ */
+function doesoe_theme_menu_link(array $variables) {
+  $element = $variables['element'];
+  $sub_menu = '';
+  $name_id = strtolower(strip_tags($element['#title']));
+  $pattern = '/[^a-z]+/ ';
+
+  // Rebuilding of link.
+  $name_id = preg_replace($pattern, '', $name_id);
+  $element['#attributes']['class'][] = $name_id;
+
+  // Disable Atmosphere link on topics page.
+  if ($element['#bid']['delta'] == 6 && $name_id == 'atmosphere') {
+    $element['#href'] = current_path();
+    $element['#localized_options']['fragment'] = 'none';
+  }
+
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+  }
+  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}

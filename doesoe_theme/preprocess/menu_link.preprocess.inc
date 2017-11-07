@@ -27,7 +27,7 @@ function doesoe_theme_preprocess_menu_link(&$variables) {
     }
 
     // If topics page or topics all page with depth of 2 children.
-    if ($delta_topics_a || $delta_topics_b && $depth_2) {
+    if ($delta_topics_a && $depth_2) {
       _doesoe_theme_add_icon_to_menu_link($variables);
     }
 
@@ -47,33 +47,4 @@ function doesoe_theme_preprocess_menu_link(&$variables) {
       }
     }
   }
-}
-
-/**
- * Implements theme_menu_link().
- *
- * @param array $variables
- * @return string
- */
-function doesoe_theme_menu_link(array $variables) {
-  $element = $variables['element'];
-  $sub_menu = '';
-  $name_id = strtolower(strip_tags($element['#title']));
-  $pattern = '/[^a-z]+/ ';
-
-  // Rebuilding of link.
-  $name_id = preg_replace($pattern, '', $name_id);
-  $element['#attributes']['class'][] = $name_id;
-
-  // Disable Atmosphere link on topics page.
-  if ($element['#bid']['delta'] == 6 && $name_id == 'atmosphere') {
-    // Output title without link
-    $output = $element['#title'];
-  }
-  else {
-    // Output title with link
-    $output = l($element['#title'], $element['#href'], $element['#localized_options']);
-  }
-
-  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
 }
