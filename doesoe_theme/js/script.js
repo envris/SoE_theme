@@ -1270,7 +1270,7 @@
   Drupal.behaviors.showTopicOnSubmit = {
     attach: function (context, settings) {
       $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
-        if (ajaxOptions.extraData.view_name == 'topics' && ajaxOptions.extraData.view_display_id == 'page_b') {
+        if (event.currentTarget.forms["views-exposed-form-topics-page-b"].id == 'views-exposed-form-topics-page-b') {
           $(".view-display-id-page_b .view-content, .view-display-id-page_b .item-list").show();
         }
       });
