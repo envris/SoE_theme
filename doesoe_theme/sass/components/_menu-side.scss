@@ -248,16 +248,42 @@ $nav-side-icon-size:                  1.7em;
       }
     }
     #block-menu-block-6 {
-      ul li:nth-child(1) {
-        margin: 15px 30px;
-        font-weight: 100;
+      overflow: hidden;
+
+      .atmosphere a {
+        @include icon-sidemenu(atmosphere);
       }
 
-      .icon-atmosphere {
-        position: relative;
-        top: 3px;
-        font-size: 20px;
-        margin-right: $half-spacing-unit;
+      .builtenvironment a {
+        @include icon-sidemenu(build-env);
+      }
+
+      .heritage a {
+        @include icon-sidemenu(heritage);
+      }
+
+      .biodiversity a {
+        @include icon-sidemenu(biodiversity);
+      }
+
+      .land a {
+        @include icon-sidemenu(land);
+      }
+
+      .inlandwater a {
+        @include icon-sidemenu(inland-water);
+      }
+
+      .coasts a {
+        @include icon-sidemenu(coasts);
+      }
+
+      .marineenvironment a {
+        @include icon-sidemenu(marine-env);
+      }
+
+      .antarcticenvironment a {
+        @include icon-sidemenu(antartic-env);
       }
 
       ul li:nth-child(2) a,

@@ -31,6 +31,20 @@
   }
 }
 
+@mixin icon-sidemenu($icon-name: null, $pseudo: before) {
+
+  @if ($icon-name) {
+    &:#{$pseudo} {
+      @include icon-style();
+      content: icon-get-code($icon-name);
+      position: relative;
+      top: 3px;
+      font-size: $font-size-larger;
+      padding-right: $qtr-spacing-unit;
+    }
+  }
+}
+
 // Include only the font.
 %icon {
   @include icon;
